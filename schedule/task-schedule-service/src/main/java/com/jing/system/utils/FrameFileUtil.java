@@ -22,9 +22,9 @@ import org.apache.log4j.Logger;
  * @since 2012-10-12
  *
  */
-public class FileUtil {
+public class FrameFileUtil {
 
-	private static final Logger logger = Logger.getLogger(FileUtil.class);
+	private static final Logger LOGGER = Logger.getLogger(FrameFileUtil.class);
 
 	/**
 	 * 创建指定路径的文件夹[不存在,则创建]
@@ -33,7 +33,7 @@ public class FileUtil {
 	public static void createDir(String destDirName) {
 		File dir = new File(destDirName);
 		if(dir.exists()) {
-			logger.info("创建目录" + destDirName + "失败，目标目录已存在!");
+			LOGGER.info("创建目录" + destDirName + "失败，目标目录已存在!");
 		}
 		else {
 			if(!destDirName.endsWith(File.separator)) {
@@ -53,19 +53,19 @@ public class FileUtil {
 	public static File readFile(String destFileName) throws IOException {
 		File file = new File(destFileName);
 		if (file.exists()) {
-			logger.info("目标文件已存在: " + destFileName);
+			LOGGER.info("目标文件已存在: " + destFileName);
 			return file;
 		}
 		if (!file.getParentFile().exists()) {
 			if (!file.getParentFile().mkdirs()) {
-				logger.info("创建目录文件所在的目录失败!");
+				LOGGER.info("创建目录文件所在的目录失败!");
 			}
 		}
 		//创建目标文件
 		if (file.createNewFile()) {
-			logger.info("创建单个文件成功: " + destFileName);
+			LOGGER.info("创建单个文件成功: " + destFileName);
 		} else {
-			logger.info("创建单个文件失败: " + destFileName);
+			LOGGER.info("创建单个文件失败: " + destFileName);
 		}
 		return file;
 	}
@@ -83,15 +83,15 @@ public class FileUtil {
 			int r = bufferedInputStream.read(bytes);
 			if (len != r) {
 				bytes = null;
-				logger.error("读取文件不正确");
+				LOGGER.error("读取文件不正确");
 			}
 			bufferedInputStream.close();
 			return bytes;
 		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage(), e);
+			LOGGER.error(e.getMessage(), e);
 		}
 		catch (IOException e) {
-			logger.error(e.getMessage(), e);
+			LOGGER.error(e.getMessage(), e);
 		}
 		return null;
 	}
@@ -189,9 +189,9 @@ public class FileUtil {
 			reader.close();
 			is.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			LOGGER.error(e.getMessage(), e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error(e.getMessage(), e);
 		}
 		return buffer.toString();
 	}

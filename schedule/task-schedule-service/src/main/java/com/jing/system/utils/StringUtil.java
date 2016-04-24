@@ -46,12 +46,11 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isEqualArr(Object value, Object ...equalArr) {
-		String result = null;
-		if (value == null || "".equals(result = value.toString().trim())) {
+		if (value == null || "".equals(value.toString().trim())) {
 			return false;
 		}
 		for (Object object : equalArr) {
-			if(result.equals(object.toString())) {
+			if(value.toString().equals(object.toString())) {
 				return true;
 			}
 		}
@@ -65,12 +64,11 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isEqualsIcArr(Object value, Object ...equalArr) {
-		String result = null;
-		if (value == null || "".equalsIgnoreCase(result = value.toString().trim())) {
+		if (value == null || "".equalsIgnoreCase(value.toString().trim())) {
 			return false;
 		}
 		for (Object object : equalArr) {
-			if(result.equals(object.toString())) {
+			if(value.toString().equals(object.toString())) {
 				return true;
 			}
 		}
@@ -84,12 +82,11 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isEqualArrSin(Object value, Object[] equalArr) {
-		String result = null;
-		if (value == null || "".equals(result = value.toString().trim())) {
+		if (value == null || "".equals(value.toString().trim())) {
 			return false;
 		}
 		for (Object object : equalArr) {
-			if(result.equals(object.toString())) {
+			if(value.toString().equals(object.toString())) {
 				return true;
 			}
 		}
@@ -103,12 +100,11 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isNotEqualArr(Object value, Object ...notEqualArr) {
-		String result = null;
-		if (value == null || "".equals(result = value.toString().trim())) {
+		if (value == null || "".equals(value.toString().trim())) {
 			return true;
 		}
 		for (Object object : notEqualArr) {
-			if(result.equals(object.toString())) {
+			if(value.toString().equals(object.toString())) {
 				return false;
 			}
 		}
@@ -121,12 +117,11 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isNotEqualIcArr(Object value, Object ...notEqualArr) {
-		String result = null;
-		if (value == null || "".equals(result = value.toString().trim())) {
+		if (value == null || "".equals(value.toString().trim())) {
 			return true;
 		}
 		for (Object object : notEqualArr) {
-			if(result.equalsIgnoreCase(object.toString())) {
+			if(value.toString().equalsIgnoreCase(object.toString())) {
 				return false;
 			}
 		}
