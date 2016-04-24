@@ -48,6 +48,30 @@
 		<property name="timeBetweenEvictionRunsMillis" value="30000" />
 		<property name="numTestsPerEvictionRun" value="1" />
 	</bean>
+	
+	<!--
+		define the SqlSessionFactory, notice that configLocation is not needed
+		when you use MapperFactoryBean
+	-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="typeAliasesPackage" value="
+			com.task.schedule.manager.pojo;
+			" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:com/task/schedule/manager/dao/*.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- scan for mappers and let them be autowired -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="
+			com.task.schedule.manager.dao;
+			" />
+	</bean>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<constructor-arg ref="dataSource" />

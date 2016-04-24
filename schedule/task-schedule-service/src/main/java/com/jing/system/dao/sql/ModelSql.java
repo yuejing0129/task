@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 
 import com.jing.system.dao.annotation.Column;
 import com.jing.system.dao.annotation.Table;
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 
 /**
  * 拼接查询的sql的工具类
@@ -67,7 +67,7 @@ public class ModelSql extends Sql {
 	 * @return
 	 */
 	public String getColumns(String prefix) {
-		if(StringUtil.isNotEmpty(prefix)) {
+		if(FrameStringUtil.isNotEmpty(prefix)) {
 			prefix += ".";
 		} else {
 			prefix = "";

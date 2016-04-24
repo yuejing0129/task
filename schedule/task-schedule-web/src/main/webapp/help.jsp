@@ -65,7 +65,7 @@
 		</div>
 
 	</div>
-	<textarea id="id" style="display: none;">${param.id}</textarea>
+	<input type="hidden" id="id" value="<c:out value="${param.id}"></c:out>"/>
 	<jsp:include page="/WEB-INF/view/inc/footer.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/view/inc/js.jsp"></jsp:include>
 	<script type="text/javascript">

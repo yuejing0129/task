@@ -1,2 +1,3 @@
-待修复问题
-	jsp的跨域xss注入等
+架构
+	服务端：springMVC、mybatis、Quartz
+	前端：jquery、boostarp

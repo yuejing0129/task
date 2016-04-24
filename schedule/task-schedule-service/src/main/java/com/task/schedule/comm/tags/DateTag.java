@@ -7,7 +7,7 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import com.jing.system.utils.DateUtil;
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 
 /**
  * 显示文本
@@ -32,7 +32,7 @@ public class DateTag extends TagSupport {
 				return SKIP_BODY;
 			}
 			String string = null;
-			if(StringUtil.isEmpty(pattern)) {
+			if(FrameStringUtil.isEmpty(pattern)) {
 				string = DateUtil.getSimpleTime(value);
 			} else {
 				string = DateUtil.dateToString(value, pattern);

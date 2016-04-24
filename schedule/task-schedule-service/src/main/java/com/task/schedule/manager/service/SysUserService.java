@@ -1,13 +1,14 @@
 package com.task.schedule.manager.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jing.system.model.MyPage;
 import com.jing.system.model.Result;
-import com.jing.system.utils.DateUtil;
-import com.jing.system.utils.MD5Util;
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameMd5Util;
+import com.jing.system.utils.FrameStringUtil;
 import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.enums.GeneralStatus;
 import com.task.schedule.manager.dao.SysUserDao;
@@ -32,7 +33,7 @@ public class SysUserService {
 	 */
 	public Result<SysUser> login(SysUser sysUser) {
 		Result<SysUser> result = new Result<SysUser>();
-		SysUser user = findByUsername(sysUser.getUsername());
+		SysUser user = getByUsername(sysUser.getUsername());
 		if(user == null) {
 			//不存在用户
 			/*result.setResult("error_not_user");
@@ -47,7 +48,7 @@ public class SysUserService {
 			result.setMsg("您的帐号被冻结, 快去联系客服吧!");
 			return result;
 		}
-		if(!MD5Util.getInstance().getEncString(sysUser.getPassword(), user.getId().toString()).equals(user.getPassword())) {
+		if(!FrameMd5Util.getInstance().encodePassword(sysUser.getPassword(), user.getId().toString()).equalsIgnoreCase(user.getPassword())) {
 			//密码不正确
 			/*result.setResult("error_pwd");
 			result.setMsg("密码输入错误!");*/
@@ -61,8 +62,8 @@ public class SysUserService {
 		return result;
 	}
 
-	private SysUser findByUsername(String username) {
-		return sysUserDao.findByUsername(username);
+	private SysUser getByUsername(String username) {
+		return sysUserDao.getByUsername(username);
 	}
 
 	/**
@@ -70,10 +71,9 @@ public class SysUserService {
 	 * @param sysUser
 	 */
 	public void save(SysUser sysUser) {
-		sysUser.setAddtime(DateUtil.getTime());
 		sysUserDao.save(sysUser);
 		//更新密码
-		String password = MD5Util.getInstance().getEncString(sysUser.getPassword(), sysUser.getId().toString());
+		String password = FrameMd5Util.getInstance().encodePassword(sysUser.getPassword(), sysUser.getId().toString());
 		sysUserDao.updatePassword(sysUser.getId(), password);
 	}
 
@@ -90,8 +90,8 @@ public class SysUserService {
 	 * @param sysUser
 	 */
 	public void update(SysUser sysUser) {
-		if(StringUtil.isNotEmpty(sysUser.getPassword())) {
-			String password = MD5Util.getInstance().getEncString(sysUser.getPassword(), sysUser.getId().toString());
+		if(FrameStringUtil.isNotEmpty(sysUser.getPassword())) {
+			String password = FrameMd5Util.getInstance().encodePassword(sysUser.getPassword(), sysUser.getId().toString());
 			sysUser.setPassword(password);
 		}
 		sysUserDao.update(sysUser);
@@ -112,10 +112,16 @@ public class SysUserService {
 	 * @return
 	 */
 	public MyPage<SysUser> pageQuery(SysUser sysUser) {
-		MyPage<SysUser> page = sysUserDao.pageQuery(sysUser);
-		for (SysUser user : page.getRows()) {
-			user.setStatusname(GeneralStatus.getText(user.getStatus()));
+		sysUser.setDefPageSize();
+		int total = sysUserDao.findSysUserCount(sysUser);
+		List<SysUser> rows = null;
+		if(total > 0) {
+			rows = sysUserDao.findSysUser(sysUser);
+			for (SysUser user : rows) {
+				user.setStatusname(GeneralStatus.getText(user.getStatus()));
+			}
 		}
+		MyPage<SysUser> page = new MyPage<SysUser>(sysUser.getPage(), sysUser.getSize(), total, rows);
 		return page;
 	}
 

@@ -1,5 +1,6 @@
 ﻿package com.jing.system.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +10,11 @@ import java.util.List;
  * @date 2013-8-10 下午5:16:26
  * @version V1.0.0
  */
-public class MyPage<T> {
+public class Page<T> implements Serializable {
 
-	private static final String SUCCESS = "success";
-	public static final int DEFAULT_PAGE = 1;
-	public static final int DEFAULT_SIZE = 10;
+	private static final long serialVersionUID = -6252151650108228605L;
+	public static final int DEF_PAGE = 1;
+	public static final int DEF_SIZE = 10;
 	//当前第几页
 	private int page;
 	//每页多少个
@@ -24,38 +25,28 @@ public class MyPage<T> {
 	private int total;
 	//当前查询结果的集合
 	private List<T> rows;
-	//记录返回状态[返回是否成功等]
-	private String result;
-	//返回消息
-	private String msg;
 	
-	public MyPage() {
+	public Page() {
 		this(0, 0, 0, null);
 	}
 	
-	public MyPage(String result) {
-		this(0, 0, 0, null);
-		this.result = result;
-	}
-	
-	public MyPage(String result, String msg) {
-		this(0, 0, 0, null);
-		this.result = result;
-		this.msg = msg;
-	}
-	
-	public MyPage(List<T> rows) {
+	public Page(List<T> rows) {
 		this(0, 0, 0, rows);
 	}
 	
-	public MyPage(int page, int size, int total, List<T> rows) {
+	public Page(Integer page, Integer size, int total, List<T> rows) {
 		super();
+		if(page == null) {
+			page = Page.DEF_PAGE;
+		}
+		if(size == null) {
+			size = Page.DEF_SIZE;
+		}
 		this.page = page;
 		this.size = size;
 		this.total = total;
 		this.rows = (rows == null ? new ArrayList<T>() : rows);
 		this.totalPage = getTotalPage();
-		this.result = SUCCESS;
 	}
 	public int getPage() {
 		return page;
@@ -91,17 +82,5 @@ public class MyPage<T> {
 	}
 	public void setRows(List<T> rows) {
 		this.rows = rows;
-	}
-	public String getResult() {
-		return result;
-	}
-	public void setResult(String result) {
-		this.result = result;
-	}
-	public String getMsg() {
-		return msg;
-	}
-	public void setMsg(String msg) {
-		this.msg = msg;
 	}
 }

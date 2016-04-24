@@ -3,7 +3,7 @@ package com.task.schedule.comm.utils;
 import java.util.List;
 
 import com.jing.system.utils.MailUtil;
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 
 /**
  * 发送邮件
@@ -22,11 +22,11 @@ public class SendMailUtil {
 	 * @param content	邮件正文
 	 */
 	public static void sendMail(String smtp, String from, String username, String password, String toMails, String title, String content) {
-		List<String> tos = StringUtil.toArray(toMails, ",");
+		List<String> tos = FrameStringUtil.toArray(toMails, ",");
 		//初始化Email
 		MailUtil mailUtil = new MailUtil(smtp, from, username, password);
 		for (String to : tos) {
-			if(StringUtil.isEmpty(to)) {
+			if(FrameStringUtil.isEmpty(to)) {
 				continue;
 			}
 			mailUtil.send(to, title, content);

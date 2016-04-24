@@ -6,7 +6,7 @@ import com.jing.system.dao.BaseDao;
 import com.jing.system.dao.annotation.Column;
 import com.jing.system.dao.annotation.Table;
 import com.jing.system.utils.SpringUtil;
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 
 /**
  * 拼接保存的sql的工具类
@@ -58,7 +58,7 @@ public class InsertSql extends Sql {
 			}
 			sqlStr.append(column.name()).append(",");
 			try {
-				if(StringUtil.isNotEmpty(column.sequence())) {
+				if(FrameStringUtil.isNotEmpty(column.sequence())) {
 					//存在序列（放列名，不放值）
 					sequenceName = column.sequence();
 					//sequenceColumn = column.name();

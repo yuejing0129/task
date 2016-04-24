@@ -16,7 +16,7 @@ import org.springframework.web.util.HtmlUtils;
  * @version 1.0
  * @since 2012-10-26
  */
-public class StringUtil {
+public class FrameStringUtil {
 	
 	//链接正则表达式
 	private static final String REGEX_URL = "(http:|https:)//[^[A-Za-z0-9\\._\\?%&+\\-=/#]]*";

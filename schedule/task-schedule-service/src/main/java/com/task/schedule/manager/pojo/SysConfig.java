@@ -2,10 +2,9 @@ package com.task.schedule.manager.pojo;
 
 import java.io.Serializable;
 
+import org.apache.ibatis.type.Alias;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.jing.system.dao.annotation.Column;
-import com.jing.system.dao.annotation.Table;
 import com.jing.system.model.BaseEntity;
 
 /**
@@ -14,30 +13,23 @@ import com.jing.system.model.BaseEntity;
  * @date 2015年4月5日 下午10:09:28
  * @version V1.0.0
  */
-@Table(name="sys_config")
+@Alias("sysConfig")
 @SuppressWarnings("serial")
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class SysConfig extends BaseEntity implements Serializable {
 	//编号
-	@Column(name="id", isAuto=true, isPk=true)
 	private Integer id;
 	//编码
-	@Column(name="code")
 	private String code;
 	//名称
-	@Column(name="name")
 	private String name;
 	//值
-	@Column(name="value")
 	private String value;
 	//备注
-	@Column(name="remark")
 	private String remark;
 	//扩展1
-	@Column(name="exp1")
 	private String exp1;
 	//扩展2
-	@Column(name="exp2")
 	private String exp2;
 	
 	public Integer getId() {

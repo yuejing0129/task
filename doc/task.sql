@@ -10,6 +10,11 @@ CREATE TABLE `sys_user` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+create unique index unique_username on sys_user
+(
+   username
+);
+
 CREATE TABLE `task_project` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(30) COLLATE utf8_bin NOT NULL COMMENT '名称',

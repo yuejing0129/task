@@ -9,7 +9,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.log4j.Logger;
 
 import com.jing.system.model.KvEntity;
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 import com.task.schedule.comm.constants.DictCons;
 
 /**
@@ -38,22 +38,22 @@ public class RadioTag extends TagSupport {
 	public int doStartTag() throws JspException {
 		try {
 			JspWriter out = this.pageContext.getOut();
-			if(items == null && StringUtil.isEmpty(dictcode)) {
+			if(items == null && FrameStringUtil.isEmpty(dictcode)) {
 				logger.error("items is null");
 				return SKIP_BODY;
 			}
 			StringBuffer result = new StringBuffer();
-			if(StringUtil.isNotEmpty(dictcode)) {
+			if(FrameStringUtil.isNotEmpty(dictcode)) {
 				//从字典中取集合
 				items = DictCons.getList(dictcode);
 			}
-			if(StringUtil.isEmpty(value)) {
+			if(FrameStringUtil.isEmpty(value)) {
 				value = defvalue;
 			}
 			for (KvEntity kvEntity : items) {
 				result.append("<label style=\"font-weight: normal;\"><input type=\"radio\" id=\"").append(getId()).append(kvEntity.getKcode()).append("\" name=\"").append(getName()).append("\" class=\"").append(getCssCls()).append("\" ").append(getExp());
 				result.append(" value=\"").append(kvEntity.getKcode()).append("\"");
-				if(StringUtil.isNotEmpty(value) && value.equals(kvEntity.getKcode())) {
+				if(FrameStringUtil.isNotEmpty(value) && value.equals(kvEntity.getKcode())) {
 					result.append(" checked=\"checked\"");
 				}
 				result.append(" /> ").append(kvEntity.getKvalue()).append("</label>&nbsp;&nbsp;");

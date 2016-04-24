@@ -1,5 +1,7 @@
 package com.task.schedule.manager.service;
 
+import java.util.List;
+
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -66,12 +68,12 @@ public class SysConfigService {
 	}
 
 	/**
-	 * 根据code获取对象
+	 * 根据code获取名称
 	 * @param id
 	 * @return
 	 */
 	public String getCode(Config config) {
-		SysConfig sysConfig = sysConfigDao.getCode(config.getCode());
+		SysConfig sysConfig = sysConfigDao.getByCode(config.getCode());
 		if(sysConfig == null) {
 			return null;
 		}
@@ -84,7 +86,13 @@ public class SysConfigService {
 	 * @return
 	 */
 	public MyPage<SysConfig> pageQuery(SysConfig sysConfig) {
-		MyPage<SysConfig> page = sysConfigDao.pageQuery(sysConfig);
+		sysConfig.setDefPageSize();
+		int total = sysConfigDao.findSysConfigCount(sysConfig);
+		List<SysConfig> rows = null;
+		if(total > 0) {
+			rows = sysConfigDao.findSysConfig(sysConfig);
+		}
+		MyPage<SysConfig> page = new MyPage<SysConfig>(sysConfig.getPage(), sysConfig.getSize(), total, rows);
 		return page;
 	}
 

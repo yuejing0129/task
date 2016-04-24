@@ -11,6 +11,8 @@
 		<springframework.version>3.1.0.RELEASE</springframework.version>
 		<jackson.version>1.8.1</jackson.version>
 		<mysql.version>5.1.5</mysql.version>
+		<javax.mail.version>1.4</javax.mail.version>
+		<quartz.version>2.1.6</quartz.version>
 	</properties>
 
 	<modules>
@@ -82,19 +84,31 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>1.4</version>
+			<version>${javax.mail.version}</version>
 		</dependency>
 		<!-- 定时任务 -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
-			<version>2.1.6</version>
+			<version>${quartz.version}</version>
 		</dependency>
 		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
+		</dependency>
+		
+		<!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.1.0</version>
 		</dependency>
 		<!-- spring -->
 		<dependency>

@@ -1,6 +1,12 @@
 package com.jing.system.model;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.jing.system.comparator.OrderbyComparator;
 
 /**
  * 分页查询条件的实体类
@@ -8,32 +14,37 @@ import java.io.Serializable;
  * @date 2013-8-10 下午5:16:33
  * @version V1.0.0
  */
+@JsonIgnoreProperties("currentIndex")
 public class BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = -4495987129630008126L;
 
-	private static final Integer DEF_PAGE = 1;
-	private static final Integer DEF_SIZE = 10;
-	
 	private Integer page;
 	private Integer size;
 	private Integer rows;
-	private Integer firstPage;
-	private Object param;
+	private Integer currentIndex;
+	
+	//排序
+	private List<Orderby> orderbys;
+
+	public List<Orderby> getOrderbys() {
+		return orderbys;
+	}
+	@SuppressWarnings("unchecked")
+	public void setOrderbys(List<Orderby> orderbys) {
+		if(orderbys != null && orderbys.size() > 0) {
+			Collections.sort(orderbys, new OrderbyComparator());
+		}
+		this.orderbys = orderbys;
+	}
 
 	public Integer getPage() {
-		if(page == null) {
-			return DEF_PAGE;
-		}
 		return page;
 	}
 	public void setPage(Integer page) {
 		this.page = page;
 	}
 	public Integer getSize() {
-		if(size == null) {
-			return DEF_SIZE;
-		}
 		return size;
 	}
 	public void setSize(Integer size) {
@@ -48,27 +59,45 @@ public class BaseEntity implements Serializable {
 			this.size = rows;
 		}
 	}
-	public Integer getFirstPage() {
-		if(firstPage != null) {
-			return firstPage;
+	/**
+	 * 此属性在用Jackson转换时，不显示
+	 * @return
+	 */
+	public Integer getCurrentIndex() {
+		if(currentIndex == null && getPage() != null && getSize() != null) {
+			this.currentIndex = (getPage() - 1) * getSize();
 		}
-		else if(firstPage == null && getPage() != null && getSize() != null) {
-			return (getPage() - 1) * getSize();
+		return currentIndex;
+	}
+	public void setCurrentIndex(Integer currentIndex) {
+		if(currentIndex != null) {
+			this.currentIndex = currentIndex;
 		}
-		return firstPage;
-	}
-	public void setFirstPage(Integer firstPage) {
-		if(firstPage != null) {
-			this.firstPage = firstPage;
+		else if(currentIndex == null && getPage() != null && getSize() != null) {
+			this.currentIndex = (getPage() - 1) * getSize();
 		}
-		else if(firstPage == null && getPage() != null && getSize() != null) {
-			this.firstPage = (getPage() - 1) * getSize();
+		this.currentIndex = currentIndex;
+	}
+	
+	public void setDefPageSize() {
+		if(this.page == null) {
+			this.page = Page.DEF_PAGE;
+		}
+		if(this.size == null) {
+			this.size = Page.DEF_SIZE;
 		}
 	}
-	public Object getParam() {
-		return param;
+	
+	/*public Integer getCurrentPage() {
+		return currentPage;
 	}
-	public void setParam(Object param) {
-		this.param = param;
-	}
+	public void setCurrentPage(Integer currentPage) {
+		if(currentPage != null) {
+			this.currentPage = currentPage;
+		}
+		else if(currentPage == null && getPage() != null && getSize() != null) {
+			this.currentPage = (getPage() - 1) * getSize();
+		}
+		this.currentPage = currentPage;
+	}*/
 }

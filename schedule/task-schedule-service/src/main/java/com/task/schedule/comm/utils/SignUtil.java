@@ -4,9 +4,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.jing.system.utils.FrameMd5Util;
+import com.jing.system.utils.FrameStringUtil;
 import com.jing.system.utils.JsonUtil;
-import com.jing.system.utils.MD5Util;
-import com.jing.system.utils.StringUtil;
 import com.task.schedule.comm.enums.ProjectSign;
 import com.task.schedule.manager.pojo.TaskProject;
 
@@ -37,15 +37,15 @@ public class SignUtil {
 			}
 			signString += value;
 		}
-		if(StringUtil.isNotEmpty(signParam)) {
-			params.put(signParam, MD5Util.getInstance().getEncString(signString).toLowerCase());
+		if(FrameStringUtil.isNotEmpty(signParam)) {
+			params.put(signParam, FrameMd5Util.getInstance().encodePassword(signString).toLowerCase());
 		}
 		params.remove("token");
 		return params;
 	}
 
 	public static String sign(String link, TaskProject project) {
-		if(StringUtil.isEmpty(project.getSignstring())
+		if(FrameStringUtil.isEmpty(project.getSignstring())
 				|| ProjectSign.NORMAL.getCode().equals(project.getSign())) {
 			return link;
 		}
@@ -70,10 +70,10 @@ public class SignUtil {
 				link += e.getKey() + "=" + value + "&";
 			}
 		}
-		if(StringUtil.isNotEmpty(signParam)) {
+		if(FrameStringUtil.isNotEmpty(signParam)) {
 			link += signParam + "=";
 		}
-		link += MD5Util.getInstance().getEncString(signString).toLowerCase();
+		link += FrameMd5Util.getInstance().encodePassword(signString).toLowerCase();
 		/*if(ProjectSign.MD5_CTT.getCode().equals(project.getSign())) {
 			//md5(渠道+时间戳+token)
 			link += MD5Util.getInstance().getEncString(signString);

@@ -4,7 +4,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 import com.task.schedule.comm.constants.DictCons;
 
 /**
@@ -26,15 +26,15 @@ public class TextTag extends TagSupport {
 	public int doStartTag() throws JspException {
 		try {
 			JspWriter out = this.pageContext.getOut();
-			if(StringUtil.isEmpty(defvalue)) {
+			if(FrameStringUtil.isEmpty(defvalue)) {
 				defvalue = "";
 			}
-			if(StringUtil.isEmpty(id) || StringUtil.isEmpty(dictcode)) {
+			if(FrameStringUtil.isEmpty(id) || FrameStringUtil.isEmpty(dictcode)) {
 				out.print(defvalue);
 				return SKIP_BODY;
 			}
 			String result = DictCons.getValue(dictcode, id);
-			if(StringUtil.isEmpty(result)) {
+			if(FrameStringUtil.isEmpty(result)) {
 				out.print(defvalue);
 			} else {
 				out.print(result);

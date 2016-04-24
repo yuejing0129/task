@@ -3,7 +3,7 @@ package com.jing.system.dao.sql;
 import java.util.ArrayList;
 
 import com.jing.system.utils.DbUtil;
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 
 /**
  * 拼接查询的sql的工具类
@@ -27,7 +27,7 @@ public class QuerySql extends Sql {
 	 * @param value
 	 */
 	public void addCond(String cond, Object value) {
-		if(value == null || StringUtil.isEmpty(value.toString())) {
+		if(value == null || FrameStringUtil.isEmpty(value.toString())) {
 			return;
 		}
 		if(conds == null) {
@@ -72,7 +72,7 @@ public class QuerySql extends Sql {
 	 * @param value
 	 */
 	public void addCond(String cond, Object value1, Object value2) {
-		if(value1 == null || StringUtil.isEmpty(value1.toString()) || value2 == null || StringUtil.isEmpty(value2.toString())) {
+		if(value1 == null || FrameStringUtil.isEmpty(value1.toString()) || value2 == null || FrameStringUtil.isEmpty(value2.toString())) {
 			return;
 		}
 		if(conds == null) {
@@ -116,7 +116,7 @@ public class QuerySql extends Sql {
 				}
 			}
 		}
-		if(StringUtil.isNotEmpty(orderby)) {
+		if(FrameStringUtil.isNotEmpty(orderby)) {
 			sqlStr.append(" ORDER BY ").append(orderby);
 		}
 		return sqlStr.toString();

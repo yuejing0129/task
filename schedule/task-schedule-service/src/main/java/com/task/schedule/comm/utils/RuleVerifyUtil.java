@@ -1,6 +1,6 @@
 package com.task.schedule.comm.utils;
 
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 
 /**
  * 校验规则
@@ -18,7 +18,7 @@ public class RuleVerifyUtil {
 	 * @return
 	 */
 	public static boolean isHttpResultSendMail(String content) {
-		if(StringUtil.isEmpty(content)) {
+		if(FrameStringUtil.isEmpty(content)) {
 			return false;
 		}
 		int startNum = content.indexOf("{");

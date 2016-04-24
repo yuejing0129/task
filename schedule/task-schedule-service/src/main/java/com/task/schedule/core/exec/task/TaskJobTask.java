@@ -12,7 +12,7 @@ import com.jing.system.utils.FrameHttpUtil;
 import com.jing.system.utils.JsonUtil;
 import com.jing.system.utils.MapUtil;
 import com.jing.system.utils.SpringUtil;
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.comm.enums.Config;
 import com.task.schedule.comm.enums.JobLogStatus;
@@ -78,7 +78,7 @@ public class TaskJobTask extends AbstractTask {
 				//根据响应的内容做相应的记录
 				Integer status = JobLogStatus.NORMAL.getCode();
 				String toMails = taskProject.getRecemail();
-				if(StringUtil.isEmpty(content)) {
+				if(FrameStringUtil.isEmpty(content)) {
 					status = JobLogStatus.ERROR.getCode();
 					content = JobLogStatus.ERROR.getName();
 
@@ -88,7 +88,7 @@ public class TaskJobTask extends AbstractTask {
 						if(LOGGER.isInfoEnabled()) {
 							LOGGER.info("调用任务【" + taskJob.getName() + "】请求失败，发送邮件");
 						}
-						if(StringUtil.isNotEmpty(toMails)) {
+						if(FrameStringUtil.isNotEmpty(toMails)) {
 							//发送失败邮件
 							StringBuffer title = new StringBuffer();
 							title.append(time).append("-调用任务【").append(taskProject.getName()).append("-").append(taskJob.getName()).append("】失败!!!");
@@ -108,7 +108,7 @@ public class TaskJobTask extends AbstractTask {
 					}
 				} else {
 					//调度成功
-					if(StringUtil.isNotEmpty(content)) {
+					if(FrameStringUtil.isNotEmpty(content)) {
 						if(RuleVerifyUtil.isHttpResultSendMail(content)) {
 							//根据返回结果发邮件
 							try {

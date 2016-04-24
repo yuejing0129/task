@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jing.system.model.MyPage;
-import com.jing.system.utils.StringUtil;
+import com.jing.system.utils.FrameStringUtil;
 import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.enums.JobLogStatus;
 import com.task.schedule.manager.dao.TaskJobLogDao;
@@ -29,7 +29,7 @@ public class TaskJobLogService {
 	 * @param taskJobLog
 	 */
 	public void save(TaskJobLog taskJobLog) {
-		if(StringUtil.isEmpty(taskJobLog.getServicecode())) {
+		if(FrameStringUtil.isEmpty(taskJobLog.getServicecode())) {
 			taskJobLog.setServicecode(Constant.serviceCode());
 		}
 		taskJobLogDao.save(taskJobLog);

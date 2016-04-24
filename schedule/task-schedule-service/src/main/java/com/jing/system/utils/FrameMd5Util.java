@@ -3,26 +3,26 @@ package com.jing.system.utils;
 import java.security.MessageDigest;
 
 /**
- * MD5 Class
+ * MD5 工具类
  * @author jing.yue
  * @version 1.0
  * @since 2012-09-24
  *
  */
-public class MD5Util {
+public class FrameMd5Util {
 
-	private static MD5Util fiveClass;
+	private static FrameMd5Util fiveClass;
 	private static final String hexDigits[] = {
 		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
 		"A", "B", "C", "D", "E", "F"
 	};
 
-	private MD5Util() {
+	private FrameMd5Util() {
 	}
 
-	public static synchronized MD5Util getInstance() {
+	public static synchronized FrameMd5Util getInstance() {
 		if (fiveClass == null)
-			fiveClass = new MD5Util();
+			fiveClass = new FrameMd5Util();
 		return fiveClass;
 	}
 
@@ -47,28 +47,28 @@ public class MD5Util {
 		MessageDigest alg = MessageDigest.getInstance("MD5");
 		return alg.digest(src);
 	}
-	
-	public String getEncString(String strMing) {
-		return getEncString(strMing, null);
+
+	public String encodePassword(String string) {
+		return encodePassword(string, null);
 	}
 
-	public String getEncString(String strMing, String expStr) {
+	public String encodePassword(String string, String expStr) {
 		String resultString = null;
 		if(expStr == null) {
-			resultString = new String(strMing);
+			resultString = new String(string);
 		} else {
-			resultString = new String(strMing + expStr);
+			resultString = new String(string + expStr);
 		}
 		try {
 			resultString = byteArrayToHexString(md5Digest(resultString.getBytes()));
 		}
 		catch (Exception exception) { }
-		return resultString;
+		return resultString.toLowerCase();
 	}
 
 	public static void main(String args[]) {
 		String str1 = "admin";
-		String str2 = getInstance().getEncString(str1, "admin");
+		String str2 = getInstance().encodePassword(str1, "admin");
 		System.out.println((new StringBuilder("明文:")).append(str1).toString());
 		System.out.println((new StringBuilder("密文:")).append(str2).toString());
 	}
