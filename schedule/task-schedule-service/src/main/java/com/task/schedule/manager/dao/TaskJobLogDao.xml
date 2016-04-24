@@ -13,7 +13,7 @@
 		<where>addtime&lt;#{date}</where>
 	</delete>
 	
-	<select id="get" resultType="taskJob">
+	<select id="get" resultType="taskJobLog">
 		select * from task_job_log
   		<where>id=#{id}</where>
 	</select>
