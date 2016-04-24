@@ -12,7 +12,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.springframework.stereotype.Component;
 
-import com.jing.system.utils.SpringUtil;
+import com.jing.system.utils.FrameSpringBeanUtil;
 import com.task.schedule.core.base.ITask;
 import com.task.schedule.core.base.SimpleJob;
 
@@ -36,7 +36,7 @@ public class JobService {
 	 * @throws SchedulerException
 	 */
 	public void addJob(String id, String cron, ITask execTask, JobListener jobListener) throws SchedulerException {
-		Scheduler scheduler = SpringUtil.getBean(Scheduler.class);
+		Scheduler scheduler = FrameSpringBeanUtil.getBean(Scheduler.class);
 		// 可执行的任务列表
 		// 任务名称和任务组设置规则：
 		// 名称：task_1 ..
@@ -64,7 +64,7 @@ public class JobService {
 	 * @throws SchedulerException
 	 */
 	public void updateJob(String id, String cron) throws SchedulerException {
-		Scheduler scheduler = SpringUtil.getBean(Scheduler.class);
+		Scheduler scheduler = FrameSpringBeanUtil.getBean(Scheduler.class);
 		// 可执行的任务列表
 		// 任务名称和任务组设置规则：
 		// 名称：task_1 ..
@@ -90,7 +90,7 @@ public class JobService {
 	 * @throws SchedulerException
 	 */
 	public void addOrUpdateJob(String id, String cron, ITask execTask, JobListener jobListener) throws SchedulerException {
-		Scheduler scheduler = SpringUtil.getBean(Scheduler.class);
+		Scheduler scheduler = FrameSpringBeanUtil.getBean(Scheduler.class);
 		// 可执行的任务列表
 		// 任务名称和任务组设置规则：
 		// 名称：task_1 ..
@@ -128,7 +128,7 @@ public class JobService {
 	public void pauseJob(String id) throws SchedulerException {
 		String name = "task_" + id;
 		String group = "group_" + id;
-		Scheduler scheduler = SpringUtil.getBean(Scheduler.class);
+		Scheduler scheduler = FrameSpringBeanUtil.getBean(Scheduler.class);
 		JobKey jobKey = JobKey.jobKey(name, group);
 		scheduler.pauseJob(jobKey);
 	}
@@ -141,7 +141,7 @@ public class JobService {
 	public void resumeJob(String id) throws SchedulerException {
 		String name = "task_" + id;
 		String group = "group_" + id;
-		Scheduler scheduler = SpringUtil.getBean(Scheduler.class);
+		Scheduler scheduler = FrameSpringBeanUtil.getBean(Scheduler.class);
 		JobKey jobKey = JobKey.jobKey(name, group);
 		scheduler.resumeJob(jobKey);
 	}
@@ -154,7 +154,7 @@ public class JobService {
 	public void deleteJob(String id) throws SchedulerException {
 		String name = "task_" + id;
 		String group = "group_" + id;
-		Scheduler scheduler = SpringUtil.getBean(Scheduler.class);
+		Scheduler scheduler = FrameSpringBeanUtil.getBean(Scheduler.class);
 		JobKey jobKey = JobKey.jobKey(name, group);
 		scheduler.deleteJob(jobKey);
 	}
@@ -167,7 +167,7 @@ public class JobService {
 	public void triggerJob(String id) throws SchedulerException {
 		String name = "task_" + id;
 		String group = "group_" + id;
-		Scheduler scheduler = SpringUtil.getBean(Scheduler.class);
+		Scheduler scheduler = FrameSpringBeanUtil.getBean(Scheduler.class);
 		JobKey jobKey = JobKey.jobKey(name, group);
 		scheduler.triggerJob(jobKey);
 	}

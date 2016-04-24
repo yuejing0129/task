@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 
 import com.jing.system.utils.DateUtil;
 import com.jing.system.utils.FrameHttpUtil;
+import com.jing.system.utils.FrameSpringBeanUtil;
+import com.jing.system.utils.FrameStringUtil;
 import com.jing.system.utils.JsonUtil;
 import com.jing.system.utils.MapUtil;
-import com.jing.system.utils.SpringUtil;
-import com.jing.system.utils.FrameStringUtil;
 import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.comm.enums.Config;
 import com.task.schedule.comm.enums.JobLogStatus;
@@ -101,7 +101,7 @@ public class TaskJobTask extends AbstractTask {
 							mailContent.append("请求参数：").append(postParams.toString()).append("<br/>");
 							mailContent.append("错误原因：可能是接口地址不通，或网络不通");
 
-							SysConfigService configService = SpringUtil.getBean(SysConfigService.class);
+							SysConfigService configService = FrameSpringBeanUtil.getBean(SysConfigService.class);
 							SendMailUtil.sendMail(configService.getCode(Config.MAIL_SMTP), configService.getCode(Config.MAIL_FROM), configService.getCode(Config.MAIL_USERNAME), configService.getCode(Config.MAIL_PASSWORD),
 									toMails, title.toString(), mailContent.toString());
 						}
@@ -118,7 +118,7 @@ public class TaskJobTask extends AbstractTask {
 									String mailTitle = MapUtil.getString(map, "mailTitle");
 									String mailContent = MapUtil.getString(map, "mailContent");
 
-									SysConfigService configService = SpringUtil.getBean(SysConfigService.class);
+									SysConfigService configService = FrameSpringBeanUtil.getBean(SysConfigService.class);
 									SendMailUtil.sendMail(configService.getCode(Config.MAIL_SMTP), configService.getCode(Config.MAIL_FROM), configService.getCode(Config.MAIL_USERNAME), configService.getCode(Config.MAIL_PASSWORD),
 											toMails, mailTitle, mailContent);
 								}

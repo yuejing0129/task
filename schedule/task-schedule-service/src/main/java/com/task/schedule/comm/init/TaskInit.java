@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import org.apache.log4j.Logger;
 
 import com.jing.system.utils.DateUtil;
-import com.jing.system.utils.SpringUtil;
+import com.jing.system.utils.FrameSpringBeanUtil;
 import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.constants.DictCons;
 import com.task.schedule.core.exec.TaskManager;
@@ -42,7 +42,7 @@ public class TaskInit extends HttpServlet {
 		DictCons.init(config.getServletContext());
 		
 		//添加定时任务
-		TaskManager taskManager = (TaskManager)SpringUtil.getBean(TaskManager.class);
+		TaskManager taskManager = (TaskManager)FrameSpringBeanUtil.getBean(TaskManager.class);
 		taskManager.init();
 		
 		logger.info("初始化资源花费" + (System.currentTimeMillis() - startTime) + "毫秒!");

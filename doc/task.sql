@@ -66,8 +66,47 @@ CREATE TABLE `sys_config` (
   UNIQUE KEY `code` (`code`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+/*==============================================================*/
+/* Table: serv_task_ref                                         */
+/*==============================================================*/
+create table serv_task_ref
+(
+   id                   int not null comment '编号',
+   servid               varchar(36) not null comment '服务编号',
+   taskjobid            int not null comment '任务编号',
+   updatetime           datetime not null comment '更新时间',
+   addtime              datetime not null comment '添加时间',
+   primary key (id)
+);
+
+alter table serv_task_ref comment '服务任务表';
+
+/*==============================================================*/
+/* Index: unique_taskjobid                                      */
+/*==============================================================*/
+create unique index unique_taskjobid on serv_task_ref
+(
+   taskjobid
+);
+
+
+/*==============================================================*/
+/* Table: serv_info                                             */
+/*==============================================================*/
+create table serv_info
+(
+   servid               varchar(36) not null comment '编号',
+   ip                   varchar(30) not null comment 'ip地址',
+   updatetime           datetime not null comment '更新时间',
+   addtime              datetime not null comment '添加时间',
+   status               int not null comment '状态[10正常、20已销毁]',
+   primary key (servid)
+);
+
+alter table serv_info comment '服务表';
+
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
- VALUES (1,'task.main.cron','主线程的时间表达式','0/1 * * * * ?',default,default,default);
+ VALUES (1,'task.main.cron','主线程的时间表达式','0/10 * * * * ?',default,default,default);
  
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
  VALUES (2,'mail.smtp','发送邮箱的smtp','smtp.163.com',default,default,default);

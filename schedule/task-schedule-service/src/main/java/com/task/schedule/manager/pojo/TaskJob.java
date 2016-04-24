@@ -41,6 +41,11 @@ public class TaskJob extends BaseEntity implements Serializable {
 	//状态消息
 	private String statusmsg;
 	
+	//服务编号
+	private String servid;
+	//更新时间
+	private Date updatetime;
+	
 	//====================== 扩展属性
 	//状态名称
 	private String statusname;
@@ -124,5 +129,17 @@ public class TaskJob extends BaseEntity implements Serializable {
 	}
 	public void setIsfailmailname(String isfailmailname) {
 		this.isfailmailname = isfailmailname;
+	}
+	public String getServid() {
+		return servid;
+	}
+	public void setServid(String servid) {
+		this.servid = servid;
+	}
+	public Date getUpdatetime() {
+		return updatetime;
+	}
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
 	}
 }

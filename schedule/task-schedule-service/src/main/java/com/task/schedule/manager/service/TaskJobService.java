@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jing.system.model.MyPage;
-import com.jing.system.utils.DateUtil;
 import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.comm.enums.JobStatus;
 import com.task.schedule.core.exec.JobService;
@@ -118,19 +117,47 @@ public class TaskJobService {
 	}
 
 	/**
-	 * 修改除停止的任务外为待添加
-	 * @param status
+	 * 将任务执行过期30s和状态不为停止的 改为加入待执行
 	 */
-	public void updateWait(Integer status) {
-		taskJobDao.updateWait(JobStatus.STOP.getCode(), status);
+	public void updateWait() {
+		taskJobDao.updateWait(JobStatus.WAIT.getCode(), JobStatus.STOP.getCode());
 	}
 
 	/**
 	 * 根据状态获取任务列表
 	 * @param status
+	 * @param topnum
 	 * @return
 	 */
-	public List<TaskJob> findByStatus(Integer status) {
-		return taskJobDao.findByStatus(status);
+	public List<TaskJob> findByStatus(Integer status, Integer topnum) {
+		return taskJobDao.findByStatus(status, topnum);
+	}
+
+	/**
+	 * 修改该服务待添加的任务
+	 * @param servid
+	 * @param topnum
+	 */
+	public void updateServidByWait(String servid, Integer topnum) {
+		taskJobDao.updateByStatus(JobStatus.WAIT.getCode(), servid, topnum);
+	}
+
+	/**
+	 * 获取服务待执行的任务
+	 * @param servid
+	 * @param status
+	 * @return
+	 */
+	public List<TaskJob> findByServidStatus(String servid, Integer status) {
+		return taskJobDao.findByServidStatus(servid, status);
+	}
+
+	/**
+	 * 根据服务和状态修改updatetime为当前时间
+	 * @param servid
+	 * @param status
+	 */
+	public void updateUpdatetimeByServidStatus(String servid, Integer status) {
+		taskJobDao.updateUpdatetimeByServidStatus(servid, status);
 	}
 }

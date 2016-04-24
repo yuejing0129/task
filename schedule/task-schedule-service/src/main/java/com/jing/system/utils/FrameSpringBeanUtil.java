@@ -5,14 +5,20 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+/**
+ * 获取spring对象的工具类
+ * @author yuejing
+ * @date 2016年1月29日 下午2:54:13
+ * @version V1.0.0
+ */
 @Component
-public class SpringUtil implements ApplicationContextAware {
+public class FrameSpringBeanUtil implements ApplicationContextAware {
 
 	private static ApplicationContext applicationContext;
 
 	@Override
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
-		SpringUtil.applicationContext = arg0;
+		FrameSpringBeanUtil.applicationContext = arg0;
 	}
 
 	@SuppressWarnings("unchecked")

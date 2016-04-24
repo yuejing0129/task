@@ -8,6 +8,7 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.enums.JobStatus;
 import com.task.schedule.core.base.AbstractTask;
 import com.task.schedule.core.exec.JobService;
@@ -16,7 +17,7 @@ import com.task.schedule.manager.pojo.TaskJob;
 import com.task.schedule.manager.service.TaskJobService;
 
 /**
- * 系统公用的定时任务类
+ * 集群任务调度线程的定时任务类
  * @author yuejing
  * @date 2015年3月29日 下午10:05:34
  * @version V1.0.0
@@ -34,8 +35,16 @@ public class MainTask extends AbstractTask {
 
 	@Override
 	public void execute(JobExecutionContext context) {
-		//获取所有没有加入的任务
-		List<TaskJob> jobs = taskJobService.findByStatus(JobStatus.WAIT.getCode());
+		
+		//=========================== 获取待执行的任务和检测到updatetime小于(当前时间-30s)的任务 begin ====================
+		//将任务执行过期30s和状态不为停止的 改为加入待执行
+		taskJobService.updateWait();
+		
+		//修改指定数目为自己的服务
+		taskJobService.updateServidByWait(Constant.serviceCode(), Constant.TASK_JOB_WAIT_NUM);
+		
+		//获取所有没有加入的任务-每次获取3个
+		List<TaskJob> jobs = taskJobService.findByServidStatus(Constant.serviceCode(), JobStatus.WAIT.getCode());
 		for (TaskJob taskJob : jobs) {
 			try {
 				/*if(taskJobService.get(taskJob.getId()).getStatus().intValue() != JobStatus.WAIT.getCode().intValue()) {
@@ -50,5 +59,20 @@ public class MainTask extends AbstractTask {
 				taskJobService.updateStatus(taskJob.getId(), JobStatus.ERROR_ADD.getCode());
 			}
 		}
+		//=========================== 获取待执行的任务和检测到updatetime小于(当前时间-30s)的任务 end ====================
+
+		//=========================== 发送任务心跳（间隔10s） begin ====================
+		
+		//修改当前服务的updatetime为当前时间
+		taskJobService.updateUpdatetimeByServidStatus(Constant.serviceCode(), JobStatus.NORMAL.getCode());
+		
+		//=========================== 发送任务心跳（间隔10s） end ====================
+		
+
+		//=========================== 检测quartz执行的任务 begin ====================
+		
+		//任务是否还和自己绑定, 不是则删除quartz里面的任务 TODO 获取quartz的所有任务
+		
+		//=========================== 检测quartz执行的任务 end ====================
 	}
 }

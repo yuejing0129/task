@@ -4,8 +4,8 @@
 <mapper namespace="com.task.schedule.manager.dao.TaskJobDao">
 
 	<insert id="save" parameterType="taskJob" useGeneratedKeys="true" keyProperty="id" flushCache="true">
-		 insert into task_job(projectid,name,remark,link,cron,isfailmail,addtime,adduser,status,statusmsg)
-		 values(#{projectid},#{name},#{remark},#{link},#{cron},#{isfailmail},now(),#{adduser},#{status},#{statusmsg})
+		 insert into task_job(projectid,name,remark,link,cron,isfailmail,addtime,adduser,status,statusmsg,servid,updatetime)
+		 values(#{projectid},#{name},#{remark},#{link},#{cron},#{isfailmail},now(),#{adduser},#{status},#{statusmsg},#{servid},now())
 	</insert>
 	
 	<delete id="delete" flushCache="true">
@@ -27,13 +27,30 @@
 	</update>
 	<update id="updateWait" flushCache="true">
 		update task_job
-		<set>status=#{status}</set>
-		<where>status!=#{stopStatus}</where>
+		<set>status=#{waitStatus}</set>
+		<where>
+			status!=#{stopStatus} and updatetime&lt;date_add(now(), interval 30 second)
+		</where>
 	</update>
 	<update id="updateStatus" flushCache="true">
 		update task_job
 		<set>status=#{status}</set>
 		<where>id=#{id}</where>
+	</update>
+	<update id="updateByServid" flushCache="true">
+		update task_job
+		<set>servid=#{servid},updatetime=now()</set>
+		<where>
+			status=#{status}
+		</where>
+		limit #{topnum}
+	</update>
+	<update id="updateUpdatetimeByServidStatus" flushCache="true">
+		update task_job
+		<set>updatetime=now()</set>
+		<where>
+			servid=#{servid} and status=#{status}
+		</where>
 	</update>
 	
 	<select id="get" resultType="taskJob">
@@ -44,10 +61,15 @@
 	<select id="findByStatus" resultType="taskJob">
 		select * from task_job
   		<where>status=#{status}</where>
+  		limit #{topnum}
 	</select>
 	<select id="findByProjectid" resultType="taskJob">
 		select * from task_job
   		<where>projectid=#{projectid}</where>
+	</select>
+	<select id="findByServidStatus" resultType="taskJob">
+		select * from task_job
+  		<where>servid=#{servid} and status=#{status}</where>
 	</select>
 	
 	<select id="findTaskJob" parameterType="taskJob" resultType="taskJob">

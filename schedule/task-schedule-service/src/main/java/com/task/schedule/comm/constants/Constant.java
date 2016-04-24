@@ -31,6 +31,9 @@ public class Constant {
 	public static final String TASK_ID_MAIN = "main";
 	/** 清除任务日志的ID */
 	public static final String TASK_ID_TASKJOBLOG_CLEAN = "taskJobLogClean";
+	
+	/** 获取待添加任务的数目 */
+	public static final int TASK_JOB_WAIT_NUM = 3;
 
 	/** 服务的唯一编码 */
 	private static String serviceCode = null;
