@@ -1,11 +1,9 @@
 package com.task.schedule.manager.dao;
 
-import org.springframework.stereotype.Component;
+import java.util.List;
 
-import com.jing.system.dao.BaseDao;
-import com.jing.system.dao.sql.ModelSql;
-import com.jing.system.dao.sql.QuerySql;
-import com.jing.system.model.MyPage;
+import org.apache.ibatis.annotations.Param;
+
 import com.task.schedule.manager.pojo.TaskProject;
 
 /**
@@ -14,36 +12,17 @@ import com.task.schedule.manager.pojo.TaskProject;
  * @date 2015-03-30 14:07:28
  * @version V1.0.0
  */
-@Component
-public class TaskProjectDao extends BaseDao {
+public interface TaskProjectDao {
 
-	public void save(TaskProject taskProject) {
-		super.save(taskProject);
-	}
+	public void save(TaskProject taskProject);
 
-	public void update(TaskProject taskProject) {
-		super.update(taskProject, "id", taskProject.getId());
-	}
+	public void update(TaskProject taskProject);
 
-	public void delete(Integer id) {
-		super.delete(TaskProject.class, "id", id);
-	}
+	public void delete(@Param("id")Integer id);
 
-	public TaskProject get(Integer id) {
-		ModelSql modelSql = new ModelSql(TaskProject.class);
-		return get(modelSql.getQueryAllSql() + " where id=?", TaskProject.class, id);
-	}
+	public TaskProject get(@Param("id")Integer id);
 
-	public MyPage<TaskProject> pageQuery(TaskProject taskProject) {
-		ModelSql modelSql = new ModelSql(TaskProject.class);
-		QuerySql sql = new QuerySql(modelSql.getQueryAllSql());
-		//精确查询
-		//sql.addCond("name", taskProject.getName());
-		//模糊查询
-		sql.addCondLike(modelSql.getColumn("name"), taskProject.getName());
-		//设置排序
-		sql.setOrderby("id DESC");
-		return pageQuery(sql.getSql(), taskProject.getPage(), taskProject.getSize(), TaskProject.class, sql.getParams());
-	}
+	public List<TaskProject> findTaskProject(TaskProject taskProject);
+	public int findTaskProjectCount(TaskProject taskProject);
 
 }

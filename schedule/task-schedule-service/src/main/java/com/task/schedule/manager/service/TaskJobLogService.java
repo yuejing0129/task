@@ -1,6 +1,7 @@
 package com.task.schedule.manager.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,22 +37,6 @@ public class TaskJobLogService {
 	}
 
 	/**
-	 * 删除
-	 * @param id
-	 */
-	public void delete(Integer id) {
-		taskJobLogDao.delete(id);
-	}
-
-	/**
-	 * 修改
-	 * @param taskJobLog
-	 */
-	public void update(TaskJobLog taskJobLog) {
-		taskJobLogDao.update(taskJobLog);
-	}
-
-	/**
 	 * 根据id获取对象
 	 * @param id
 	 * @return
@@ -66,10 +51,16 @@ public class TaskJobLogService {
 	 * @return
 	 */
 	public MyPage<TaskJobLog> pageQuery(TaskJobLog taskJobLog) {
-		MyPage<TaskJobLog> page = taskJobLogDao.pageQuery(taskJobLog);
-		for (TaskJobLog jobLog : page.getRows()) {
-			jobLog.setStatusname(JobLogStatus.getText(jobLog.getStatus()));
+		taskJobLog.setDefPageSize();
+		int total = taskJobLogDao.findTaskJobLogCount(taskJobLog);
+		List<TaskJobLog> rows = null;
+		if(total > 0) {
+			rows = taskJobLogDao.findTaskJobLog(taskJobLog);
+			for (TaskJobLog jobLog : rows) {
+				jobLog.setStatusname(JobLogStatus.getText(jobLog.getStatus()));
+			}
 		}
+		MyPage<TaskJobLog> page = new MyPage<TaskJobLog>(taskJobLog.getPage(), taskJobLog.getSize(), total, rows);
 		return page;
 	}
 

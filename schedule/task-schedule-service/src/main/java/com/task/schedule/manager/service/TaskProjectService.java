@@ -1,14 +1,16 @@
 package com.task.schedule.manager.service;
 
+import java.util.List;
+
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.jing.system.model.MyPage;
+import com.jing.system.utils.DateUtil;
 import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.manager.dao.TaskProjectDao;
 import com.task.schedule.manager.pojo.TaskProject;
-import com.jing.system.model.MyPage;
-import com.jing.system.utils.DateUtil;
 
 /**
  * task_project的Service
@@ -70,10 +72,16 @@ public class TaskProjectService {
 	 * @return
 	 */
 	public MyPage<TaskProject> pageQuery(TaskProject taskProject) {
-		MyPage<TaskProject> page = taskProjectDao.pageQuery(taskProject);
-		for (TaskProject project : page.getRows()) {
-			project.setIsrecemailname(Boolean.getText(project.getIsrecemail()));
+		taskProject.setDefPageSize();
+		int total = taskProjectDao.findTaskProjectCount(taskProject);
+		List<TaskProject> rows = null;
+		if(total > 0) {
+			rows = taskProjectDao.findTaskProject(taskProject);
+			for (TaskProject project : rows) {
+				project.setIsrecemailname(Boolean.getText(project.getIsrecemail()));
+			}
 		}
+		MyPage<TaskProject> page = new MyPage<TaskProject>(taskProject.getPage(), taskProject.getSize(), total, rows);
 		return page;
 	}
 }

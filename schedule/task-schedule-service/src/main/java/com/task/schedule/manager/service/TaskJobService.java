@@ -6,13 +6,13 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.jing.system.model.MyPage;
+import com.jing.system.utils.DateUtil;
 import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.comm.enums.JobStatus;
 import com.task.schedule.core.exec.JobService;
 import com.task.schedule.manager.dao.TaskJobDao;
 import com.task.schedule.manager.pojo.TaskJob;
-import com.jing.system.model.MyPage;
-import com.jing.system.utils.DateUtil;
 
 /**
  * task_job的Service
@@ -39,7 +39,6 @@ public class TaskJobService {
 		if(taskJob.getIsfailmail() == null) {
 			taskJob.setIsfailmail(Boolean.FALSE.getCode());
 		}
-		taskJob.setAddtime(DateUtil.getTime());
 		taskJobDao.save(taskJob);
 	}
 
@@ -104,11 +103,17 @@ public class TaskJobService {
 	 * @return
 	 */
 	public MyPage<TaskJob> pageQuery(TaskJob taskJob) {
-		MyPage<TaskJob> page = taskJobDao.pageQuery(taskJob);
-		for (TaskJob job : page.getRows()) {
-			job.setStatusname(JobStatus.getText(job.getStatus()));
-			job.setIsfailmailname(Boolean.getText(job.getIsfailmail()));
+		taskJob.setDefPageSize();
+		int total = taskJobDao.findTaskJobCount(taskJob);
+		List<TaskJob> rows = null;
+		if(total > 0) {
+			rows = taskJobDao.findTaskJob(taskJob);
+			for (TaskJob job : rows) {
+				job.setStatusname(JobStatus.getText(job.getStatus()));
+				job.setIsfailmailname(Boolean.getText(job.getIsfailmail()));
+			}
 		}
+		MyPage<TaskJob> page = new MyPage<TaskJob>(taskJob.getPage(), taskJob.getSize(), total, rows);
 		return page;
 	}
 

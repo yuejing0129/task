@@ -128,10 +128,7 @@ public class TaskJobController extends BaseController {
 	public ModelMap updateStatus(HttpServletRequest request, Integer id, Integer status) {
 		String result = null;
 		try {
-			TaskJob taskJob = new TaskJob();
-			taskJob.setId(id);
-			taskJob.setStatus(status);
-			taskJobService.update(taskJob);
+			taskJobService.updateStatus(id, status);
 			result = SUCCESS;
 		} catch (Exception e) {
 			logger.error("修改任务状态异常: " + e.getMessage(), e);

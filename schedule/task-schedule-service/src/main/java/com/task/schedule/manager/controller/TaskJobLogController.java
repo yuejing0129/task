@@ -66,24 +66,4 @@ public class TaskJobLogController extends BaseController {
 		}
 		return "manager/task/jobLog_look";
 	}
-	
-	/**
-	 * 删除
-	 * @return
-	 */
-	@RequestMapping(value = "/taskJobLog/f_json/delete")
-	@ResponseBody
-	public ModelMap delete(HttpServletRequest request, Integer id) {
-		String result = null;
-		try {
-			taskJobLogService.delete(id);
-			result = SUCCESS;
-		} catch (Exception e) {
-			logger.error("删除异常: " + e.getMessage(), e);
-			result = ERROR;
-		}
-		ModelMap modelMap = new ModelMap();
-		modelMap.put(RESULT, result);
-		return modelMap;
-	}
 }

@@ -1,12 +1,11 @@
 package com.task.schedule.manager.pojo;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.jing.system.dao.annotation.Column;
-import com.jing.system.dao.annotation.Table;
 import com.jing.system.model.BaseEntity;
 import com.jing.system.serializer.JsonDateSimpleSerializer;
 
@@ -16,30 +15,23 @@ import com.jing.system.serializer.JsonDateSimpleSerializer;
  * @date 2015-03-31 14:26:09
  * @version V1.0.0
  */
-@Table(name="task_job_log")
+@Alias("taskJobLog")
 @SuppressWarnings("serial")
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class TaskJobLog extends BaseEntity implements Serializable {
 	//编号
-	@Column(name="id", isAuto=true, isPk=true)
 	private Integer id;
 	//任务编号
-	@Column(name="jobid")
 	private Integer jobid;
 	//添加时间
-	@Column(name="addtime")
 	private Date addtime;
 	//状态job_log_status
-	@Column(name="status")
 	private Integer status;
 	//请求地址
-	@Column(name="link")
 	private String link;
 	//调度返回结果
-	@Column(name="result")
 	private String result;
 	//服务编号
-	@Column(name="servicecode")
 	private String servicecode;
 
 	//========================== 扩展字段
