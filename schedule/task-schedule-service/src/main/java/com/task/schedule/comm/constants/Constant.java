@@ -32,6 +32,7 @@ public class Constant {
 	/** 清除任务日志的ID */
 	public static final String TASK_ID_TASKJOBLOG_CLEAN = "taskJobLogClean";
 
+	/** 服务的唯一编码 */
 	private static String serviceCode = null;
 	/**
 	 * 获取当前服务的code
