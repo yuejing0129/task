@@ -30,6 +30,7 @@
 				  	<hr/>
 				  	<div id="queryPanel" style="display: none;" class="enter-panel">
 				  		<input type="text" style="width: 100px;display: inline;" class="form-control input-sm" id="jobName" placeholder="任务名称">
+				  		
 					  	<button type="button" class="btn btn-sm btn-default enter-fn" onclick="info.loadInfo(1)">查询</button>
 						<hr/>
 				  	</div>
