@@ -12,6 +12,7 @@ import com.jing.system.utils.FrameSpringBeanUtil;
 import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.constants.DictCons;
 import com.task.schedule.core.exec.TaskManager;
+import com.task.schedule.manager.service.ServInfoService;
 
 /**
  * 初始化系统数据的Servlet
@@ -40,6 +41,10 @@ public class TaskInit extends HttpServlet {
 		
 		//初始化字典信息
 		DictCons.init(config.getServletContext());
+		
+		//生成服务信息
+		ServInfoService servInfoService = (ServInfoService)FrameSpringBeanUtil.getBean(ServInfoService.class);
+		servInfoService.registerServer();
 		
 		//添加定时任务
 		TaskManager taskManager = (TaskManager)FrameSpringBeanUtil.getBean(TaskManager.class);

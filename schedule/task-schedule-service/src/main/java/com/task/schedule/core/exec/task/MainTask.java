@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.task.schedule.comm.constants.Constant;
+import com.task.schedule.comm.enums.Config;
 import com.task.schedule.comm.enums.JobStatus;
 import com.task.schedule.core.base.AbstractTask;
+import com.task.schedule.core.data.TaskJobData;
 import com.task.schedule.core.exec.JobService;
 import com.task.schedule.core.listener.TaskJobListener;
 import com.task.schedule.manager.pojo.TaskJob;
+import com.task.schedule.manager.service.ServInfoService;
+import com.task.schedule.manager.service.SysConfigService;
 import com.task.schedule.manager.service.TaskJobService;
 
 /**
@@ -29,7 +33,11 @@ public class MainTask extends AbstractTask {
 	@Autowired
 	private JobService jobService;
 	@Autowired
+	private ServInfoService servInfoService;
+	@Autowired
 	private TaskJobService taskJobService;
+	@Autowired
+	private SysConfigService configService;
 	@Autowired
 	private TaskJobTask taskJobTask;
 
@@ -37,41 +45,69 @@ public class MainTask extends AbstractTask {
 	public void execute(JobExecutionContext context) {
 		
 		//=========================== 获取待执行的任务和检测到updatetime小于(当前时间-30s)的任务 begin ====================
-		//将任务执行过期30s和状态不为停止的 改为加入待执行
-		taskJobService.updateWait();
-		
-		//修改指定数目为自己的服务
-		taskJobService.updateServidByWait(Constant.serviceCode(), Constant.TASK_JOB_WAIT_NUM);
-		
-		//获取所有没有加入的任务-每次获取3个
-		List<TaskJob> jobs = taskJobService.findByServidStatus(Constant.serviceCode(), JobStatus.WAIT.getCode());
-		for (TaskJob taskJob : jobs) {
-			try {
-				/*if(taskJobService.get(taskJob.getId()).getStatus().intValue() != JobStatus.WAIT.getCode().intValue()) {
-					continue;
-				}*/
-				jobService.addOrUpdateJob(taskJob.getId().toString(), taskJob.getCron(), taskJobTask, new TaskJobListener(taskJob.getId().toString()));
-				LOGGER.info("主线程添加任务 ID【" + taskJob.getId() + "】名称【" + taskJob.getName() + "】成功");
-				//修改状态为正常
-				taskJobService.updateStatus(taskJob.getId(), JobStatus.NORMAL.getCode());
-			} catch (SchedulerException e) {
-				LOGGER.error(e.getMessage(), e);
-				taskJobService.updateStatus(taskJob.getId(), JobStatus.ERROR_ADD.getCode());
+		try {
+			//将任务执行过期30s和状态不为停止的 改为加入待执行
+			taskJobService.updateWait();
+			
+			//锁定指定数目为自己的服务
+			Integer topnum = Integer.valueOf(configService.getValue(Config.TASK_WAIT_NUM, "3"));
+			taskJobService.updateServidByWait(Constant.serviceCode(), topnum);
+			
+			//获取所有没有加入的任务-每次获取3个
+			List<TaskJob> jobs = taskJobService.findByServidStatus(Constant.serviceCode(), JobStatus.WAIT.getCode());
+			for (TaskJob taskJob : jobs) {
+				try {
+					/*if(taskJobService.get(taskJob.getId()).getStatus().intValue() != JobStatus.WAIT.getCode().intValue()) {
+						continue;
+					}*/
+					jobService.addOrUpdateJob(taskJob.getId().toString(), taskJob.getCron(), taskJobTask, new TaskJobListener(taskJob.getId().toString()));
+					LOGGER.info("主线程添加任务 ID【" + taskJob.getId() + "】名称【" + taskJob.getName() + "】成功");
+					//修改状态为正常
+					taskJobService.updateStatus(taskJob.getId(), JobStatus.NORMAL.getCode());
+				} catch (SchedulerException e) {
+					LOGGER.error(e.getMessage(), e);
+					taskJobService.updateStatus(taskJob.getId(), JobStatus.ERROR_ADD.getCode());
+				}
 			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 		//=========================== 获取待执行的任务和检测到updatetime小于(当前时间-30s)的任务 end ====================
 
 		//=========================== 发送任务心跳（间隔10s） begin ====================
 		
-		//修改当前服务的updatetime为当前时间
+		//修改当前任务的updatetime为当前时间
 		taskJobService.updateUpdatetimeByServidStatus(Constant.serviceCode(), JobStatus.NORMAL.getCode());
-		
+
+		//修改当前服务的updatetime为当前时间
+		servInfoService.updateUpdatetimeByServid(Constant.serviceCode());
+		//将过期的服务状态变更为停止
+		servInfoService.updateDestroy();
 		//=========================== 发送任务心跳（间隔10s） end ====================
 		
 
 		//=========================== 检测quartz执行的任务 begin ====================
 		
-		//任务是否还和自己绑定, 不是则删除quartz里面的任务 TODO 获取quartz的所有任务
+		//任务是否还和自己绑定, 不是则删除quartz里面的任务
+		List<TaskJob> servJobs = taskJobService.findByServidStatus(Constant.serviceCode(), JobStatus.NORMAL.getCode());
+		for (String jobName : TaskJobData.getJobNames()) {
+			boolean exec = true;
+			for (TaskJob taskJob : servJobs) {
+				if(jobName.equals(taskJob.getId().toString())) {
+					//和自己的服务绑定，则不删除
+					exec = false;
+					break;
+				}
+			}
+			if(exec) {
+				//删除任务
+				try {
+					jobService.deleteJob(jobName);
+				} catch (SchedulerException e) {
+					LOGGER.error("删除任务异常: " + e.getMessage(), e);
+				}
+			}
+		}
 		
 		//=========================== 检测quartz执行的任务 end ====================
 	}

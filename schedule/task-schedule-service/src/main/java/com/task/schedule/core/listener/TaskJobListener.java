@@ -4,6 +4,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.JobListener;
 
+import com.task.schedule.core.data.TaskJobData;
+
 /**
  * 监听job的线程
  * @author  yuejing
@@ -17,12 +19,10 @@ public class TaskJobListener implements JobListener {
 	//private static final Logger LOGGER = Logger.getLogger(TaskJobListener.class);
 	private String name;
 
-	public TaskJobListener() {
-		super();
-	}
 	public TaskJobListener(String name) {
 		super();
 		this.name = name;
+		TaskJobData.addJobName(name);
 	}
 	public String getName() {
 		return name;

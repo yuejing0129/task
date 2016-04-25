@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>定时任务-任务调用日志</title>
+<title>定时任务-服务管理</title>
 <jsp:include page="/WEB-INF/view/inc/css.jsp"></jsp:include>
 </head>
 <body>
@@ -12,20 +12,20 @@
 	<div class="container">
 		<jsp:include page="/WEB-INF/view/manager/comm/left.jsp">
 			<jsp:param name="first" value="project"/>
-			<jsp:param name="second" value="projectManager"/>
+			<jsp:param name="second" value="servInfoManager"/>
 		</jsp:include>
 		<div class="c-right">
 			<div class="panel panel-success">
-				<div class="panel-heading">任务管理 / <b>任务调用记录</b></div>
+				<div class="panel-heading">任务管理 / <b>服务管理</b></div>
 				<div class="panel-body">
+				  	<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
 				  	<div class="btn-group">
-				  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
-				  		<a href="${webroot}/taskJob/f_view/manager.shtml?projectid=${param.projectid}" class="btn btn-default btn-sm">返回</a>
+				  		<a href="javascript:$('#queryPanel').panelToggle()" class="btn btn-default btn-sm">查询</a>
+				  		<a href="javascript:;" class="btn btn-success btn-sm" onclick="info.edit()">新增项目</a>
 				  	</div>
-				  	<a href="javascript:$('#queryPanel').panelToggle()" class="btn btn-default btn-sm">查询</a>
 				  	<hr/>
 				  	<div id="queryPanel" style="display: none;" class="enter-panel">
-				  		<my:select id="jobLogStatus" name="jobLogStatus" headerKey="" headerValue="请选择状态" dictcode="job_log_status" cssCls="form-control input-sm" exp="style=\"width: 120px;display: inline;\"" />
+				  		<input type="text" style="width: 100px;display: inline;" class="form-control input-sm" id="projectName" placeholder="项目名称">
 					  	<button type="button" class="btn btn-sm btn-default enter-fn" onclick="info.loadInfo(1)">查询</button>
 						<hr/>
 				  	</div>
@@ -47,9 +47,10 @@ var info = {
 			if(!infoPage) {
 				infoPage = new Page('infoPage', info.loadInfo, 'infoPanel', 'infoPage');
 				infoPage.beginString = ['<table class="table table-striped table-hover"><thead><tr class="info">',
-				                         '<th>编号</th>',
-				                         '<th>调度时间</th>',
 				                         '<th>服务编号</th>',
+				                         '<th>ip地址</th>',
+				                         '<th>添加时间</th>',
+				                         '<th>更新时间</th>',
 				                         '<th>状态</th>',
 				                         '<th width="120">操作</th>',
 				                         '</tr></thead><tbody>'].join('');
@@ -59,20 +60,21 @@ var info = {
 				infoPage.page = page;
 
 			JUtil.ajax({
-				url : '${webroot}/taskJobLog/f_json/pageQuery.shtml',
-				data : { page:infoPage.page, size:infoPage.size, jobid: '${param.jobid}', status: $('#jobLogStatus').val() },
+				url : '${webroot}/servInfo/f_json/pageQuery.shtml',
+				data : { page:infoPage.page, size:infoPage.size, name:$('#projectName').val() },
 				beforeSend: function(){ infoPage.beforeSend('加载信息中...'); },
 				error : function(json){ infoPage.error('加载信息出错了!'); },
 				success : function(json){
 					if(json.result === 'success') {
 						function getResult(obj) {
-							var _statusname = '<span class="label label-' + (obj.status === 0 ? 'success':'danger') + '">' + obj.statusname + '</span>';
 							return ['<tr>',
-							    	'<td>',obj.id,'</td>',
+							    	'<td>',obj.servid,'</td>',
+							    	'<td>',obj.ip,'</td>',
 							    	'<td>',obj.addtime,'</td>',
-							    	'<td>',obj.servicecode,'</td>',
-							    	'<td>',_statusname,'</td>',
-							    	'<td><a class="btn btn-link btn-xs" href="javascript:info.look(',obj.id,')">查看</a></td>',
+							    	'<td>',obj.updatetime,'</td>',
+							    	'<td>',obj.statusname,'</td>',
+							    	'<td><a class="btn btn-link btn-xs" href="',webroot,'/taskJob/f_view/manager.shtml?projectid=',obj.id,'">任务管理</a> ',
+							    	'&nbsp; <a class="glyphicon glyphicon-edit text-success" href="javascript:info.edit(',obj.id,')" title="修改"></a></td>',
 								'</tr>'].join('');
 						}
 						infoPage.operate(json, { resultFn:getResult, dataNull:'没有记录噢' });
@@ -81,14 +83,14 @@ var info = {
 				}
 			});
 		},
-		//编辑
-		look : function(id) {
+		//编辑项目
+		edit : function(id) {
 			dialog({
-				title: '查看调度信息',
-				url: webroot + '/taskJobLog/f_view/look.shtml?id='+(id?id:''),
+				title: '编辑项目',
+				url: webroot + '/taskProject/f_view/edit.shtml?id='+(id?id:''),
 				type: 'iframe',
-				width: 550,
-				height: 365
+				width: 420,
+				height: 460
 			});
 		}
 };

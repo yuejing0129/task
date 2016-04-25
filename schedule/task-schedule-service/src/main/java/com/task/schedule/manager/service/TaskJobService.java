@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.jing.system.model.MyPage;
 import com.task.schedule.comm.enums.Boolean;
+import com.task.schedule.comm.enums.Config;
 import com.task.schedule.comm.enums.JobStatus;
 import com.task.schedule.core.exec.JobService;
 import com.task.schedule.manager.dao.TaskJobDao;
@@ -26,6 +27,8 @@ public class TaskJobService {
 	private TaskJobDao taskJobDao;
 	@Autowired
 	private JobService jobService;
+	@Autowired
+	private SysConfigService configService;
 	
 	/**
 	 * 保存
@@ -120,7 +123,8 @@ public class TaskJobService {
 	 * 将任务执行过期30s和状态不为停止的 改为加入待执行
 	 */
 	public void updateWait() {
-		taskJobDao.updateWait(JobStatus.WAIT.getCode(), JobStatus.STOP.getCode());
+		Integer destroyTime = Integer.valueOf(configService.getValue(Config.LOCK_DESTROY_TIME, "30"));
+		taskJobDao.updateWait(JobStatus.WAIT.getCode(), JobStatus.STOP.getCode(), destroyTime);
 	}
 
 	/**
@@ -139,7 +143,7 @@ public class TaskJobService {
 	 * @param topnum
 	 */
 	public void updateServidByWait(String servid, Integer topnum) {
-		taskJobDao.updateByStatus(JobStatus.WAIT.getCode(), servid, topnum);
+		taskJobDao.updateByServid(JobStatus.WAIT.getCode(), servid, topnum);
 	}
 
 	/**

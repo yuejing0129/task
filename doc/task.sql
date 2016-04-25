@@ -40,6 +40,8 @@ CREATE TABLE `task_job` (
   `adduser` int(11) NOT NULL COMMENT '添加人',
   `status` int(11) NOT NULL COMMENT '状态【枚举JobStatus】',
   `statusmsg` varchar(200) COLLATE utf8_bin DEFAULT NULL COMMENT '状态消息',
+  `servid` varchar(36) COLLATE utf8_bin DEFAULT NULL COMMENT '服务编号',
+  `updatetime` datetime NOT NULL COMMENT '跟新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -65,29 +67,6 @@ CREATE TABLE `sys_config` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `code` (`code`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-/*==============================================================*/
-/* Table: serv_task_ref                                         */
-/*==============================================================*/
-create table serv_task_ref
-(
-   id                   int not null comment '编号',
-   servid               varchar(36) not null comment '服务编号',
-   taskjobid            int not null comment '任务编号',
-   updatetime           datetime not null comment '更新时间',
-   addtime              datetime not null comment '添加时间',
-   primary key (id)
-);
-
-alter table serv_task_ref comment '服务任务表';
-
-/*==============================================================*/
-/* Index: unique_taskjobid                                      */
-/*==============================================================*/
-create unique index unique_taskjobid on serv_task_ref
-(
-   taskjobid
-);
 
 
 /*==============================================================*/
@@ -119,8 +98,14 @@ INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
  VALUES (6,'joblog.save.day','调度记录保存天数','7',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
- VALUES (7,'joblog.clean.cron','清空调度记录表达式','0 0 23 * * ?',default,default,default);
+ VALUES (7,'clean.cron','清空调度记录表达式','0 0 23 * * ?',default,default,default);
+INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
+ VALUES (8,'task.wait.num','获取待添加任务的数目','3',default,default,default);
+INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
+ VALUES (9,'serv.save.day','已停止的服务保存天数','7',default,default,default);
+INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
+ VALUES (10,'lock.destroy.time','消耗服务和任务的时间[单位:s]','30',default,default,default);
 
 
 INSERT INTO `sys_user`(`id`,`username`,`password`,`nickname`,`addtime`,`adduser`,`status`)
- VALUES (1,'admin','E00CF25AD42683B3DF678C61F42C6BDA','管理员',now(),1,0);
+ VALUES (1,'admin','e00cf25ad42683b3df678c61f42c6bda','管理员',now(),1,0);

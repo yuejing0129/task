@@ -18,6 +18,7 @@
 		</div>
 		<div class="form-group">
 			<button type="button" id="loginBtn" class="btn btn-success enter-fn">确认登录</button>
+			<span class="text-danger" id="saveMsg"></span>
 		</div>
 	</div>
 
@@ -26,6 +27,8 @@
 	$(function() {
 		$('#loginBtn').click(function() {
 			var _loginBtn = $('#loginBtn');
+			
+			var _saveMsg = $('#saveMsg').empty();
 			
 			var _username = $('#loginUname');
 			if(JUtil.isEmpty(_username.val())) {
@@ -47,8 +50,8 @@
 					if(json.result==='success') {
 						parent.location = webroot + '/sysUser/f_view/main.shtml';
 					}
-					else if(json.result==='error') parent.message(JUtil.msg.ajaxErr);
-					else parent.message(json.msg);
+					else if(json.result==='error') _saveMsg.append(JUtil.msg.ajaxErr);
+					else _saveMsg.append(json.msg);
 					_loginBtn.removeAttr('disabled').html(_orgVal);
 				}
 			});

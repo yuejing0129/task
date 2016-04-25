@@ -16,13 +16,17 @@ import com.jing.system.model.KvEntity;
  */
 public enum Config {
 	TASK_MAIN_CRON		("task.main.cron", 		"主线程的时间表达式"),
+	TASK_WAIT_NUM		("task.wait.num", 		"获取待添加任务的数目"),
 	MAIL_SMTP			("mail.smtp", 			"发送邮箱的smtp"),
 	MAIL_FROM			("mail.from", 			"发送邮件的邮箱"),
 	MAIL_USERNAME		("mail.username", 		"发送邮件的用户名"),
 	MAIL_PASSWORD		("mail.password", 		"发送邮件的密码"),
-	JOBLOG_CLEAN_CRON	("joblog.clean.cron", 	"清空调度记录表达式"),
-	JOBLOG_SAVE_DAY		("joblog.save.day", 	"调度记录保存天数");
-	
+	CLEAN_CRON			("clean.cron", 			"清空调度记录表达式"),
+	JOBLOG_SAVE_DAY		("joblog.save.day", 	"调度记录保存天数"),
+	SERV_SAVE_DAY		("serv.save.day", 		"已停止的服务保存天数"),
+	LOCK_DESTROY_TIME	("lock.destroy.time", 	"消耗服务和任务的时间[单位:s]"),
+	;
+
 	public static final String KEY = "config";
 	
 	private String code;

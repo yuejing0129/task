@@ -12,13 +12,14 @@
 		<div class="panel panel-success">
 			<div class="panel-heading">
 				<h4 class="panel-title text-center">
-					<a data-toggle="collapse" href="#mlCollapse2">项目管理 <span
+					<a data-toggle="collapse" href="#mlCollapse2">任务管理 <span
 						class="caret" style="border-top-color: #468847;"></span></a>
 				</h4>
 			</div>
 			<div id="mlCollapse2" class="panel-collapse collapse <c:if test="${param.first == 'project'}">in</c:if>">
 				<div class="panel-body">
 					<div>
+						<a class="btn btn-<c:choose><c:when test="${param.second == 'servInfoManager'}">info</c:when><c:otherwise>link</c:otherwise></c:choose> btn-block" href="${webroot}/servInfo/f_view/manager.shtml">服务管理</a>
 						<a class="btn btn-<c:choose><c:when test="${param.second == 'projectManager'}">info</c:when><c:otherwise>link</c:otherwise></c:choose> btn-block" href="${webroot}/taskProject/f_view/manager.shtml">项目管理</a>
 					</div>
 				</div>

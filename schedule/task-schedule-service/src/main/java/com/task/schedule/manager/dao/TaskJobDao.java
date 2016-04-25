@@ -18,7 +18,7 @@ public interface TaskJobDao {
 
 	public void update(TaskJob taskJob);
 
-	public void updateWait(@Param("waitStatus")Integer waitStatus, @Param("stopStatus")Integer stopStatus);
+	public void updateWait(@Param("waitStatus")Integer waitStatus, @Param("stopStatus")Integer stopStatus, @Param("destroyTime")Integer destroyTime);
 	
 	public void updateStatus(@Param("id")Integer id, @Param("status")Integer status);
 
@@ -33,7 +33,7 @@ public interface TaskJobDao {
 	public List<TaskJob> findTaskJob(TaskJob taskJob);
 	public int findTaskJobCount(TaskJob taskJob);
 
-	public void updateByStatus(@Param("status")Integer status, @Param("servid")String servid, @Param("topnum")Integer topnum);
+	public void updateByServid(@Param("status")Integer status, @Param("servid")String servid, @Param("topnum")Integer topnum);
 
 	public List<TaskJob> findByServidStatus(@Param("servid")String servid, @Param("status")Integer status);
 

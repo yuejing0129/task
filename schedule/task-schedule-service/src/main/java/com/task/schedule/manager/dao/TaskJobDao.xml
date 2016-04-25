@@ -29,7 +29,7 @@
 		update task_job
 		<set>status=#{waitStatus}</set>
 		<where>
-			status!=#{stopStatus} and updatetime&lt;date_add(now(), interval 30 second)
+			status!=#{stopStatus} and updatetime&lt;date_add(now(), interval -#{destroyTime} second)
 		</where>
 	</update>
 	<update id="updateStatus" flushCache="true">

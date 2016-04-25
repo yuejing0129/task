@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.enums.Config;
 import com.task.schedule.core.exec.task.MainTask;
-import com.task.schedule.core.exec.task.TaskJobLogCleanTask;
+import com.task.schedule.core.exec.task.CleanTask;
 import com.task.schedule.core.listener.MainListener;
 import com.task.schedule.manager.service.SysConfigService;
 
@@ -31,18 +31,18 @@ public class TaskManager {
 	@Autowired
 	private MainTask mainTask;
 	@Autowired
-	private TaskJobLogCleanTask taskJobLogCleanTask;
+	private CleanTask taskJobLogCleanTask;
 
 	public void init() {
 		try {
 			//添加-集群任务调度线程
-			jobService.addJob(Constant.TASK_ID_MAIN, configService.getCode(Config.TASK_MAIN_CRON), mainTask, new MainListener(Constant.TASK_ID_MAIN));
+			jobService.addJob(Constant.TASK_ID_MAIN, configService.getValue(Config.TASK_MAIN_CRON, "0/20 * * * * ?"), mainTask, new MainListener(Constant.TASK_ID_MAIN));
 		} catch (SchedulerException e) {
 			LOGGER.error("添加系统的定时任务异常: " + e.getMessage(), e);
 		}
 		try {
 			//添加-清除过期调度日志线程
-			jobService.addJob(Constant.TASK_ID_TASKJOBLOG_CLEAN, configService.getCode(Config.JOBLOG_CLEAN_CRON), taskJobLogCleanTask, new MainListener(Constant.TASK_ID_TASKJOBLOG_CLEAN));
+			jobService.addJob(Constant.TASK_ID_TASK_CLEAN, configService.getValue(Config.CLEAN_CRON, "0 0 23 * * ?"), taskJobLogCleanTask, new MainListener(Constant.TASK_ID_TASK_CLEAN));
 		} catch (SchedulerException e) {
 			LOGGER.error("添加清除任务日志的定时任务异常: " + e.getMessage(), e);
 		}

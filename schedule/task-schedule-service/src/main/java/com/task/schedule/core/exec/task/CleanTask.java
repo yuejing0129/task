@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.jing.system.utils.DateUtil;
 import com.task.schedule.comm.enums.Config;
 import com.task.schedule.core.base.AbstractTask;
+import com.task.schedule.manager.service.ServInfoService;
 import com.task.schedule.manager.service.SysConfigService;
 import com.task.schedule.manager.service.TaskJobLogService;
 
@@ -20,13 +21,15 @@ import com.task.schedule.manager.service.TaskJobLogService;
  * @version V1.0.0
  */
 @Component
-public class TaskJobLogCleanTask extends AbstractTask {
+public class CleanTask extends AbstractTask {
 
-	private static final Logger LOGGER = Logger.getLogger(TaskJobLogCleanTask.class);
+	private static final Logger LOGGER = Logger.getLogger(CleanTask.class);
 	@Autowired
 	private TaskJobLogService taskJobLogService;
 	@Autowired
 	private SysConfigService sysConfigService;
+	@Autowired
+	private ServInfoService servInfoService;
 
 	@Override
 	public void execute(JobExecutionContext context) {
@@ -34,8 +37,11 @@ public class TaskJobLogCleanTask extends AbstractTask {
 		if(LOGGER.isInfoEnabled()) {
 			LOGGER.info("清空小于指定日期日志的定时任务");
 		}
-		String value = sysConfigService.getCode(Config.JOBLOG_SAVE_DAY);
+		String value = sysConfigService.getValue(Config.JOBLOG_SAVE_DAY, "7");
 		Date date = DateUtil.addDays(DateUtil.getTime(), - Integer.valueOf(value));
 		taskJobLogService.deleteLtDate(date);
+		
+		//清空小于指定日期的已停止的服务
+		servInfoService.deleteDestroyLtDate(date);
 	}
 }

@@ -9,41 +9,32 @@ import java.util.Map;
 import com.jing.system.model.KvEntity;
 
 /**
- * 定时任务的状态
- * 		0正常、50停止、100待添加、150添加异常、500异常终止
- * @author  yuejing
- * @email   yuejing0129@163.com 
- * @net		www.suyunyou.com
- * @date    2015年3月30日 下午4:59:53 
- * @version 1.0.0
+ * 服务的状态[10正常、20已销毁]
+ * @author 岳静
+ * @date 2016年4月25日 下午2:58:00 
+ * @version V1.0
  */
-public enum JobStatus {
-	NORMAL		(0, "正常"),
-	STOP		(50, "停止"),
-	WAIT		(100, "待添加"),
-	ERROR_ADD	(150, "添加异常"),
-	ERROR		(500, "异常终止");
+public enum ServInfoStatus {
+	NORMAL		(10, "正常"),
+	DESTROY		(20, "已销毁");
 	
-	public static final String KEY = "job_status";
+	public static final String KEY = "serv_info_status";
 	
 	private Integer code;
 	private String name;
 	private static List<KvEntity> list = new ArrayList<KvEntity>();
 	private static Map<Integer, String> map = new HashMap<Integer, String>();
 
-	private JobStatus(Integer code, String name) {
+	private ServInfoStatus(Integer code, String name) {
 		this.code = code;
 		this.name = name;
 	}
 	
 	static {
-		EnumSet<JobStatus> set = EnumSet.allOf(JobStatus.class);
-		for(JobStatus e : set){
+		EnumSet<ServInfoStatus> set = EnumSet.allOf(ServInfoStatus.class);
+		for(ServInfoStatus e : set){
 			map.put(e.getCode(), e.getName());
-			if(e.getCode().intValue() == NORMAL.getCode().intValue()
-					|| e.getCode().intValue() == STOP.getCode().intValue()) {
-				list.add(new KvEntity(e.getCode().toString(), e.getName()));
-			}
+			list.add(new KvEntity(e.getCode().toString(), e.getName()));
 		}
 	}
 

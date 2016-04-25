@@ -36,7 +36,7 @@ public class TaskJob extends BaseEntity implements Serializable {
 	private Date addtime;
 	//添加人
 	private Integer adduser;
-	//状态【0正常、1停止、2异常终止】
+	//状态【0正常、50停止、100待添加、150添加异常、500异常终止】
 	private Integer status;
 	//状态消息
 	private String statusmsg;

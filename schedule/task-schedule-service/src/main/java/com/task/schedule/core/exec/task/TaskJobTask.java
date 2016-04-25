@@ -102,7 +102,7 @@ public class TaskJobTask extends AbstractTask {
 							mailContent.append("错误原因：可能是接口地址不通，或网络不通");
 
 							SysConfigService configService = FrameSpringBeanUtil.getBean(SysConfigService.class);
-							SendMailUtil.sendMail(configService.getCode(Config.MAIL_SMTP), configService.getCode(Config.MAIL_FROM), configService.getCode(Config.MAIL_USERNAME), configService.getCode(Config.MAIL_PASSWORD),
+							SendMailUtil.sendMail(configService.getValue(Config.MAIL_SMTP), configService.getValue(Config.MAIL_FROM), configService.getValue(Config.MAIL_USERNAME), configService.getValue(Config.MAIL_PASSWORD),
 									toMails, title.toString(), mailContent.toString());
 						}
 					}
@@ -119,7 +119,7 @@ public class TaskJobTask extends AbstractTask {
 									String mailContent = MapUtil.getString(map, "mailContent");
 
 									SysConfigService configService = FrameSpringBeanUtil.getBean(SysConfigService.class);
-									SendMailUtil.sendMail(configService.getCode(Config.MAIL_SMTP), configService.getCode(Config.MAIL_FROM), configService.getCode(Config.MAIL_USERNAME), configService.getCode(Config.MAIL_PASSWORD),
+									SendMailUtil.sendMail(configService.getValue(Config.MAIL_SMTP), configService.getValue(Config.MAIL_FROM), configService.getValue(Config.MAIL_USERNAME), configService.getValue(Config.MAIL_PASSWORD),
 											toMails, mailTitle, mailContent);
 								}
 							} catch (Exception e) {

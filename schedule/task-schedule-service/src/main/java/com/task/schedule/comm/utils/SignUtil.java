@@ -1,5 +1,6 @@
 package com.task.schedule.comm.utils;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -21,7 +22,12 @@ import com.task.schedule.manager.pojo.TaskProject;
 public class SignUtil {
 	
 	public static Map<String, String> signParams(TaskProject project) {
-		Map<String, String> params = JsonUtil.toMap(project.getSignstring());
+		Map<String, String> params = null;
+		if(FrameStringUtil.isEmpty(project.getSignstring())) {
+			params = new HashMap<String, String>();
+		} else {
+			params = JsonUtil.toMap(project.getSignstring());
+		}
 		String signString = "";
 		String signParam = null;
 		Iterator<Entry<String, String>> entryKeyIterator = params.entrySet().iterator();

@@ -17,9 +17,6 @@ public class MainListener implements JobListener {
 	//private static final Logger LOGGER = Logger.getLogger(MainListener.class);
 	private String name;
 
-	public MainListener() {
-		super();
-	}
 	public MainListener(String name) {
 		super();
 		this.name = name;

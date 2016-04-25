@@ -16,7 +16,7 @@
 		</jsp:include>
 		<div class="c-right">
 			<div class="panel panel-success">
-				<div class="panel-heading">项目管理 / <b>项目管理</b></div>
+				<div class="panel-heading">任务管理 / <b>项目管理</b></div>
 				<div class="panel-body">
 				  	<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
 				  	<div class="btn-group">

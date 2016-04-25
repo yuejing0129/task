@@ -11,7 +11,7 @@ import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.enums.Config;
 import com.task.schedule.core.exec.JobService;
 import com.task.schedule.core.exec.task.MainTask;
-import com.task.schedule.core.exec.task.TaskJobLogCleanTask;
+import com.task.schedule.core.exec.task.CleanTask;
 import com.task.schedule.core.listener.MainListener;
 import com.task.schedule.manager.dao.SysConfigDao;
 import com.task.schedule.manager.pojo.SysConfig;
@@ -32,7 +32,7 @@ public class SysConfigService {
 	@Autowired
 	private MainTask mainTask;
 	@Autowired
-	private TaskJobLogCleanTask taskJobLogCleanTask;
+	private CleanTask taskJobLogCleanTask;
 
 	/**
 	 * 保存
@@ -52,9 +52,9 @@ public class SysConfigService {
 		if(Config.TASK_MAIN_CRON.getCode().equals(sysConfig.getCode())) {
 			//为修改主线程的配置
 			jobService.addOrUpdateJob(Constant.TASK_ID_MAIN, sysConfig.getValue(), mainTask, new MainListener(Constant.TASK_ID_MAIN));
-		} else if(Config.JOBLOG_CLEAN_CRON.getCode().equals(sysConfig.getCode())) {
+		} else if(Config.CLEAN_CRON.getCode().equals(sysConfig.getCode())) {
 			//修改清除日志任务的配置
-			jobService.addOrUpdateJob(Constant.TASK_ID_TASKJOBLOG_CLEAN, sysConfig.getValue(), taskJobLogCleanTask, new MainListener(Constant.TASK_ID_TASKJOBLOG_CLEAN));
+			jobService.addOrUpdateJob(Constant.TASK_ID_TASK_CLEAN, sysConfig.getValue(), taskJobLogCleanTask, new MainListener(Constant.TASK_ID_TASK_CLEAN));
 		}
 	}
 
@@ -66,16 +66,26 @@ public class SysConfigService {
 	public SysConfig get(Integer id) {
 		return sysConfigDao.get(id);
 	}
-
+	
 	/**
-	 * 根据code获取名称
-	 * @param id
+	 * 获取值
+	 * @param config
 	 * @return
 	 */
-	public String getCode(Config config) {
+	public String getValue(Config config) {
+		return getValue(config, null);
+	}
+
+	/**
+	 * 根据code获取值
+	 * @param id
+	 * @param defValue
+	 * @return
+	 */
+	public String getValue(Config config, String defValue) {
 		SysConfig sysConfig = sysConfigDao.getByCode(config.getCode());
 		if(sysConfig == null) {
-			return null;
+			return defValue;
 		}
 		return sysConfig.getValue();
 	}
