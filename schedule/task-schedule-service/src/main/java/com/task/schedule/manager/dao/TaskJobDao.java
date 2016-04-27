@@ -38,4 +38,6 @@ public interface TaskJobDao {
 	public List<TaskJob> findByServidStatus(@Param("servid")String servid, @Param("status")Integer status);
 
 	public void updateUpdatetimeByServidStatus(@Param("servid")String servid, @Param("status")Integer status);
+
+	public List<TaskJob> findActive(@Param("normalStatus")Integer normalStatus, @Param("waitStatus")Integer waitStatus);
 }

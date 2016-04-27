@@ -72,10 +72,10 @@ public class TaskJobService {
 	 */
 	public void update(TaskJob taskJob) throws SchedulerException {
 		if(taskJob.getStatus().intValue() == JobStatus.STOP.getCode().intValue()) {
-			//状态为停止，则删除任务
+			//状态为停止，则删除任务，在MainTask线程会删除任务
 			jobService.deleteJob(taskJob.getId().toString());
 		} else {
-			//状态不为停止，则启动任务
+			//状态不为停止，则启动任务，在MainTask线程会删除任务
 			taskJob.setStatus(JobStatus.WAIT.getCode());
 		}
 		taskJobDao.update(taskJob);
@@ -135,6 +135,16 @@ public class TaskJobService {
 	 */
 	public List<TaskJob> findByStatus(Integer status, Integer topnum) {
 		return taskJobDao.findByStatus(status, topnum);
+	}
+
+	/**
+	 * 获取非停止的任务
+	 * @param status
+	 * @param topnum
+	 * @return
+	 */
+	public List<TaskJob> findActive() {
+		return taskJobDao.findActive(JobStatus.NORMAL.getCode(), JobStatus.WAIT.getCode());
 	}
 
 	/**

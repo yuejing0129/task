@@ -18,6 +18,8 @@ import com.jing.system.model.BaseEntity;
 @SuppressWarnings("serial")
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ServEq extends BaseEntity implements Serializable {
+	//编号
+	private Integer id;
 	//编码
 	private String servid;
 	//任务编号
@@ -32,6 +34,13 @@ public class ServEq extends BaseEntity implements Serializable {
 	//======================== 扩展属性
 	//状态名称
 	private String statusname;
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getServid() {
 		return servid;

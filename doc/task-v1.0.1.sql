@@ -91,7 +91,7 @@ alter table serv_info comment '服务表';
 create table serv_eq
 (
    id                   int not null auto_increment comment '编号',
-   servid               varchar(32) not null comment '服务编号',
+   servid               varchar(36) not null comment '服务编号',
    jobid                int not null comment '任务编号',
    status               int not null comment '状态[10待释放、20已释放]',
    addtime              datetime not null comment '添加时间',
@@ -105,7 +105,6 @@ alter table serv_eq comment '服务均衡表';
 
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
  VALUES (1,'task.main.cron','主线程的时间表达式','0/10 * * * * ?',default,default,default);
- 
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
  VALUES (2,'mail.smtp','发送邮箱的smtp','smtp.163.com',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
@@ -119,13 +118,11 @@ INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
  VALUES (7,'clean.cron','清空调度记录表达式','0 0 23 * * ?',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
- VALUES (8,'task.wait.num','获取待添加任务的数目','3',default,default,default);
+ VALUES (8,'serv.save.day','已停止的服务保存天数','7',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
- VALUES (9,'serv.save.day','已停止的服务保存天数','7',default,default,default);
+ VALUES (9,'lock.destroy.time','消耗服务和任务的时间[单位:s]','20',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
- VALUES (10,'lock.destroy.time','消耗服务和任务的时间[单位:s]','20',default,default,default);
-INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
- VALUES (11,'leader.cron','Leader的时间表达式','0/5 * * * * ?',default,default,default);
+ VALUES (10,'leader.cron','Leader的时间表达式','0/5 * * * * ?',default,default,default);
 
 
 INSERT INTO `sys_user`(`id`,`username`,`password`,`nickname`,`addtime`,`adduser`,`status`)

@@ -1,6 +1,7 @@
 package com.task.schedule.manager.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,6 +43,25 @@ public class ServEqService {
 	 */
 	public void deleteDestroyLtDate(Date date) {
 		servEqDao.deleteDestroyLtDate(date);
+	}
+
+	/**
+	 * 根据服务编号和状态获取负载信息集合
+	 * @param servid
+	 * @param status
+	 * @return
+	 */
+	public List<ServEq> findByServid(String servid, Integer status) {
+		return servEqDao.findByServid(servid, status);
+	}
+
+	/**
+	 * 根据编号修改状态
+	 * @param id
+	 * @param status
+	 */
+	public void updateStatus(Integer id, Integer status) {
+		servEqDao.updateStatus(id, status);
 	}
 
 }

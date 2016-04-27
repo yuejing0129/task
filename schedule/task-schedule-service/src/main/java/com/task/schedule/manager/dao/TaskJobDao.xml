@@ -71,6 +71,10 @@
 		select * from task_job
   		<where>servid=#{servid} and status=#{status}</where>
 	</select>
+	<select id="findActive" resultType="taskJob">
+		select * from task_job
+  		<where>status in(#{normalStatus},#{waitStatus})</where>
+	</select>
 	
 	<select id="findTaskJob" parameterType="taskJob" resultType="taskJob">
 		select * from task_job

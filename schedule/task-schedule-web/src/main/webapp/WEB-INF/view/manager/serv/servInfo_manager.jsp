@@ -1,3 +1,4 @@
+<%@page import="com.task.schedule.comm.enums.Boolean"%>
 <%@page import="com.task.schedule.comm.enums.ServInfoStatus"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="my" uri="/WEB-INF/tld/my.tld" %>
@@ -72,9 +73,13 @@ var info = {
 							if(obj.status=='<%=ServInfoStatus.NORMAL.getCode()%>') {
 								_cls = 'label-success';
 							}
+							var _leader = [];
+							if(obj.status=='<%=ServInfoStatus.NORMAL.getCode()%>' && obj.isleader == '<%=Boolean.TRUE.getCode()%>') {
+								_leader.push(' <span class="label label-success">Leader</span>');
+							}
 							return ['<tr>',
 							    	'<td>',obj.servid,'</td>',
-							    	'<td>',obj.ip,'</td>',
+							    	'<td>',obj.ip,_leader.join(''),'</td>',
 							    	'<td><span class="label ',_cls,'">',obj.statusname,'</span></td>',
 							    	'<td>',obj.addtime,'</td>',
 							    	'<td>',obj.updatetime,'</td>',

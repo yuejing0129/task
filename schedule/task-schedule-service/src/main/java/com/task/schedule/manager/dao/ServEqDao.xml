@@ -12,4 +12,17 @@
 		delete from serv_eq
 		<where>addtime&lt;#{date}</where>
 	</delete>
+	
+	<update id="updateStatus" flushCache="true">
+		update serv_eq
+		<set>status=#{status}</set>
+		<where>id=#{id}</where>
+	</update>
+	
+	<select id="findByServid" resultType="servEq">
+		select * from serv_eq
+		<where>
+			servid=#{servid} and status=#{status}
+		</where>
+	</select>
 </mapper>

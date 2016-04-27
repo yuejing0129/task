@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.task.schedule.comm.constants.Constant;
-import com.task.schedule.comm.enums.Config;
 import com.task.schedule.comm.enums.JobStatus;
 import com.task.schedule.core.base.AbstractTask;
 import com.task.schedule.core.data.TaskJobData;
@@ -44,16 +43,9 @@ public class MainTask extends AbstractTask {
 	@Override
 	public void execute(JobExecutionContext context) {
 		
-		//=========================== 获取待执行的任务和检测到updatetime小于(当前时间-30s)的任务 begin ====================
+		//=========================== 获取待执行的任务 begin ====================
 		try {
-			//将任务执行过期30s和状态不为停止的 改为加入待执行
-			taskJobService.updateWait();
-			
-			//锁定指定数目为自己的服务
-			Integer topnum = Integer.valueOf(configService.getValue(Config.TASK_WAIT_NUM, "3"));
-			taskJobService.updateServidByWait(Constant.serviceCode(), topnum);
-			
-			//获取所有没有加入的任务-每次获取3个
+			//获取当前服务没有加入的任务
 			List<TaskJob> jobs = taskJobService.findByServidStatus(Constant.serviceCode(), JobStatus.WAIT.getCode());
 			for (TaskJob taskJob : jobs) {
 				try {
@@ -72,7 +64,7 @@ public class MainTask extends AbstractTask {
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 		}
-		//=========================== 获取待执行的任务和检测到updatetime小于(当前时间-30s)的任务 end ====================
+		//=========================== 获取待执行的任务 end ====================
 
 		//=========================== 发送任务心跳（间隔10s） begin ====================
 		
