@@ -16,6 +16,7 @@ import com.jing.system.model.KvEntity;
  */
 public enum Config {
 	TASK_MAIN_CRON		("task.main.cron", 		"主线程的时间表达式"),
+	LEADER_CRON			("leader.cron", 		"Leader的时间表达式"),
 	TASK_WAIT_NUM		("task.wait.num", 		"获取待添加任务的数目"),
 	MAIL_SMTP			("mail.smtp", 			"发送邮箱的smtp"),
 	MAIL_FROM			("mail.from", 			"发送邮件的邮箱"),

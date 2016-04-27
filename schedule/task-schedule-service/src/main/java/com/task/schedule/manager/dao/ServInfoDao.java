@@ -23,4 +23,12 @@ public interface ServInfoDao {
 	public abstract void updateDestroy(@Param("destroyStatus")Integer destroyStatus, @Param("destroyTime")Integer destroyTime);
 
 	public abstract void deleteDestroyLtDate(@Param("destroyStatus")Integer destroyStatus, @Param("date")Date date);
+
+	public abstract ServInfo getByStatusIsleader(@Param("status")Integer status, @Param("isleader")Integer isleader);
+
+	public abstract void updateChooseLeader(@Param("status")Integer status, @Param("orgIsleader")Integer orgIsleader, @Param("newIsleader")Integer newIsleader);
+
+	public abstract void updateIsleaderByStatus(@Param("status")Integer status, @Param("isleader")Integer isleader);
+
+	public abstract List<ServInfo> findByStatus(@Param("status")Integer status);
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.jing.system.utils.DateUtil;
 import com.task.schedule.comm.enums.Config;
 import com.task.schedule.core.base.AbstractTask;
+import com.task.schedule.manager.service.ServEqService;
 import com.task.schedule.manager.service.ServInfoService;
 import com.task.schedule.manager.service.SysConfigService;
 import com.task.schedule.manager.service.TaskJobLogService;
@@ -30,6 +31,8 @@ public class CleanTask extends AbstractTask {
 	private SysConfigService sysConfigService;
 	@Autowired
 	private ServInfoService servInfoService;
+	@Autowired
+	private ServEqService servEqService;
 
 	@Override
 	public void execute(JobExecutionContext context) {
@@ -43,5 +46,11 @@ public class CleanTask extends AbstractTask {
 		
 		//清空小于指定日期的已停止的服务
 		servInfoService.deleteDestroyLtDate(date);
+		
+		//修改已销毁的服务为非Leader
+		servInfoService.destroyLeader();
+		
+		//清空小于指定日期的负载的服务
+		servEqService.deleteDestroyLtDate(date);
 	}
 }

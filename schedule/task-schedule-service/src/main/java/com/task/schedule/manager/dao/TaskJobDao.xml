@@ -61,7 +61,7 @@
 	<select id="findByStatus" resultType="taskJob">
 		select * from task_job
   		<where>status=#{status}</where>
-  		limit #{topnum}
+  		<if test="topnum != null">limit #{topnum}</if>
 	</select>
 	<select id="findByProjectid" resultType="taskJob">
 		select * from task_job

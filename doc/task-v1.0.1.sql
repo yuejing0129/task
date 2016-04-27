@@ -79,10 +79,29 @@ create table serv_info
    updatetime           datetime not null comment '更新时间',
    addtime              datetime not null comment '添加时间',
    status               int not null comment '状态[10正常、20已销毁]',
+   isleader             int not null default 0 comment '是否Leader[0否、1是]',
    primary key (servid)
 );
 
 alter table serv_info comment '服务表';
+
+/*==============================================================*/
+/* Table: serv_eq                                               */
+/*==============================================================*/
+create table serv_eq
+(
+   id                   int not null auto_increment comment '编号',
+   servid               varchar(32) not null comment '服务编号',
+   jobid                int not null comment '任务编号',
+   status               int not null comment '状态[10待释放、20已释放]',
+   addtime              datetime not null comment '添加时间',
+   destroytime          datetime comment '释放时间',
+   primary key (id)
+);
+
+alter table serv_eq comment '服务均衡表';
+
+
 
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
  VALUES (1,'task.main.cron','主线程的时间表达式','0/10 * * * * ?',default,default,default);

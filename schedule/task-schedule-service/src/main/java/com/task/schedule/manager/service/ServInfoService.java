@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.jing.system.model.MyPage;
 import com.jing.system.utils.FrameAddressUtil;
 import com.task.schedule.comm.constants.Constant;
+import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.comm.enums.Config;
 import com.task.schedule.comm.enums.ServInfoStatus;
 import com.task.schedule.manager.dao.ServInfoDao;
@@ -36,6 +37,7 @@ public class ServInfoService {
 		servInfo.setServid(Constant.serviceCode());
 		servInfo.setIp(FrameAddressUtil.getLocalIP());
 		servInfo.setStatus(ServInfoStatus.NORMAL.getCode());
+		servInfo.setIsleader(Boolean.FALSE.getCode());
 		servInfoDao.save(servInfo);
 	}
 
@@ -93,6 +95,40 @@ public class ServInfoService {
 
 	public void deleteDestroyLtDate(Date date) {
 		servInfoDao.deleteDestroyLtDate(ServInfoStatus.DESTROY.getCode(), date);
+	}
+
+	/**
+	 * 获取领导对象
+	 * @return
+	 */
+	public ServInfo chooseLeader() {
+		ServInfo si = getLeader();
+		if(si == null) {
+			//选取Leader
+			servInfoDao.updateChooseLeader(ServInfoStatus.NORMAL.getCode(), Boolean.FALSE.getCode(), Boolean.TRUE.getCode());
+			si = getLeader();
+		}
+		return si;
+	}
+	
+	public ServInfo getLeader() {
+		return servInfoDao.getByStatusIsleader(ServInfoStatus.NORMAL.getCode(), Boolean.TRUE.getCode());
+	}
+
+	/**
+	 * 修改已销毁服务为非Leader
+	 */
+	public void destroyLeader() {
+		servInfoDao.updateIsleaderByStatus(ServInfoStatus.DESTROY.getCode(), Boolean.FALSE.getCode());
+	}
+
+	/**
+	 * 根据状态获取服务集合
+	 * @param status
+	 * @return
+	 */
+	public List<ServInfo> findByStatus(Integer status) {
+		return servInfoDao.findByStatus(status);
 	}
 
 }

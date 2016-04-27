@@ -29,6 +29,8 @@ public class Constant {
 	
 	/** 主线程的ID */
 	public static final String TASK_ID_MAIN = "main";
+	/** Leader任务的ID */
+	public static final String TASK_ID_LEADER = "leader";
 	/** 清除任务日志的ID */
 	public static final String TASK_ID_TASK_CLEAN = "clean";
 
