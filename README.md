@@ -1,4 +1,4 @@
-架构
+架构<br>
 	服务端：springMVC、mybatis、Quartz
 	前端：jquery、boostarp
 
