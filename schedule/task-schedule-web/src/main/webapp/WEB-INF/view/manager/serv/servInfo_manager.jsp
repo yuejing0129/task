@@ -32,7 +32,7 @@
 						</div>
 						<div class="col-sm-6 text-right">
 						  	<div class="btn-group">
-							  	<a href="${webroot}/servInfo/f_view/chart.shtml" class="btn btn-success btn-sm">图表展示</a>
+							  	<a href="${webroot}/servInfo/f_view/chart.shtml" class="btn btn-success btn-sm">服务图表</a>
 						  	</div>
 						</div>
 					</div>

@@ -21,9 +21,9 @@ import org.codehaus.jackson.type.JavaType;
  * @date    2014年11月8日 下午5:17:36 
  * @version 1.0.0
  */
-public class JsonUtil {
+public class FrameJsonUtil {
 
-private static final Logger LOGGER = Logger.getLogger(JsonUtil.class);
+private static final Logger LOGGER = Logger.getLogger(FrameJsonUtil.class);
 	
 	private static ObjectMapper mapper;
 	

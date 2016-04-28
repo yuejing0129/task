@@ -37,6 +37,11 @@
 		<set>status=#{status}</set>
 		<where>id=#{id}</where>
 	</update>
+	<update id="updateRelease" flushCache="true">
+		update task_job
+		<set>status=#{status},servid=null</set>
+		<where>id=#{id}</where>
+	</update>
 	<update id="updateByServid" flushCache="true">
 		update task_job
 		<set>servid=#{servid},updatetime=now()</set>
@@ -56,6 +61,10 @@
 	<select id="get" resultType="taskJob">
 		select * from task_job
   		<where>id=#{id}</where>
+	</select>
+	<select id="getCountByServid" resultType="int">
+		select count(*) from task_job
+  		<where>servid=#{servid}</where>
 	</select>
 	
 	<select id="findByStatus" resultType="taskJob">
@@ -80,6 +89,7 @@
 		select * from task_job
 		<where>
 			<if test="projectid!=null">and projectid=#{projectid}</if>
+			<if test="servid!=null and servid!=''">and servid=#{servid}</if>
 			<if test="name!=null and name!=''">and name like concat(concat('%', #{name}), '%')</if>
 		</where>
 		order by id desc
@@ -89,6 +99,7 @@
 		select count(*) from task_job
 		<where>
 			<if test="projectid!=null">and projectid=#{projectid}</if>
+			<if test="servid!=null and servid!=''">and servid=#{servid}</if>
 			<if test="name!=null and name!=''">and name like concat(concat('%', #{name}), '%')</if>
 		</where>
 	</select>

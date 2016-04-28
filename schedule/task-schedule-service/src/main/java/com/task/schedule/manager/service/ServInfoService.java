@@ -33,8 +33,14 @@ public class ServInfoService {
 	 * 注册服务
 	 */
 	public void registerServer() {
+		String servid = Constant.serviceCode();
+		ServInfo org = get(servid);
+		if(org != null) {
+			Constant.resetServiceCode();
+			servid = Constant.serviceCode();
+		}
 		ServInfo servInfo = new ServInfo();
-		servInfo.setServid(Constant.serviceCode());
+		servInfo.setServid(servid);
 		servInfo.setIp(FrameAddressUtil.getLocalIP());
 		servInfo.setStatus(ServInfoStatus.NORMAL.getCode());
 		servInfo.setIsleader(Boolean.FALSE.getCode());
@@ -54,7 +60,7 @@ public class ServInfoService {
 	 * @param servid
 	 * @return
 	 */
-	public ServInfo get(Integer servid) {
+	public ServInfo get(String servid) {
 		return servInfoDao.get(servid);
 	}
 
@@ -111,6 +117,10 @@ public class ServInfoService {
 		return si;
 	}
 	
+	/**
+	 * 获取Leader对象
+	 * @return
+	 */
 	public ServInfo getLeader() {
 		return servInfoDao.getByStatusIsleader(ServInfoStatus.NORMAL.getCode(), Boolean.TRUE.getCode());
 	}

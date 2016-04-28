@@ -42,7 +42,7 @@
 		<where>
 			status=#{status} and isleader=#{orgIsleader}
 		</where>
-		order by updatetime desc
+		order by addtime desc
 		limit 1
 	</update>
 	

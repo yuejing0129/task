@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.task.schedule.comm.constants.Constant;
-import com.task.schedule.comm.enums.JobStatus;
 import com.task.schedule.comm.enums.ServEqStatus;
 import com.task.schedule.comm.enums.ServInfoStatus;
 import com.task.schedule.core.base.AbstractTask;
@@ -118,10 +117,11 @@ public class LeaderTask extends AbstractTask {
 				jobService.deleteJob(se.getJobid().toString());
 				
 				//修改job的状态为待添加
-				taskJobService.updateStatus(se.getJobid(), JobStatus.WAIT.getCode());
+				taskJobService.updateRelease(se.getJobid());
 				
 				//修改为已释放
 				servEqService.updateStatus(se.getId(), ServEqStatus.DESTROY.getCode());
+				LOGGER.info("释放任务-待释放任务 ID【" + se.getJobid() + "】-服务【" + se.getServid() + "】");
 			} catch (SchedulerException e) {
 				LOGGER.error("删除任务异常: " + e.getMessage(), e);
 			}

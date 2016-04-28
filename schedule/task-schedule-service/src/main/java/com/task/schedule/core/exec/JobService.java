@@ -80,6 +80,28 @@ public class JobService {
 		// 按新的trigger重新设置job执行
 		scheduler.rescheduleJob(triggerKey, trigger);
 	}
+	
+	/**
+	 * 判断是否存在job
+	 * @param id
+	 * @return
+	 * @throws SchedulerException
+	 */
+	public boolean isExistJob(String id) throws SchedulerException {
+		Scheduler scheduler = FrameSpringBeanUtil.getBean(Scheduler.class);
+		// 可执行的任务列表
+		// 任务名称和任务组设置规则：
+		// 名称：task_1 ..
+		// 组 ：group_1 ..
+		String name = "task_" + id;
+		String group = "group_" + id;
+		TriggerKey triggerKey = TriggerKey.triggerKey(name, group);
+		CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
+		if(trigger != null) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * 添加或更新Job

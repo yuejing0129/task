@@ -174,4 +174,21 @@ public class TaskJobService {
 	public void updateUpdatetimeByServidStatus(String servid, Integer status) {
 		taskJobDao.updateUpdatetimeByServidStatus(servid, status);
 	}
+
+	/**
+	 * 释放job为没有服务，状态为待添加
+	 * @param id
+	 */
+	public void updateRelease(Integer id) {
+		taskJobDao.updateRelease(id, JobStatus.WAIT.getCode());
+	}
+
+	/**
+	 * 根据服务编号获取任务数目
+	 * @param servid
+	 * @return
+	 */
+	public int getCountByServid(String servid) {
+		return taskJobDao.getCountByServid(servid);
+	}
 }

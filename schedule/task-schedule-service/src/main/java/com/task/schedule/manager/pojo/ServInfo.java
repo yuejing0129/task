@@ -35,6 +35,8 @@ public class ServInfo extends BaseEntity implements Serializable {
 	//======================== 扩展属性
 	//状态名称
 	private String statusname;
+	//任务数目
+	private Integer jobnum;
 	
 	public String getServid() {
 		return servid;
@@ -79,5 +81,11 @@ public class ServInfo extends BaseEntity implements Serializable {
 	}
 	public void setIsleader(Integer isleader) {
 		this.isleader = isleader;
+	}
+	public Integer getJobnum() {
+		return jobnum;
+	}
+	public void setJobnum(Integer jobnum) {
+		this.jobnum = jobnum;
 	}
 }

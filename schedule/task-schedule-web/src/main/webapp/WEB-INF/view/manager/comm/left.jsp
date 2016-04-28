@@ -20,6 +20,7 @@
 				<div class="panel-body">
 					<div>
 						<a class="btn btn-<c:choose><c:when test="${param.second == 'servInfoManager'}">info</c:when><c:otherwise>link</c:otherwise></c:choose> btn-block" href="${webroot}/servInfo/f_view/manager.shtml">服务管理</a>
+						<a class="btn btn-<c:choose><c:when test="${param.second == 'servInfoChart'}">info</c:when><c:otherwise>link</c:otherwise></c:choose> btn-block" href="${webroot}/servInfo/f_view/chart.shtml">服务图表</a>
 						<a class="btn btn-<c:choose><c:when test="${param.second == 'projectManager'}">info</c:when><c:otherwise>link</c:otherwise></c:choose> btn-block" href="${webroot}/taskProject/f_view/manager.shtml">项目管理</a>
 					</div>
 				</div>

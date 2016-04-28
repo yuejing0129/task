@@ -1,5 +1,7 @@
 package com.task.schedule.manager.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jing.system.model.MyPage;
 import com.task.schedule.comm.controller.BaseController;
+import com.task.schedule.comm.enums.ServInfoStatus;
+import com.task.schedule.manager.pojo.ServInfo;
 import com.task.schedule.manager.pojo.SysUser;
 import com.task.schedule.manager.pojo.TaskJob;
+import com.task.schedule.manager.service.ServInfoService;
 import com.task.schedule.manager.service.TaskJobService;
 import com.task.schedule.manager.service.TaskProjectService;
 
@@ -31,6 +36,8 @@ public class TaskJobController extends BaseController {
 	private TaskJobService taskJobService;
 	@Autowired
 	private TaskProjectService taskProjectService;
+	@Autowired
+	private ServInfoService servInfoService;
 	
 	/**
 	 * 跳转到管理页
@@ -38,7 +45,9 @@ public class TaskJobController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/taskJob/f_view/manager")
-	public String manger(HttpServletRequest request) {
+	public String manger(HttpServletRequest request, ModelMap modelMap) {
+		List<ServInfo> servInfos = servInfoService.findByStatus(ServInfoStatus.NORMAL.getCode());
+		modelMap.put("servInfos", servInfos);
 		return "manager/task/job_manager";
 	}
 

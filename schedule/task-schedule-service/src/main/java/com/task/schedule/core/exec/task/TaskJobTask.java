@@ -11,7 +11,7 @@ import com.jing.system.utils.DateUtil;
 import com.jing.system.utils.FrameHttpUtil;
 import com.jing.system.utils.FrameSpringBeanUtil;
 import com.jing.system.utils.FrameStringUtil;
-import com.jing.system.utils.JsonUtil;
+import com.jing.system.utils.FrameJsonUtil;
 import com.jing.system.utils.MapUtil;
 import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.comm.enums.Config;
@@ -112,7 +112,7 @@ public class TaskJobTask extends AbstractTask {
 						if(RuleVerifyUtil.isHttpResultSendMail(content)) {
 							//根据返回结果发邮件
 							try {
-								Map<String, Object> map = JsonUtil.toMap(content);
+								Map<String, Object> map = FrameJsonUtil.toMap(content);
 								String isSendMail = MapUtil.getString(map, "isSendMail");
 								if("true".equals(isSendMail)) {
 									String mailTitle = MapUtil.getString(map, "mailTitle");

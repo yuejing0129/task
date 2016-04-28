@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 import com.jing.system.utils.FrameMd5Util;
 import com.jing.system.utils.FrameStringUtil;
-import com.jing.system.utils.JsonUtil;
+import com.jing.system.utils.FrameJsonUtil;
 import com.task.schedule.comm.enums.ProjectSign;
 import com.task.schedule.manager.pojo.TaskProject;
 
@@ -26,7 +26,7 @@ public class SignUtil {
 		if(FrameStringUtil.isEmpty(project.getSignstring())) {
 			params = new HashMap<String, String>();
 		} else {
-			params = JsonUtil.toMap(project.getSignstring());
+			params = FrameJsonUtil.toMap(project.getSignstring());
 		}
 		String signString = "";
 		String signParam = null;
@@ -57,7 +57,7 @@ public class SignUtil {
 		}
 		link += (link.indexOf("?") == -1 ? "?":"&");
 		@SuppressWarnings("unchecked")
-		Map<String, String> params = JsonUtil.toMap(project.getSignstring());
+		Map<String, String> params = FrameJsonUtil.toMap(project.getSignstring());
 		String signString = "";
 		String signParam = null;
 		Iterator<Entry<String, String>> entryKeyIterator = params.entrySet().iterator();

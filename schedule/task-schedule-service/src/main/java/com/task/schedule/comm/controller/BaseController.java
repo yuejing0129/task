@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.jing.system.utils.JsonUtil;
+import com.jing.system.utils.FrameJsonUtil;
 import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.manager.pojo.SysUser;
 
@@ -34,7 +34,7 @@ public class BaseController {
 			JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);
 			mapper.writeValue(gen, obj);
 			response.getWriter().print(sw.toString());*/
-			response.getWriter().print(JsonUtil.toString(obj));
+			response.getWriter().print(FrameJsonUtil.toString(obj));
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}

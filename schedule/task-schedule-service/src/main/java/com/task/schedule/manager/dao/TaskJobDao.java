@@ -40,4 +40,8 @@ public interface TaskJobDao {
 	public void updateUpdatetimeByServidStatus(@Param("servid")String servid, @Param("status")Integer status);
 
 	public List<TaskJob> findActive(@Param("normalStatus")Integer normalStatus, @Param("waitStatus")Integer waitStatus);
+
+	public void updateRelease(@Param("id")Integer id, @Param("status")Integer status);
+
+	public int getCountByServid(@Param("servid")String servid);
 }

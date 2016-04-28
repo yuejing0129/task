@@ -13,7 +13,7 @@ public interface ServInfoDao {
 
 	public abstract void delete(@Param("servid")String servid);
 
-	public abstract ServInfo get(@Param("servid")Integer servid);
+	public abstract ServInfo get(@Param("servid")String servid);
 
 	public abstract List<ServInfo> findServInfo(ServInfo servInfo);
 	public abstract int findServInfoCount(ServInfo servInfo);

@@ -206,7 +206,7 @@ Page.prototype.defaultFn = function(countPage) {
 		this.countPage = countPage;
 	}
 	//设置pageFoot容器的样式
-	var result = '<ul class="pagination pagination-sm">';
+	var result = '<div class="row"><div class="col-sm-8"><ul class="pagination pagination-sm">';
 	var _page = this.page;
 
 	if(this.page > 1)
@@ -247,7 +247,9 @@ Page.prototype.defaultFn = function(countPage) {
 		result += endResult;
 	if(this.page < this.countPage)
 		result += '<li><a href="javascript: ' + this.pageName + '.pageFun(2)">&raquo;</a></li>';
-	result += '</ul>';
+	result += '</ul></div>';
+	result += '<div class="col-sm-4 text-right"><small class="text-muted">共' + this.countSize + '条记录</small></div>';
+	result += '</div>';
 	return result;
 };
 

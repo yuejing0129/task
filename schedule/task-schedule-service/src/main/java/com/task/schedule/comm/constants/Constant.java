@@ -1,6 +1,7 @@
 package com.task.schedule.comm.constants;
 
-import java.util.UUID;
+import com.jing.system.utils.FrameNoUtil;
+import com.jing.system.utils.FrameTimeUtil;
 
 
 /**
@@ -42,8 +43,23 @@ public class Constant {
 	 */
 	public static String serviceCode() {
 		if(serviceCode == null) {
-			serviceCode = UUID.randomUUID().toString();
+			serviceCode = FrameTimeUtil.parseString(FrameTimeUtil.getTime(), "MMdd~HHmmss");
+			int rdm = (int) (Math.random() * 1000);
+			serviceCode += "-" + rdm;
 		}
         return serviceCode; 
+	}
+	
+	/*public static void main(String[] args) {
+		int num  = (int) (Math.random() * 100);
+		System.out.println(num);
+		System.out.println(serviceCode());
+	}*/
+	
+	/**
+	 * 重置服务编码为UUID
+	 */
+	public static void resetServiceCode() {
+		serviceCode = FrameNoUtil.uuidFull();
 	}
 }

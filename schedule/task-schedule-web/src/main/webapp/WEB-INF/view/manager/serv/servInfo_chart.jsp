@@ -14,7 +14,7 @@
 	<div class="container">
 		<jsp:include page="/WEB-INF/view/manager/comm/left.jsp">
 			<jsp:param name="first" value="project"/>
-			<jsp:param name="second" value="servInfoManager"/>
+			<jsp:param name="second" value="servInfoChart"/>
 		</jsp:include>
 		<div class="c-right">
 			<div class="panel panel-success">
@@ -32,13 +32,13 @@
 						</div>
 						<div class="col-sm-6 text-right">
 						  	<div class="btn-group">
-							  	<a href="javascript:;" class="btn btn-success btn-sm" onclick="info.edit()">图表展示</a>
+							  	<!-- <a href="javascript:;" class="btn btn-success btn-sm" onclick="info.edit()">图表展示</a> -->
 						  	</div>
 						</div>
 					</div>
 				  	<hr/>
 					<div id="infoPanel">
-						<div id="main" style="width: 600px;height:400px;"></div>
+						<div id="servJobPanel" style="width: 100%;height:400px;margin-top: 20px;"></div>
 					</div>
 				</div>
 			</div>
@@ -49,32 +49,61 @@
 	<jsp:include page="/WEB-INF/view/inc/js.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/view/inc/utils/chart.jsp"></jsp:include>
 <script type="text/javascript">
-//基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
+var info = {
+		servInfosJson: ${servInfosJson},
+		servJob : function() {
+			//基于准备好的dom，初始化echarts实例
+			var myChart = echarts.init(document.getElementById('servJobPanel'));
+			var _xAxisData = [];
+			var _seriesData = [];
+			var _seriesData2 = [];
+			$.each(info.servInfosJson, function(i, obj) {
+				//设置坐标的名称
+				_xAxisData.push(obj.servid.substring(0, 4) + '...' + obj.servid.substring(obj.servid.lastIndexOf('-') - 2) + (obj.isleader==1?'(Leader)':''));
+				//设置值
+				_seriesData.push(obj.jobnum);
+				_seriesData2.push((obj.isleader==1?obj.jobnum:0));
+			});
+			// 指定图表的配置项和数据
+			var option = {
+			    title: { text: '服务任务情况' },
+			    tooltip: {},
+			    legend: {
+			        data:['服务任务数']
+			    },
+			    xAxis: {
+			    	/*设置倾斜 axisLabel: {
+			    		rotate: 60,
+			    	}, */
+			    	data: _xAxisData
+			        //data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+			    },
+			    yAxis: {},
+			    series: [{
+			        name: '服务任务数',
+			        type: 'bar',
+			        //data: [5, 20, 36, 10, 10, 20],
+			        data: _seriesData,
+			        itemStyle: {
+			            normal: {
+			                barBorderColor: '#f0ad4e',
+			                color: '#5cb85c'
+			            },
+			            emphasis: {
+			                barBorderColor: '#f0ad4e',
+			                color: '#f0ad4e'
+			            }
+			        }
+			    }
+			    ]
+			};
 
-// 指定图表的配置项和数据
-var option = {
-    title: {
-        text: 'ECharts 入门示例'
-    },
-    tooltip: {},
-    legend: {
-        data:['销量']
-    },
-    xAxis: {
-        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-    },
-    yAxis: {},
-    series: [{
-        name: '销量',
-        type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
-    }]
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+		}
 };
-
-// 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option);
 $(function() {
+	info.servJob();
 });
 </script>
 </body>

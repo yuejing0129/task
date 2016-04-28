@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jing.system.model.MyPage;
-import com.jing.system.utils.JsonUtil;
+import com.jing.system.utils.FrameJsonUtil;
 import com.task.schedule.comm.controller.BaseController;
 import com.task.schedule.comm.enums.ProjectSign;
 import com.task.schedule.manager.pojo.SysUser;
@@ -67,7 +67,7 @@ public class TaskProjectController extends BaseController {
 		if(id != null) {
 			modelMap.put("taskProject", taskProjectService.get(id));
 		}
-		modelMap.put("projectSigns", JsonUtil.toString(ProjectSign.getList()));
+		modelMap.put("projectSigns", FrameJsonUtil.toString(ProjectSign.getList()));
 		return "manager/task/project_edit";
 	}
 
