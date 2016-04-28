@@ -36,6 +36,15 @@ public class ServInfoController extends BaseController {
 	public String manger(HttpServletRequest request) {
 		return "manager/serv/servInfo_manager";
 	}
+	/**
+	 * 跳转到图表页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/servInfo/f_view/chart")
+	public String chart(HttpServletRequest request) {
+		return "manager/serv/servInfo_chart";
+	}
 
 	/**
 	 * 分页获取信息

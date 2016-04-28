@@ -20,18 +20,23 @@
 			<div class="panel panel-success">
 				<div class="panel-heading">任务管理 / <b>服务管理</b></div>
 				<div class="panel-body">
-				  	<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
+					<div class="row">
+						<div class="col-sm-6">
+							<!-- <span class="enter-panel">
+								<input type="text" style="width: 100px;display: inline;" class="form-control input-sm" id="projectName" placeholder="项目名称">
+					  			<button type="button" class="btn btn-sm btn-success enter-fn" onclick="info.loadInfo(1)">查询</button>
+					  		</span> -->
+						  	<div class="btn-group">
+						  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
+						  	</div>
+						</div>
+						<div class="col-sm-6 text-right">
+						  	<div class="btn-group">
+							  	<a href="${webroot}/servInfo/f_view/chart.shtml" class="btn btn-success btn-sm">图表展示</a>
+						  	</div>
+						</div>
+					</div>
 				  	<hr/>
-				  	<!-- <div class="btn-group">
-				  		<a href="javascript:$('#queryPanel').panelToggle()" class="btn btn-default btn-sm">查询</a>
-				  		<a href="javascript:;" class="btn btn-success btn-sm" onclick="info.edit()">新增项目</a>
-				  	</div>
-				  	<hr/>
-				  	<div id="queryPanel" style="display: none;" class="enter-panel">
-				  		<input type="text" style="width: 100px;display: inline;" class="form-control input-sm" id="projectName" placeholder="项目名称">
-					  	<button type="button" class="btn btn-sm btn-default enter-fn" onclick="info.loadInfo(1)">查询</button>
-						<hr/>
-				  	</div> -->
 					<div id="infoPanel"></div>
 					<div id="infoPage"></div>
 				</div>
@@ -89,16 +94,6 @@ var info = {
 					}
 					else alert(JUtil.msg.ajaxErr);
 				}
-			});
-		},
-		//编辑项目
-		edit : function(id) {
-			dialog({
-				title: '编辑项目',
-				url: webroot + '/taskProject/f_view/edit.shtml?id='+(id?id:''),
-				type: 'iframe',
-				width: 420,
-				height: 460
 			});
 		}
 };

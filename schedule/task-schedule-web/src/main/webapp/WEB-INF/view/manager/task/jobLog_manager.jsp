@@ -18,17 +18,21 @@
 			<div class="panel panel-success">
 				<div class="panel-heading">任务管理 / <b>任务调用记录</b></div>
 				<div class="panel-body">
-				  	<div class="btn-group">
-				  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
-				  		<a href="${webroot}/taskJob/f_view/manager.shtml?projectid=${param.projectid}" class="btn btn-default btn-sm">返回</a>
-				  	</div>
-				  	<a href="javascript:$('#queryPanel').panelToggle()" class="btn btn-default btn-sm">查询</a>
+					<div class="row">
+						<div class="col-sm-6">
+							<span class="enter-panel">
+								<my:select id="jobLogStatus" name="jobLogStatus" headerKey="" headerValue="请选择状态" dictcode="job_log_status" cssCls="form-control input-sm" exp="style=\"width: 120px;display: inline;\"" />
+					  			<button type="button" class="btn btn-sm btn-success enter-fn" onclick="info.loadInfo(1)">查询</button>
+					  		</span>
+						  	<div class="btn-group">
+						  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
+						  		<a href="${webroot}/taskJob/f_view/manager.shtml?projectid=${param.projectid}" class="btn btn-default btn-sm">返回</a>
+						  	</div>
+						</div>
+						<div class="col-sm-6 text-right">
+						</div>
+					</div>
 				  	<hr/>
-				  	<div id="queryPanel" style="display: none;" class="enter-panel">
-				  		<my:select id="jobLogStatus" name="jobLogStatus" headerKey="" headerValue="请选择状态" dictcode="job_log_status" cssCls="form-control input-sm" exp="style=\"width: 120px;display: inline;\"" />
-					  	<button type="button" class="btn btn-sm btn-default enter-fn" onclick="info.loadInfo(1)">查询</button>
-						<hr/>
-				  	</div>
 					<div id="infoPanel"></div>
 					<div id="infoPage"></div>
 				</div>
