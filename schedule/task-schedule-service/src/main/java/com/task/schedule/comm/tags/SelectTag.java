@@ -43,7 +43,7 @@ public class SelectTag extends TagSupport {
 				logger.error("items is null");
 				return SKIP_BODY;
 			}
-			StringBuffer result = new StringBuffer();
+			StringBuilder result = new StringBuilder();
 			result.append("<select id=\"").append(getId()).append("\" name=\"").append(getName()).append("\" class=\"").append(getCssCls()).append("\" ").append(getExp()).append(">");
 			if(FrameStringUtil.isNotEmpty(headerValue)) {
 				result.append("<option value=\"").append(headerKey).append("\">").append(headerValue).append("</option>");
