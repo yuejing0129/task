@@ -7,7 +7,7 @@ import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.jing.system.utils.DateUtil;
+import com.jing.system.utils.FrameTimeUtil;
 import com.task.schedule.comm.enums.Config;
 import com.task.schedule.core.base.AbstractTask;
 import com.task.schedule.manager.service.ServEqService;
@@ -41,7 +41,7 @@ public class CleanTask extends AbstractTask {
 			LOGGER.info("清空小于指定日期日志的定时任务");
 		}
 		String value = sysConfigService.getValue(Config.JOBLOG_SAVE_DAY, "7");
-		Date date = DateUtil.addDays(DateUtil.getTime(), - Integer.valueOf(value));
+		Date date = FrameTimeUtil.addDays(FrameTimeUtil.getTime(), - Integer.valueOf(value));
 		taskJobLogService.deleteLtDate(date);
 		
 		//清空小于指定日期的已停止的服务

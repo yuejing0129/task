@@ -2,7 +2,7 @@ package com.task.schedule.comm.utils;
 
 import java.util.List;
 
-import com.jing.system.utils.MailUtil;
+import com.jing.system.utils.FrameMailUtil;
 import com.jing.system.utils.FrameStringUtil;
 
 /**
@@ -24,7 +24,7 @@ public class SendMailUtil {
 	public static void sendMail(String smtp, String from, String username, String password, String toMails, String title, String content) {
 		List<String> tos = FrameStringUtil.toArray(toMails, ",");
 		//初始化Email
-		MailUtil mailUtil = new MailUtil(smtp, from, username, password);
+		FrameMailUtil mailUtil = new FrameMailUtil(smtp, from, username, password);
 		for (String to : tos) {
 			if(FrameStringUtil.isEmpty(to)) {
 				continue;

@@ -8,7 +8,7 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-import com.jing.system.utils.DateUtil;
+import com.jing.system.utils.FrameTimeUtil;
 
 /**
  * 日期格式以yyyy-MM-dd这种形式展示
@@ -21,6 +21,6 @@ public class JsonDateYMdSerializer extends JsonSerializer<Date> {
 
 	@Override
 	public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-		jgen.writeString(DateUtil.dateToString(value, DateUtil.FMT_YYYY_MM_DD));
+		jgen.writeString(FrameTimeUtil.parseString(value, FrameTimeUtil.FMT_YYYY_MM_DD));
 	}
 }

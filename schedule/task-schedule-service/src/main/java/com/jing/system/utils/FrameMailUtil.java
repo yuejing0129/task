@@ -20,9 +20,9 @@ import org.apache.log4j.Logger;
  * @author Administrator
  *
  */
-public class MailUtil {
+public class FrameMailUtil {
 	
-	private static final Logger LOGGER = Logger.getLogger(MailUtil.class);
+	private static final Logger LOGGER = Logger.getLogger(FrameMailUtil.class);
 	
 	private MimeMessage mimeMsg;
 	private Session session;
@@ -38,7 +38,7 @@ public class MailUtil {
 	 * @param username	用户名
 	 * @param password	密码
 	 */
-	public MailUtil(String smtp, String from, String username, String password) {
+	public FrameMailUtil(String smtp, String from, String username, String password) {
 		this.username = username;
 		this.password = password;
 		props = System.getProperties();
@@ -207,7 +207,7 @@ public class MailUtil {
 		String username = "cactus_jing@163.com";
 		// 发件人密码
 		String password = "12345";
-		MailUtil theMail = new MailUtil(smtp, from, username, password);
+		FrameMailUtil theMail = new FrameMailUtil(smtp, from, username, password);
 		String to = "503490146@qq.com";// 收件人的邮件地址，必须是真实地址
 		String copyto = "";// 抄送人邮件地址
 		String subject = "测试邮件";// 邮件标题

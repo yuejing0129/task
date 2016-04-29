@@ -40,7 +40,7 @@ private static final Logger LOGGER = Logger.getLogger(FrameJsonUtil.class);
             mapper = new ObjectMapper();
         }
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.FMT_DEFAULT);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FrameTimeUtil.FMT_DEFAULT);
 		mapper.getSerializationConfig().setDateFormat(simpleDateFormat);
         return mapper;
     }

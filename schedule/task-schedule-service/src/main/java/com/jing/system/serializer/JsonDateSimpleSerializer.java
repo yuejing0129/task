@@ -8,7 +8,7 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-import com.jing.system.utils.DateUtil;
+import com.jing.system.utils.FrameTimeUtil;
 
 /**
  * 比如相对于当前时间来计算
@@ -22,6 +22,6 @@ public class JsonDateSimpleSerializer extends JsonSerializer<Date> {
 
 	@Override
 	public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-		jgen.writeString(DateUtil.getSimpleTime(value));
+		jgen.writeString(FrameTimeUtil.getSimpleTime(value));
 	}
 }

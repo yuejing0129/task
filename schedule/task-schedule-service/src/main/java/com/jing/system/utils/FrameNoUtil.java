@@ -63,12 +63,12 @@ public class FrameNoUtil {
 		return no;
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		String u = uuid();
 		System.out.println(u);
 		System.out.println(timeRandom(null));
 		System.out.println(timeRandom(FrameTimeUtil.parseDate("2015-12-12 12:12:12")));
 		System.out.println(timeRandom(null));
 		System.out.println(timeRandom(null));
-	}
+	}*/
 }

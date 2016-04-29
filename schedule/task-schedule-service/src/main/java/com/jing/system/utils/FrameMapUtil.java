@@ -8,14 +8,16 @@ import java.util.Map;
  * Map工具类
  * @author  yuejing
  * @email   yuejing0129@163.com 
- * @net		www.suyunyou.com
  * @date    2014年12月25日 上午10:42:27 
  * @version 1.0.0
  */
 @SuppressWarnings("rawtypes")
-public class MapUtil {
+public class FrameMapUtil {
 
 	public static String getString(Map map, String key) {
+		if(map == null) {
+			return null;
+		}
 		Object value = map.get(key);
 		if(value == null) {
 			return null;
@@ -23,24 +25,66 @@ public class MapUtil {
 		return value.toString();
 	}
 	
-	public static Integer getInt(Map map, String key) {
+	public static Integer getInteger(Map map, String key) {
+		if(map == null) {
+			return null;
+		}
 		Object value = map.get(key);
-		if(value == null) {
+		if(value == null || "".equals(value.toString())) {
 			return null;
 		}
 		return Integer.valueOf(value.toString());
 	}
 	
 	public static Long getLong(Map map, String key) {
+		if(map == null) {
+			return null;
+		}
 		Object value = map.get(key);
-		if(value == null) {
+		if(value == null || "".equals(value.toString())) {
 			return null;
 		}
 		return Long.valueOf(value.toString());
 	}
 	
+	public static Float getFloat(Map map, String key) {
+		if(map == null) {
+			return null;
+		}
+		Object value = map.get(key);
+		if(value == null || "".equals(value.toString())) {
+			return null;
+		}
+		return Float.valueOf(value.toString());
+	}
+	
+	public static Double getDouble(Map map, String key) {
+		if(map == null) {
+			return null;
+		}
+		Object value = map.get(key);
+		if(value == null || "".equals(value.toString())) {
+			return null;
+		}
+		return Double.valueOf(value.toString());
+	}
+	
+	public static Date getDate(Map map, String key, String fmt) {
+		if(map == null) {
+			return null;
+		}
+		Object value = map.get(key);
+		if(value == null || "".equals(value.toString())) {
+			return null;
+		}
+		return FrameTimeUtil.parseDate(value.toString(), fmt);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static List<String> getListString(Map map, String key) {
+		if(map == null) {
+			return null;
+		}
 		Object value = map.get(key);
 		if(value == null) {
 			return null;
@@ -50,6 +94,9 @@ public class MapUtil {
 
 	@SuppressWarnings("unchecked")
 	public static List<Map> getListMap(Map map, String key) {
+		if(map == null) {
+			return null;
+		}
 		Object value = map.get(key);
 		if(value == null) {
 			return null;
@@ -58,18 +105,13 @@ public class MapUtil {
 	}
 	
 	public static Map getMap(Map map, String key) {
+		if(map == null) {
+			return null;
+		}
 		Object value = map.get(key);
 		if(value == null) {
 			return null;
 		}
 		return (Map) value;
-	}
-	
-	public static Date getDate(Map map, String key, String fmt) {
-		Object value = map.get(key);
-		if(value == null) {
-			return null;
-		}
-		return DateUtil.stringToDate(value.toString(), fmt);
 	}
 }

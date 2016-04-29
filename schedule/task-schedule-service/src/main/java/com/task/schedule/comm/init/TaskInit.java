@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
-import com.jing.system.utils.DateUtil;
 import com.jing.system.utils.FrameSpringBeanUtil;
+import com.jing.system.utils.FrameTimeUtil;
 import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.constants.DictCons;
 import com.task.schedule.core.exec.TaskManager;
@@ -36,7 +36,7 @@ public class TaskInit extends HttpServlet {
 		Constant.webroot = config.getServletContext().getContextPath();
 		config.getServletContext().setAttribute("webroot", Constant.webroot);
 		//版本号为年月日[如: 20130126]
-		String version = String.format("?version=%s", DateUtil.dateToString(DateUtil.getTime(), DateUtil.FMT_YYYYMMDDHH));
+		String version = String.format("?version=%s", FrameTimeUtil.parseString(FrameTimeUtil.getTime(), FrameTimeUtil.FMT_YYYYMMDDHH));
 		config.getServletContext().setAttribute("version", version);
 		
 		//初始化字典信息

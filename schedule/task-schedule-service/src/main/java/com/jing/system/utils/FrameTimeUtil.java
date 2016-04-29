@@ -14,19 +14,19 @@ import java.util.Date;
  */
 public class FrameTimeUtil {
 	/** 默认的格式: yyyy-MM-dd HH:mm:ss */
-	public static String FMT_DEFAULT = "yyyy-MM-dd HH:mm:ss";
+	public static final String FMT_DEFAULT = "yyyy-MM-dd HH:mm:ss";
 	/** 格式: yyyyMMddHHmmss */
-	public static String FMT_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
+	public static final String FMT_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
 	/** 格式: yyyyMMddHH */
-	public static String FMT_YYYYMMDDHH = "yyyyMMddHH";
+	public static final String FMT_YYYYMMDDHH = "yyyyMMddHH";
 	/** 格式: yyyyMMdd */
-	public static String FMT_YYYYMMDD = "yyyyMMdd";
+	public static final String FMT_YYYYMMDD = "yyyyMMdd";
 	/** 格式: yyyy */
-	public static String FMT_YYYY = "yyyy";
+	public static final String FMT_YYYY = "yyyy";
 	/** 格式: yyyy-MM-dd */
-	public static String FMT_YYYY_MM_DD = "yyyy-MM-dd";
+	public static final String FMT_YYYY_MM_DD = "yyyy-MM-dd";
 	/** 格式: yyyy-MM */
-	public static String FMT_YYYY_MM = "yyyy-MM";
+	public static final String FMT_YYYY_MM = "yyyy-MM";
 	/** 格式: yyyy-MM-dd HH */
 	public static final String FMT_YYYY_MM_DD_HH = "yyyy-MM-dd HH";
 	/** 格式: yyyy-MM-dd HH:mm */

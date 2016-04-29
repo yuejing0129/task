@@ -50,12 +50,6 @@ public class Constant {
         return serviceCode; 
 	}
 	
-	/*public static void main(String[] args) {
-		int num  = (int) (Math.random() * 100);
-		System.out.println(num);
-		System.out.println(serviceCode());
-	}*/
-	
 	/**
 	 * 重置服务编码为UUID
 	 */

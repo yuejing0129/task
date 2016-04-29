@@ -27,7 +27,7 @@ public class FrameMd5Util {
 	}
 
 	private String byteArrayToHexString(byte b[]) {
-		StringBuffer resultSb = new StringBuffer();
+		StringBuilder resultSb = new StringBuilder();
 		for (int i = 0; i < b.length; i++)
 			resultSb.append(byteToHexString(b[i]));
 
@@ -66,11 +66,11 @@ public class FrameMd5Util {
 		return resultString.toLowerCase();
 	}
 
-	public static void main(String args[]) {
+	/*public static void main(String args[]) {
 		String str1 = "admin";
 		String str2 = getInstance().encodePassword(str1, "admin");
 		System.out.println((new StringBuilder("明文:")).append(str1).toString());
 		System.out.println((new StringBuilder("密文:")).append(str2).toString());
-	}
+	}*/
 
 }

@@ -9,12 +9,12 @@ import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.jing.system.utils.DateUtil;
 import com.jing.system.utils.FrameHttpUtil;
+import com.jing.system.utils.FrameJsonUtil;
+import com.jing.system.utils.FrameMapUtil;
 import com.jing.system.utils.FrameSpringBeanUtil;
 import com.jing.system.utils.FrameStringUtil;
-import com.jing.system.utils.FrameJsonUtil;
-import com.jing.system.utils.MapUtil;
+import com.jing.system.utils.FrameTimeUtil;
 import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.comm.enums.Config;
 import com.task.schedule.comm.enums.JobLogStatus;
@@ -50,7 +50,7 @@ public class TaskJobTask extends AbstractTask {
 	@Override
 	public void execute(JobExecutionContext context) {
 		//TaskJobService taskJobService = SpringUtil.getBean(TaskJobService.class);
-		final String time = DateUtil.getStrTime();
+		final String time = FrameTimeUtil.getStrTime();
 		String id = (String) context.getJobDetail().getJobDataMap().get("taskId");
 		final TaskJob taskJob = taskJobService.get(Integer.valueOf(id));
 		final TaskProject taskProject = taskProjectService.get(taskJob.getProjectid());
@@ -111,10 +111,10 @@ public class TaskJobTask extends AbstractTask {
 							//根据返回结果发邮件
 							try {
 								Map<String, Object> map = FrameJsonUtil.toMap(content);
-								String isSendMail = MapUtil.getString(map, "isSendMail");
+								String isSendMail = FrameMapUtil.getString(map, "isSendMail");
 								if("true".equals(isSendMail)) {
-									String mailTitle = MapUtil.getString(map, "mailTitle");
-									String mailContent = MapUtil.getString(map, "mailContent");
+									String mailTitle = FrameMapUtil.getString(map, "mailTitle");
+									String mailContent = FrameMapUtil.getString(map, "mailContent");
 
 									SysConfigService configService = FrameSpringBeanUtil.getBean(SysConfigService.class);
 									SendMailUtil.sendMail(configService.getValue(Config.MAIL_SMTP), configService.getValue(Config.MAIL_FROM), configService.getValue(Config.MAIL_USERNAME), configService.getValue(Config.MAIL_PASSWORD),
@@ -129,7 +129,7 @@ public class TaskJobTask extends AbstractTask {
 				}
 				
 				link = link + " | params=" + postParams.toString();
-				taskJobLogService.save(new TaskJobLog(taskJob.getId(), DateUtil.stringToDate(time), status, link, content));
+				taskJobLogService.save(new TaskJobLog(taskJob.getId(), FrameTimeUtil.parseDate(time), status, link, content));
 			}
 		}).start();
 	}

@@ -6,8 +6,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.jing.system.utils.DateUtil;
 import com.jing.system.utils.FrameStringUtil;
+import com.jing.system.utils.FrameTimeUtil;
 
 /**
  * 显示文本
@@ -33,9 +33,9 @@ public class DateTag extends TagSupport {
 			}
 			String string = null;
 			if(FrameStringUtil.isEmpty(pattern)) {
-				string = DateUtil.getSimpleTime(value);
+				string = FrameTimeUtil.getSimpleTime(value);
 			} else {
-				string = DateUtil.dateToString(value, pattern);
+				string = FrameTimeUtil.parseString(value, pattern);
 			}
 			out.print(string);
 		} catch(Exception e) {

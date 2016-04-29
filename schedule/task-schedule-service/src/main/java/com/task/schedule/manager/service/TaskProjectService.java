@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jing.system.model.MyPage;
-import com.jing.system.utils.DateUtil;
+import com.jing.system.utils.FrameTimeUtil;
 import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.manager.dao.TaskProjectDao;
 import com.task.schedule.manager.pojo.TaskProject;
@@ -31,7 +31,7 @@ public class TaskProjectService {
 	 * @param taskProject
 	 */
 	public void save(TaskProject taskProject) {
-		taskProject.setAddtime(DateUtil.getTime());
+		taskProject.setAddtime(FrameTimeUtil.getTime());
 		if(taskProject.getIsrecemail() == null) {
 			taskProject.setIsrecemail(Boolean.FALSE.getCode());
 		}
