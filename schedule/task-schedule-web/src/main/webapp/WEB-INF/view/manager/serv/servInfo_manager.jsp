@@ -24,15 +24,15 @@
 						<div class="col-sm-6">
 							<!-- <span class="enter-panel">
 								<input type="text" style="width: 100px;display: inline;" class="form-control input-sm" id="projectName" placeholder="项目名称">
-					  			<button type="button" class="btn btn-sm btn-success enter-fn" onclick="info.loadInfo(1)">查询</button>
+					  			<button type="button" class="btn btn-sm btn-default enter-fn" onclick="info.loadInfo(1)">查询</button>
 					  		</span> -->
-						  	<div class="btn-group">
-						  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
-						  	</div>
 						</div>
 						<div class="col-sm-6 text-right">
 						  	<div class="btn-group">
 							  	<a href="${webroot}/servInfo/f_view/chart.shtml" class="btn btn-success btn-sm">服务图表</a>
+						  	</div>
+						  	<div class="btn-group">
+						  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
 						  	</div>
 						</div>
 					</div>

@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.jing.system.model.KvEntity;
 
@@ -31,7 +32,7 @@ public enum Boolean {
 	}
 	
 	static {
-		EnumSet<Boolean> set = EnumSet.allOf(Boolean.class);
+		Set<Boolean> set = EnumSet.allOf(Boolean.class);
 		for(Boolean e : set){
 			map.put(e.getCode(), e.getName());
 			list.add(new KvEntity(e.getCode().toString(), e.getName()));

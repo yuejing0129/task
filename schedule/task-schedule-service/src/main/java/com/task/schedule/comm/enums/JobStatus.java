@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.jing.system.model.KvEntity;
 
@@ -37,7 +38,7 @@ public enum JobStatus {
 	}
 	
 	static {
-		EnumSet<JobStatus> set = EnumSet.allOf(JobStatus.class);
+		Set<JobStatus> set = EnumSet.allOf(JobStatus.class);
 		for(JobStatus e : set){
 			map.put(e.getCode(), e.getName());
 			if(e.getCode().intValue() == NORMAL.getCode().intValue()

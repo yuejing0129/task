@@ -22,7 +22,7 @@ public class SelectTag extends TagSupport {
 
 	private static final long serialVersionUID = 7293280902947614510L;
 
-	private static final Logger logger = Logger.getLogger(SelectTag.class);
+	private static final Logger LOGGER = Logger.getLogger(SelectTag.class);
 
 	private String id;
 	private String name;
@@ -36,11 +36,11 @@ public class SelectTag extends TagSupport {
 	private String exp;
 
 	@Override
-	public int doStartTag() throws JspException {
+	public int doStartTag() {
 		try {
 			JspWriter out = this.pageContext.getOut();
 			if(items == null && FrameStringUtil.isEmpty(dictcode)) {
-				logger.error("items is null");
+				LOGGER.error("items is null");
 				return SKIP_BODY;
 			}
 			StringBuilder result = new StringBuilder();
@@ -62,7 +62,7 @@ public class SelectTag extends TagSupport {
 			result.append("</select>");
 			out.println(result.toString());
 		} catch(Exception e) {
-			throw new JspException(e.getMessage());
+			LOGGER.error("输出异常: " + e.getMessage());
 		}
 		return SKIP_BODY;
 	}
@@ -87,19 +87,19 @@ public class SelectTag extends TagSupport {
 	}
 
 	public String getId() {
-		return (id == null ? "" : id);
+		return id == null ? "" : id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
-		return (name == null ? "" : name);
+		return name == null ? "" : name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
 	public String getCssCls() {
-		return (cssCls == null ? "" : cssCls);
+		return cssCls == null ? "" : cssCls;
 	}
 	public void setCssCls(String cssCls) {
 		this.cssCls = cssCls;
@@ -135,7 +135,7 @@ public class SelectTag extends TagSupport {
 		this.dictcode = dictcode;
 	}
 	public String getExp() {
-		return (exp == null ? "" : exp);
+		return exp == null ? "" : exp;
 	}
 	public void setExp(String exp) {
 		this.exp = exp;

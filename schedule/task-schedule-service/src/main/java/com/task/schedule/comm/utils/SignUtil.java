@@ -5,10 +5,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.jing.system.utils.FrameJsonUtil;
 import com.jing.system.utils.FrameMd5Util;
 import com.jing.system.utils.FrameStringUtil;
-import com.jing.system.utils.FrameJsonUtil;
-import com.task.schedule.comm.enums.ProjectSign;
 import com.task.schedule.manager.pojo.TaskProject;
 
 /**
@@ -50,7 +49,7 @@ public class SignUtil {
 		return params;
 	}
 
-	public static String sign(String link, TaskProject project) {
+	/*public static String sign(String link, TaskProject project) {
 		if(FrameStringUtil.isEmpty(project.getSignstring())
 				|| ProjectSign.NORMAL.getCode().equals(project.getSign())) {
 			return link;
@@ -80,10 +79,6 @@ public class SignUtil {
 			link += signParam + "=";
 		}
 		link += FrameMd5Util.getInstance().encodePassword(signString).toLowerCase();
-		/*if(ProjectSign.MD5_CTT.getCode().equals(project.getSign())) {
-			//md5(渠道+时间戳+token)
-			link += MD5Util.getInstance().getEncString(signString);
-		}*/
 		return link;
-	}
+	}*/
 }

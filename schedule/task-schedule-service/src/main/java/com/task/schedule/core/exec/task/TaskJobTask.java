@@ -1,6 +1,8 @@
 package com.task.schedule.core.exec.task;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
@@ -56,22 +58,18 @@ public class TaskJobTask extends AbstractTask {
 			@Override
 			public void run() {
 				//增加参数校验规则
-				//String link = SignUtil.sign(taskJob.getLink(), taskProject);
 				String link = taskJob.getLink();
-				StringBuffer postParams = new StringBuffer();
+				StringBuilder postParams = new StringBuilder();
 				Map<String, String> params = SignUtil.signParams(taskProject);
-				String content = FrameHttpUtil.post(link, params);
-				
-				
-				/*TaskHttpUtil taskHttpUtil = new TaskHttpUtil(link);
-				Map<String, String> params = SignUtil.signParams(taskProject);//JsonUtil.toMap(taskProject.getSignstring());
 				Iterator<Entry<String, String>> entryKeyIterator = params.entrySet().iterator();
 				while (entryKeyIterator.hasNext()) {
 					Entry<String, String> e = entryKeyIterator.next();
-					taskHttpUtil.addParam(e.getKey(), e.getValue());
-					postParams.append(e.getKey()).append(":").append(e.getValue()).append(",");
+					postParams.append("&").append(e.getKey()).append("=").append(e.getValue());
 				}
-				String content = taskHttpUtil.post();*/
+				if(postParams.length() > 0) {
+					postParams.setCharAt(postParams.length() - 1, ' ');
+				}
+				String content = FrameHttpUtil.post(link, params);
 				if(LOGGER.isInfoEnabled()) {
 					LOGGER.info("\n" + time + "-调用任务 ID【" + taskJob.getId() + "】名称【" + taskJob.getName() + "】\n请求地址: " + link);
 				}
@@ -92,7 +90,7 @@ public class TaskJobTask extends AbstractTask {
 							//发送失败邮件
 							StringBuffer title = new StringBuffer();
 							title.append(time).append("-调用任务【").append(taskProject.getName()).append("-").append(taskJob.getName()).append("】失败!!!");
-							StringBuffer mailContent = new StringBuffer();
+							StringBuilder mailContent = new StringBuilder();
 							mailContent.append("项目名称：").append(taskProject.getName()).append("<br/>");
 							mailContent.append("任务名称：").append(taskJob.getName()).append("<br/>");
 							mailContent.append("任务描述：").append(taskJob.getRemark()).append("<br/>");
@@ -130,7 +128,7 @@ public class TaskJobTask extends AbstractTask {
 					}
 				}
 				
-				link = link + "<br/>请求参数：" + postParams.toString();
+				link = link + " | params=" + postParams.toString();
 				taskJobLogService.save(new TaskJobLog(taskJob.getId(), DateUtil.stringToDate(time), status, link, content));
 			}
 		}).start();

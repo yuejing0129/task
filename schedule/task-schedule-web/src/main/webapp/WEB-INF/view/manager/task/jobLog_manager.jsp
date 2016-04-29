@@ -22,14 +22,14 @@
 						<div class="col-sm-6">
 							<span class="enter-panel">
 								<my:select id="jobLogStatus" name="jobLogStatus" headerKey="" headerValue="请选择状态" dictcode="job_log_status" cssCls="form-control input-sm" exp="style=\"width: 120px;display: inline;\"" />
-					  			<button type="button" class="btn btn-sm btn-success enter-fn" onclick="info.loadInfo(1)">查询</button>
+					  			<button type="button" class="btn btn-sm btn-default enter-fn" onclick="info.loadInfo(1)">查询</button>
 					  		</span>
-						  	<div class="btn-group">
-						  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
-						  		<a href="${webroot}/taskJob/f_view/manager.shtml?projectid=${param.projectid}" class="btn btn-default btn-sm">返回</a>
-						  	</div>
 						</div>
 						<div class="col-sm-6 text-right">
+						  	<div class="btn-group">
+						  		<a href="${webroot}/taskJob/f_view/manager.shtml?projectid=${param.projectid}" class="btn btn-default btn-sm">返回</a>
+						  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
+						  	</div>
 						</div>
 					</div>
 				  	<hr/>
@@ -85,15 +85,16 @@ var info = {
 				}
 			});
 		},
-		//编辑
+		//查看
 		look : function(id) {
-			dialog({
+			/* dialog({
 				title: '查看调度信息',
-				url: webroot + '/taskJobLog/f_view/look.shtml?id='+(id?id:''),
+				url: webroot + '/taskJobLog/f_view/look.shtml?id='+id?id:'',
 				type: 'iframe',
-				width: 550,
+				width: 600,
 				height: 365
-			});
+			}); */
+			location = webroot + '/taskJobLog/f_view/look.shtml?id='+(id?id:'');
 		}
 };
 $(function() {

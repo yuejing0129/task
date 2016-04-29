@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.jing.system.model.KvEntity;
 
@@ -31,7 +32,7 @@ public enum NumType {
 	}
 	
 	static {
-		EnumSet<NumType> set = EnumSet.allOf(NumType.class);
+		Set<NumType> set = EnumSet.allOf(NumType.class);
 		for(NumType e : set){
 			map.put(e.getCode(), e.getName());
 			list.add(new KvEntity(e.getCode().toString(), e.getName()));

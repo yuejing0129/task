@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jing.system.model.MyPage;
 import com.task.schedule.comm.controller.BaseController;
+import com.task.schedule.manager.pojo.TaskJob;
 import com.task.schedule.manager.pojo.TaskJobLog;
 import com.task.schedule.manager.service.TaskJobLogService;
+import com.task.schedule.manager.service.TaskJobService;
 
 /**
  * task_job_log的Controller
@@ -27,6 +29,8 @@ public class TaskJobLogController extends BaseController {
 
 	@Autowired
 	private TaskJobLogService taskJobLogService;
+	@Autowired
+	private TaskJobService taskJobService;
 	
 	/**
 	 * 跳转到管理页
@@ -62,7 +66,10 @@ public class TaskJobLogController extends BaseController {
 	@RequestMapping(value = "/taskJobLog/f_view/look")
 	public String look(HttpServletRequest request, ModelMap modelMap, Integer id) {
 		if(id != null) {
-			modelMap.put("taskJobLog", taskJobLogService.get(id));
+			TaskJobLog taskJobLog = taskJobLogService.get(id);
+			TaskJob taskJob = taskJobService.get(taskJobLog.getJobid());
+			modelMap.put("taskJobLog", taskJobLog);
+			modelMap.put("taskJob", taskJob);
 		}
 		return "manager/task/jobLog_look";
 	}

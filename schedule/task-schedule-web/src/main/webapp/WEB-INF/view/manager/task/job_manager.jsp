@@ -22,21 +22,21 @@
 						<div class="col-sm-8">
 							<span class="enter-panel">
 								<input type="text" style="width: 100px;display: inline;" class="form-control input-sm" id="jobName" placeholder="任务名称">
-								<select id="servid" style="width: 120px;display: inline;"  class="form-control">
+								<select id="servid" style="width: 120px;display: inline;"  class="form-control input-sm">
 									<option value="">请选择服务</option>
 									<c:forEach items="${servInfos}" var="info"><option value="${info.servid}">${info.servid}</option></c:forEach>
 								</select>
-						  		<button type="button" class="btn btn-sm btn-success enter-fn" onclick="info.loadInfo(1)">查询</button>
+						  		<button type="button" class="btn btn-sm btn-default enter-fn" onclick="info.loadInfo(1)">查询</button>
 					  		</span>
-						  	<div class="btn-group">
-						  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
-						  		<a href="${webroot}/taskProject/f_view/manager.shtml" class="btn btn-default btn-sm">返回</a>
-						  	</div>
 						</div>
 						<div class="col-sm-4 text-right">
 						  	<a class="btn btn-link btn-sm" href="${webroot}/help.jsp?id=helpJob" target="_blank">帮助</a>
 						  	<div class="btn-group">
 							  	<a href="javascript:;" class="btn btn-success btn-sm" onclick="info.edit()">新增任务</a>
+						  	</div>
+						  	<div class="btn-group">
+						  		<a href="${webroot}/taskProject/f_view/manager.shtml" class="btn btn-default btn-sm">返回</a>
+						  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
 						  	</div>
 						</div>
 					</div>

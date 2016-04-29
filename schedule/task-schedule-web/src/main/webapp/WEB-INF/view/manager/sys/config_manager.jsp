@@ -18,10 +18,16 @@
 			<div class="panel panel-success">
 				<div class="panel-heading">系统管理 / <b>系统配置</b></div>
 				<div class="panel-body">
-				  	<!-- <div class="btn-group">
-				  		<a href="javascript:;" class="btn btn-success btn-sm" onclick="info.edit()">新增用户</a>
-				  	</div>
-				  	<hr/> -->
+				  	<div class="row">
+						<div class="col-sm-6">
+						</div>
+						<div class="col-sm-6 text-right">
+						  	<div class="btn-group">
+						  		<a href="javascript:location.reload()" class="btn btn-default btn-sm">刷新</a>
+						  	</div>
+						</div>
+					</div>
+				  	<hr/>
 					<div id="infoPanel"></div>
 					<div id="infoPage"></div>
 				</div>
