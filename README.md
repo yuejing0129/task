@@ -1,5 +1,5 @@
 ### task介绍和使用
-http://http://git.oschina.net/yuejing/task/ 下的文档：[task介绍和使用.docx]
+http://git.oschina.net/yuejing/task/ 下的文档：[task介绍和使用.docx]
 
 ### task是什么？
 task是一个任务调度统一管理平台。

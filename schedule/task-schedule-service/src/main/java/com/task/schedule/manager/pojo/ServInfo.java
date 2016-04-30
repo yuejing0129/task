@@ -37,6 +37,8 @@ public class ServInfo extends BaseEntity implements Serializable {
 	private String statusname;
 	//任务数目
 	private Integer jobnum;
+	//运行分钟
+	private Long runminute;
 	
 	public String getServid() {
 		return servid;
@@ -87,5 +89,11 @@ public class ServInfo extends BaseEntity implements Serializable {
 	}
 	public void setJobnum(Integer jobnum) {
 		this.jobnum = jobnum;
+	}
+	public Long getRunminute() {
+		return runminute;
+	}
+	public void setRunminute(Long runminute) {
+		this.runminute = runminute;
 	}
 }

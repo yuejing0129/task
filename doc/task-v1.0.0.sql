@@ -110,7 +110,7 @@ alter table serv_eq comment '服务均衡表';
 
 
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
- VALUES (1,'task.main.cron','主线程的时间表达式','0/10 * * * * ?',default,default,default);
+ VALUES (1,'task.main.cron','主线程的时间表达式','0/8 * * * * ?',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
  VALUES (2,'mail.smtp','发送邮箱的smtp','smtp.163.com',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
@@ -124,9 +124,9 @@ INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
  VALUES (7,'clean.cron','清空调度记录表达式','0 0 23 * * ?',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
- VALUES (8,'serv.save.day','已停止的服务保存天数','7',default,default,default);
+ VALUES (8,'serv.save.day','已停止的服务保存天数','15',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
- VALUES (9,'lock.destroy.time','消耗服务和任务的时间[单位:s]','20',default,default,default);
+ VALUES (9,'lock.destroy.time','消耗服务和任务的时间[单位:s]','15',default,default,default);
 INSERT INTO `sys_config`(`id`,`code`,`name`,`value`,`remark`,`exp1`,`exp2`)
  VALUES (10,'leader.cron','Leader的时间表达式','0/5 * * * * ?',default,default,default);
 

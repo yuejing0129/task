@@ -61,9 +61,9 @@ var info = {
 				infoPage.beginString = ['<table class="table table-striped table-hover"><thead><tr class="info">',
 				                         '<th>编号</th>',
 				                         '<th>任务名称</th>',
-				                         '<th>服务编号</th>',
-				                         '<th width="120">状态</th>',
-				                         '<th width="180">操作</th>',
+				                         '<th width="130">服务编号</th>',
+				                         '<th width="80">状态</th>',
+				                         '<th width="230">操作</th>',
 				                         '</tr></thead><tbody>'].join('');
 				infoPage.endString = '</tbody></table>';
 			}
@@ -80,7 +80,7 @@ var info = {
 				success : function(json){
 					if(json.result === 'success') {
 						function getResult(obj) {
-							var _operate = ['<a class="btn btn-link btn-xs" href="',webroot,'/taskJobLog/f_view/manager.shtml?projectid=${param.projectid}&jobid=',obj.id,'">调度日志</a>'];
+							var _operate = [];
 							var _statusname = '<span class="label label-' + (obj.status === 0 ? 'success':'danger') + '">' + obj.statusname + '</span>';
 							if(obj.status === 0 || obj.status === <%=com.task.schedule.comm.enums.JobStatus.WAIT.getCode()%>) {
 								_operate.push(' &nbsp; <a href="javascript:info.status(',obj.id,',<%=com.task.schedule.comm.enums.JobStatus.STOP.getCode()%>)" class="glyphicon glyphicon-pause text-danger" title="暂停"></a>');
@@ -88,7 +88,9 @@ var info = {
 								_operate.push(' &nbsp; <a href="javascript:info.status(',obj.id,',<%=com.task.schedule.comm.enums.JobStatus.NORMAL.getCode()%>)" class="glyphicon glyphicon-play text-success" title="启动"></a>');
 							}
 							_operate.push(' &nbsp; <a class="glyphicon glyphicon-edit text-success" href="javascript:info.edit(',obj.id,')" title="修改"></a>',
-							    	' &nbsp; <a class="glyphicon glyphicon-remove text-success" href="javascript:info.del(',obj.id,')" title="删除"></a>');
+							    	' &nbsp; <a class="glyphicon glyphicon-remove text-success" href="javascript:info.del(',obj.id,')" title="删除"></a>',
+							    	' &nbsp; <a href="javascript:info.execJob(',obj.id,')">立即执行</a>',
+							    	' &nbsp; <a href="',webroot,'/taskJobLog/f_view/manager.shtml?projectid=${param.projectid}&jobid=',obj.id,'">调度日志</a>');
 							return ['<tr>',
 							    	'<td>',obj.id,'</td>',
 							    	'<td>',obj.name,'</td>',
@@ -113,6 +115,24 @@ var info = {
 					success : function(json) {
 						if (json.result === 'success') {
 							message(_statusname + '成功');
+							info.loadInfo(1);
+						}
+						else if (json.result === 'error')
+							message(JUtil.msg.ajaxErr);
+						else
+							message(json.msg);
+					}
+				});
+			}
+		},
+		execJob : function(id) {
+			if(confirm('您确定要立即执行该任务吗?')) {
+				JUtil.ajax({
+					url : '${webroot}/taskJob/f_json/execJob.shtml',
+					data : { id: id },
+					success : function(json) {
+						if (json.result === 'success') {
+							message('执行成功');
 							info.loadInfo(1);
 						}
 						else if (json.result === 'error')

@@ -58,8 +58,8 @@ var info = {
 				                         '<th>服务编号</th>',
 				                         '<th>ip地址</th>',
 				                         '<th>状态</th>',
-				                         '<th>添加时间</th>',
 				                         '<th>更新时间</th>',
+				                         '<th>运行时间</th>',
 				                         '</tr></thead><tbody>'].join('');
 				infoPage.endString = '</tbody></table>';
 			}
@@ -82,12 +82,30 @@ var info = {
 							if(obj.status=='<%=ServInfoStatus.NORMAL.getCode()%>' && obj.isleader == '<%=Boolean.TRUE.getCode()%>') {
 								_leader.push(' <span class="label label-success">Leader</span>');
 							}
+							var _runtime = obj.runminute;
+							if(_runtime) {
+								var _daynum = parseInt( obj.runminute / (60 * 24) );
+								if(_daynum > 0) {
+									_runtime = '已运行 ' + _daynum + '天';
+								} else {
+									var _hournum = parseInt( obj.runminute / 60 );
+									if(_hournum > 0) {
+										_runtime = '已运行 ' + _hournum + '小时';
+									} else {
+										_runtime = '已运行 ' + _runtime + '分钟';
+									}
+								}
+								_runtime = '<span class="text-success">' + _runtime + '</span>';
+							} else {
+								_runtime = obj.statusname;
+							}
+							if(obj)
 							return ['<tr>',
 							    	'<td>',obj.servid,'</td>',
 							    	'<td>',obj.ip,_leader.join(''),'</td>',
 							    	'<td><span class="label ',_cls,'">',obj.statusname,'</span></td>',
-							    	'<td>',obj.addtime,'</td>',
 							    	'<td>',obj.updatetime,'</td>',
+							    	'<td>',_runtime,'</td>',
 								'</tr>'].join('');
 						}
 						infoPage.operate(json, { resultFn:getResult, dataNull:'没有记录噢' });

@@ -7,12 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jing.system.model.MyPage;
-import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.enums.Config;
-import com.task.schedule.core.exec.JobService;
-import com.task.schedule.core.exec.task.MainTask;
 import com.task.schedule.core.exec.task.CleanTask;
-import com.task.schedule.core.listener.MainListener;
+import com.task.schedule.core.exec.task.MainTask;
 import com.task.schedule.manager.dao.SysConfigDao;
 import com.task.schedule.manager.pojo.SysConfig;
 
@@ -27,8 +24,6 @@ public class SysConfigService {
 
 	@Autowired
 	private SysConfigDao sysConfigDao;
-	@Autowired
-	private JobService jobService;
 	@Autowired
 	private MainTask mainTask;
 	@Autowired
@@ -49,13 +44,14 @@ public class SysConfigService {
 	 */
 	public void update(SysConfig sysConfig) throws SchedulerException {
 		sysConfigDao.update(sysConfig);
-		if(Config.TASK_MAIN_CRON.getCode().equals(sysConfig.getCode())) {
+		//在MainTask中会自动识别是否有变更任务表达式
+		/*if(Config.TASK_MAIN_CRON.getCode().equals(sysConfig.getCode())) {
 			//为修改主线程的配置
 			jobService.addOrUpdateJob(Constant.TASK_ID_MAIN, sysConfig.getValue(), mainTask, new MainListener(Constant.TASK_ID_MAIN));
 		} else if(Config.CLEAN_CRON.getCode().equals(sysConfig.getCode())) {
 			//修改清除日志任务的配置
-			jobService.addOrUpdateJob(Constant.TASK_ID_TASK_CLEAN, sysConfig.getValue(), taskJobLogCleanTask, new MainListener(Constant.TASK_ID_TASK_CLEAN));
-		}
+			jobService.addOrUpdateJob(Constant.TASK_ID_CLEAN, sysConfig.getValue(), taskJobLogCleanTask, new MainListener(Constant.TASK_ID_CLEAN));
+		}*/
 	}
 
 	/**

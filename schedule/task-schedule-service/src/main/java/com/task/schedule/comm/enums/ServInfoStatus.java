@@ -21,7 +21,7 @@ public enum ServInfoStatus {
 	
 	public static final String KEY = "serv_info_status";
 	
-	private Integer code;
+	private int code;
 	private String name;
 	private static List<KvEntity> list = new ArrayList<KvEntity>();
 	private static Map<Integer, String> map = new HashMap<Integer, String>();
@@ -35,7 +35,7 @@ public enum ServInfoStatus {
 		Set<ServInfoStatus> set = EnumSet.allOf(ServInfoStatus.class);
 		for(ServInfoStatus e : set){
 			map.put(e.getCode(), e.getName());
-			list.add(new KvEntity(e.getCode().toString(), e.getName()));
+			list.add(new KvEntity(String.valueOf(e.getCode()), e.getName()));
 		}
 	}
 
@@ -56,7 +56,7 @@ public enum ServInfoStatus {
 		return list;
 	}
 
-	public Integer getCode() {
+	public int getCode() {
 		return code;
 	}
 	public String getName() {

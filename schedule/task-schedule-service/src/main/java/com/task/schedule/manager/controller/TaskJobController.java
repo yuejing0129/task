@@ -147,4 +147,25 @@ public class TaskJobController extends BaseController {
 		modelMap.put(RESULT, result);
 		return modelMap;
 	}
+	
+
+	/**
+	 * 执行job
+	 * @return
+	 */
+	@RequestMapping(value = "/taskJob/f_json/execJob")
+	@ResponseBody
+	public ModelMap execJob(HttpServletRequest request, Integer id) {
+		String result = null;
+		try {
+			taskJobService.execJob(id);
+			result = SUCCESS;
+		} catch (Exception e) {
+			logger.error("执行job异常: " + e.getMessage(), e);
+			result = ERROR;
+		}
+		ModelMap modelMap = new ModelMap();
+		modelMap.put(RESULT, result);
+		return modelMap;
+	}
 }

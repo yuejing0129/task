@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.task.schedule.comm.constants.Constant;
+import com.task.schedule.comm.enums.Config;
 import com.task.schedule.comm.enums.JobStatus;
 import com.task.schedule.core.base.AbstractTask;
 import com.task.schedule.core.data.TaskJobData;
@@ -129,5 +130,43 @@ public class MainTask extends AbstractTask {
 		//将过期的服务状态变更为停止
 		servInfoService.updateDestroy();
 		//=========================== 发送任务心跳（间隔10s） end ====================
+
+		//=========================== 系统配置的定时任务规则 begin ====================
+
+		String mainCron = configService.getValue(Config.TASK_MAIN_CRON);
+		if(!mainCron.equals(Constant.taskCronMap.get(Constant.TASK_ID_MAIN))) {
+			//表达式不一致
+			LOGGER.info("修改系统的定时任务-Main");
+			try {
+				jobService.updateJob(Constant.TASK_ID_MAIN, mainCron);
+				Constant.taskCronMap.put(Constant.TASK_ID_MAIN, mainCron);
+			} catch (SchedulerException e) {
+				LOGGER.error("修改系统的定时任务异常: " + e.getMessage(), e);
+			}
+		}
+		String leaderCron = configService.getValue(Config.LEADER_CRON);
+		if(!leaderCron.equals(Constant.taskCronMap.get(Constant.TASK_ID_LEADER))) {
+			//表达式不一致
+			LOGGER.info("修改系统的定时任务-Leader");
+			try {
+				jobService.updateJob(Constant.TASK_ID_LEADER, leaderCron);
+				Constant.taskCronMap.put(Constant.TASK_ID_LEADER, leaderCron);
+			} catch (SchedulerException e) {
+				LOGGER.error("修改系统的定时任务异常: " + e.getMessage(), e);
+			}
+		}
+		String cleanCron = configService.getValue(Config.CLEAN_CRON);
+		if(!cleanCron.equals(Constant.taskCronMap.get(Constant.TASK_ID_CLEAN))) {
+			//表达式不一致
+			LOGGER.info("修改系统的定时任务-Clean");
+			try {
+				jobService.updateJob(Constant.TASK_ID_CLEAN, cleanCron);
+				Constant.taskCronMap.put(Constant.TASK_ID_CLEAN, cleanCron);
+			} catch (SchedulerException e) {
+				LOGGER.error("修改系统的定时任务异常: " + e.getMessage(), e);
+			}
+		}
+		
+		//=========================== 系统配置的定时任务规则 end ====================
 	}
 }

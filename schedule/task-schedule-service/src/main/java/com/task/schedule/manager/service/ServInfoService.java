@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.jing.system.model.MyPage;
 import com.jing.system.utils.FrameAddressUtil;
+import com.jing.system.utils.FrameTimeUtil;
 import com.task.schedule.comm.constants.Constant;
 import com.task.schedule.comm.enums.Boolean;
 import com.task.schedule.comm.enums.Config;
@@ -77,6 +78,10 @@ public class ServInfoService {
 			rows = servInfoDao.findServInfo(servInfo);
 			for (ServInfo si : rows) {
 				si.setStatusname(ServInfoStatus.getText(si.getStatus()));
+				if(ServInfoStatus.NORMAL.getCode() == si.getStatus().intValue()) {
+					//设置运行时间
+					si.setRunminute(FrameTimeUtil.getDateDiff(si.getAddtime(), FrameTimeUtil.getTime(), 1));
+				}
 			}
 		}
 		MyPage<ServInfo> page = new MyPage<ServInfo>(servInfo.getPage(), servInfo.getSize(), total, rows);

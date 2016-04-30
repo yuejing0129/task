@@ -1,5 +1,8 @@
 package com.task.schedule.comm.constants;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jing.system.utils.FrameNoUtil;
 import com.jing.system.utils.FrameTimeUtil;
 
@@ -33,7 +36,10 @@ public class Constant {
 	/** Leader任务的ID */
 	public static final String TASK_ID_LEADER = "leader";
 	/** 清除任务日志的ID */
-	public static final String TASK_ID_TASK_CLEAN = "clean";
+	public static final String TASK_ID_CLEAN = "clean";
+	
+	/** 核心线程的任务表达式 */
+	public static Map<String, String> taskCronMap = new HashMap<String, String>();
 
 	/** 服务的唯一编码 */
 	private static String serviceCode = null;
