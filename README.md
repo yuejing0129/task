@@ -1,6 +1,6 @@
 ### task介绍和使用
-[task介绍和使用.docx](http://http://git.oschina.net/yuejing/task/blob/master/task%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BD%BF%E7%94%A8.docx)
-链接地址：http://http://git.oschina.net/yuejing/task/blob/master/task介绍和使用.docx
+http://http://git.oschina.net/yuejing/task/ 下的文档：[task介绍和使用.docx]
+
 ### task是什么？
 task是一个任务调度统一管理平台。
 目前主要是通过http来进行任务的调度，http支持签名算法。
