@@ -16,9 +16,28 @@ import javax.mail.internet.MimeMultipart;
 import org.apache.log4j.Logger;
 
 /**
- * 发送邮件Util
- * @author Administrator
- *
+ * 发送邮件<br>
+ * 示例：<br>
+ * public static void main(String[] args) {
+		// smtp服务器
+		String smtp = "smtp.163.com";
+		// 邮件显示名称
+		String from = "cactus_jing@163.com";
+		// 发件人真实的账户名
+		String username = "cactus_jing@163.com";
+		// 发件人密码
+		String password = "12345";
+		FrameMailUtil theMail = new FrameMailUtil(smtp, from, username, password);
+		String to = "503490146@qq.com";// 收件人的邮件地址，必须是真实地址
+		String copyto = "";// 抄送人邮件地址
+		String subject = "测试邮件";// 邮件标题
+		String content = "你好！";// 邮件内容
+		boolean bool = theMail.send(to, copyto, subject, content);
+		LOGGER.info(bool);
+	}
+ * @author yuejing
+ * @date 2016年4月30日 下午7:23:52
+ * @version V1.0.0
  */
 public class FrameMailUtil {
 	
@@ -60,6 +79,7 @@ public class FrameMailUtil {
 			//发信人
 			mimeMsg.setFrom(new InternetAddress(from));
 		} catch (Exception e) {
+			LOGGER.error("发送邮件异常: " + e.getMessage(), e);
 			return;
 		}
 	}
@@ -109,6 +129,7 @@ public class FrameMailUtil {
 			mimeMsg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 			return true;
 		} catch (Exception e) {
+			LOGGER.error("设置收件人异常: " + e.getMessage());
 			return false;
 		}
 	}
@@ -125,6 +146,7 @@ public class FrameMailUtil {
 			mimeMsg.setRecipients(Message.RecipientType.CC, (Address[]) InternetAddress.parse(copyto));
 			return true;
 		} catch (Exception e) {
+			LOGGER.error("设置抄送人异常: " + e.getMessage());
 			return false;
 		}
 	}
@@ -196,24 +218,6 @@ public class FrameMailUtil {
 			return false;
 		}
 		return true;
-	}
-
-	public static void main(String[] args) {
-		// smtp服务器
-		String smtp = "smtp.163.com";
-		// 邮件显示名称
-		String from = "cactus_jing@163.com";
-		// 发件人真实的账户名
-		String username = "cactus_jing@163.com";
-		// 发件人密码
-		String password = "12345";
-		FrameMailUtil theMail = new FrameMailUtil(smtp, from, username, password);
-		String to = "503490146@qq.com";// 收件人的邮件地址，必须是真实地址
-		String copyto = "";// 抄送人邮件地址
-		String subject = "测试邮件";// 邮件标题
-		String content = "你好！";// 邮件内容
-		boolean bool = theMail.send(to, copyto, subject, content);
-		LOGGER.info(bool);
 	}
 
 }

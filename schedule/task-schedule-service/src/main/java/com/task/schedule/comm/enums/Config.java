@@ -54,7 +54,7 @@ public enum Config {
 	 * @param code
 	 * @return
 	 */
-	public static String getText(Integer code) {
+	public static String getText(String code) {
 		return map.get(code);
 	}
 	

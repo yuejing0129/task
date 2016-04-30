@@ -14,6 +14,10 @@ import org.springframework.util.StringValueResolver;
 public class FrameSpringPropertiesUtils implements EmbeddedValueResolverAware {
 
 	private static StringValueResolver stringValueResolver;
+	
+	public FrameSpringPropertiesUtils() {
+		super();
+	}
 	 
     @Override
     public void setEmbeddedValueResolver(StringValueResolver resolver) {

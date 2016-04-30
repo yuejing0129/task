@@ -18,7 +18,7 @@ public class FrameSpringBeanUtil implements ApplicationContextAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
-		FrameSpringBeanUtil.applicationContext = arg0;
+		applicationContext = arg0;
 	}
 
 	@SuppressWarnings("unchecked")

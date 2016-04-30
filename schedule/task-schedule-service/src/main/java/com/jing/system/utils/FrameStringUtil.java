@@ -6,16 +6,30 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 字符串工具类
- * @author jing.yue
- * @version 1.0
- * @since 2012-10-26
+ * 字符串工具类<br>
+ * 示例：
+ * 		String str = (char)1+"dasda"+(char)2+"sdasd"+(char)1+"asdasdas"+(char)1+(char)1+(char)1;
+		System.out.println(str);
+		System.out.println(trim(str, (char)3));
+		System.out.println("isEmpty: " + isEmpty(null));
+		System.out.println("isNotEmpty: " + isNotEmpty("s"));
+		System.out.println("isEqualArr: " + isEqualArr(2, 20521, 20513, 10024));
+		System.out.println("isNotEqualArr: " + isNotEqualArr(null, 1, 2, 3));
+		System.out.println("getStrsRandomStr: " + getStrsRandomStr("哈哈;嗯嗯;", ";"));
+		
+		String urlStr = "这是一个url链接http://www-test.company.com/view/1_2.html?a=%B8&f=%E4+%D3#td http://www.suyunyou.com/aid15.html需要转化成可点击";
+		System.out.println(parseUrl(urlStr));
+		System.out.println("包含http链接：" + existUrl("爱，http://sdfdf"));
+		
+ * @author yuejing
+ * @date 2016年4月30日 下午7:15:59
+ * @version V1.0.0
  */
 public class FrameStringUtil {
 
 	//链接正则表达式
 	private static final String REGEX_URL = "(http:|https:)//[^[A-Za-z0-9\\._\\?%&+\\-=/#]]*";
-
+	
 	/**
 	 * 检查指定的字符串是否为空。
 	 * <ul>
@@ -190,7 +204,7 @@ public class FrameStringUtil {
 		if (array == null) {
 			return null;
 		}
-		int bufSize = (endIndex - startIndex);
+		int bufSize = endIndex - startIndex;
 		if (bufSize <= 0) {
 			return "";
 		}
@@ -220,10 +234,13 @@ public class FrameStringUtil {
 			return "";
 		}
 		int len = string.length();
+		String curString = null;
 		if(split.equals(string.substring(len -1, len))) {
-			string = string.substring(0, len - 1);
+			curString = string.substring(0, len - 1);
+		} else {
+			curString = string;
 		}
-		String[] arr = string.split(split);
+		String[] arr = curString.split(split);
 		if(arr.length == 0) {
 			return "";
 		}
@@ -232,24 +249,6 @@ public class FrameStringUtil {
 			index = arr.length - 1;
 		}
 		return arr[index];
-	}
-
-	/**
-	 * 去掉前后所有小于该char的字符，如最后字符为(char)1，而参数传为(char)2，同样(char)1会被删除。
-	 * @param str
-	 * @param ch
-	 * @return
-	 */
-	public static String trim(String str, char ch) {
-		int i = str.length();
-		int j = 0;
-		int k = 0;
-		char[] arrayOfChar = str.toCharArray();
-		while ((j < i) && (arrayOfChar[(k + j)] <= ' '))
-			++j;
-		while ((j < i) && (arrayOfChar[(k + i - 1)] <= ' '))
-			--i;
-		return (((j > 0) || (i < str.length())) ? str.substring(j, i) : str);
 	}
 	
 	/**
@@ -284,92 +283,6 @@ public class FrameStringUtil {
         Matcher matcher = pat.matcher(str);
         return matcher.find();
     }
-
-	/**
-	 * 将汉字转为%E4%BD%A0 <br>
-	 * 将http://www.jokeji.cn/jokehtml/冷笑话/201402280001021.htm中的冷笑话类的汉字转为http://www.jokeji.cn/jokehtml/%E5%86%B7%E7%AC%91%E8%AF%9D/201402280001021.htm
-	 * @param string
-	 * @return
-	 */
-	public static String urlEncode(String string) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < string.length(); i++) {
-			char c = string.charAt(i);
-			if (c >= 0 && c <= 255) {
-				sb.append(c);
-			} else {
-				byte[] b;
-				try {
-					b = String.valueOf(c).getBytes("utf-8");
-				} catch (Exception ex) {
-					b = new byte[0];
-				}
-				for (int j = 0; j < b.length; j++) {
-					int k = b[j];
-					if (k < 0)
-						k += 256;
-					sb.append("%" + Integer.toHexString(k).toUpperCase());
-				}
-			}
-		}
-		return sb.toString();
-	}
-
-	/**
-	 * 将%E4%BD%A0转换为汉字
-	 * @param s
-	 * @return
-	 */
-	public static String urlUnescape(String s) {
-		StringBuilder sbuf = new StringBuilder();
-		int l = s.length();
-		int ch = -1;
-		int b, sumb = 0;
-		for (int i = 0, more = -1; i < l; i++) {
-			/* Get next byte b from URL segment s */
-			switch (ch = s.charAt(i)) {
-			case '%':
-				ch = s.charAt(++i);
-				int hb = (Character.isDigit((char) ch) ? ch - '0'
-						: 10 + Character.toLowerCase((char) ch) - 'a') & 0xF;
-				ch = s.charAt(++i);
-				int lb = (Character.isDigit((char) ch) ? ch - '0'
-						: 10 + Character.toLowerCase((char) ch) - 'a') & 0xF;
-				b = (hb << 4) | lb;
-				break;
-			case '+':
-				b = ' ';
-				break;
-			default:
-				b = ch;
-			}
-			/* Decode byte b as UTF-8, sumb collects incomplete chars */
-			if ((b & 0xc0) == 0x80) { // 10xxxxxx (continuation byte)   
-				sumb = (sumb << 6) | (b & 0x3f); // Add 6 bits to sumb   
-				if (--more == 0)
-					sbuf.append((char) sumb); // Add char to sbuf   
-			} else if ((b & 0x80) == 0x00) { // 0xxxxxxx (yields 7 bits)   
-				sbuf.append((char) b); // Store in sbuf   
-			} else if ((b & 0xe0) == 0xc0) { // 110xxxxx (yields 5 bits)   
-				sumb = b & 0x1f;
-				more = 1; // Expect 1 more byte   
-			} else if ((b & 0xf0) == 0xe0) { // 1110xxxx (yields 4 bits)   
-				sumb = b & 0x0f;
-				more = 2; // Expect 2 more bytes   
-			} else if ((b & 0xf8) == 0xf0) { // 11110xxx (yields 3 bits)   
-				sumb = b & 0x07;
-				more = 3; // Expect 3 more bytes   
-			} else if ((b & 0xfc) == 0xf8) { // 111110xx (yields 2 bits)   
-				sumb = b & 0x03;
-				more = 4; // Expect 4 more bytes   
-			} else /*if ((b & 0xfe) == 0xfc)*/{ // 1111110x (yields 1 bit)   
-				sumb = b & 0x01;
-				more = 5; // Expect 5 more bytes   
-			}
-			/* We don't test if the UTF-8 encoding is well-formed */
-		}
-		return sbuf.toString();
-	}
 	
 	/**
 	 * 将字符串中的带有url链接转为可以点击的链接
@@ -381,7 +294,7 @@ public class FrameStringUtil {
         Matcher matcher = pattern.matcher(str);
         StringBuffer result = new StringBuffer();
         while (matcher.find()) {
-            StringBuffer replace = new StringBuffer();
+        	StringBuilder replace = new StringBuilder();
             replace.append("<a href=\"").append(matcher.group());
             replace.append("\" target=\"_blank\">").append(matcher.group()).append("</a>");
             matcher.appendReplacement(result, replace.toString());
@@ -414,20 +327,5 @@ public class FrameStringUtil {
 		}
 		return str;
 	}
-
-	/*public static void main(String[] args) {
-		String str = (char)1+"dasda"+(char)2+"sdasd"+(char)1+"asdasdas"+(char)1+(char)1+(char)1;
-		System.out.println(str);
-		System.out.println(trim(str, (char)3));
-		System.out.println("isEmpty: " + isEmpty(null));
-		System.out.println("isNotEmpty: " + isNotEmpty("s"));
-		System.out.println("isEqualArr: " + isEqualArr(2, 20521, 20513, 10024));
-		System.out.println("isNotEqualArr: " + isNotEqualArr(null, 1, 2, 3));
-		System.out.println("getStrsRandomStr: " + getStrsRandomStr("哈哈;嗯嗯;", ";"));
-		
-		String urlStr = "这是一个url链接http://www-test.company.com/view/1_2.html?a=%B8&f=%E4+%D3#td http://www.suyunyou.com/aid15.html需要转化成可点击";
-		System.out.println(parseUrl(urlStr));
-		System.out.println("包含http链接：" + existUrl("爱，http://sdfdf"));
-	}*/
 
 }
