@@ -14,6 +14,9 @@
 			<div class="panel-heading">说明</div>
 			<div class="panel-body">
 				<p>提供统一定时任务调度管理的平台</p>
+				<c:if test="${user==null}">
+				<p><button onclick="JUtil.open.login()" class="btn btn-success">马上登录</button></p>
+				</c:if>
 			</div>
 		</div>
 	</div>

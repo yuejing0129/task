@@ -21,7 +21,8 @@
 			,link=#{link}
 			,cron=#{cron}
 			,isfailmail=#{isfailmail}
-			,status=#{status}
+			,status=#{status},
+			servid=#{servid}
 		</set>
 		<where>id=#{id}</where>
 	</update>
@@ -62,9 +63,14 @@
 		select * from task_job
   		<where>id=#{id}</where>
 	</select>
-	<select id="getCountByServid" resultType="int">
-		select count(*) from task_job
-  		<where>servid=#{servid}</where>
+	<select id="findServidCountByStatus" resultType="hashMap">
+		select servid,count(status) total from task_job
+		<where>status=#{status}</where>
+		group by servid
+	</select>
+	<select id="findProjectidCount" resultType="hashMap">
+		select projectid,status,count(status) total from task_job
+		group by projectid,status
 	</select>
 	
 	<select id="findByStatus" resultType="taskJob">

@@ -18,7 +18,7 @@ public interface ServInfoDao {
 	public abstract List<ServInfo> findServInfo(ServInfo servInfo);
 	public abstract int findServInfoCount(ServInfo servInfo);
 
-	public abstract void updateUpdatetimeByServid(@Param("servid")String servid);
+	public abstract void updateUpdatetimeStatusByServid(@Param("servid")String servid, @Param("status")Integer status);
 
 	public abstract void updateDestroy(@Param("destroyStatus")Integer destroyStatus, @Param("destroyTime")Integer destroyTime);
 
@@ -26,7 +26,7 @@ public interface ServInfoDao {
 
 	public abstract ServInfo getByStatusIsleader(@Param("status")Integer status, @Param("isleader")Integer isleader);
 
-	public abstract void updateChooseLeader(@Param("status")Integer status, @Param("orgIsleader")Integer orgIsleader, @Param("newIsleader")Integer newIsleader);
+	public abstract void updateChooseLeader(@Param("status")Integer status, @Param("isleader")Integer isleader);
 
 	public abstract void updateIsleaderByStatus(@Param("status")Integer status, @Param("isleader")Integer isleader);
 

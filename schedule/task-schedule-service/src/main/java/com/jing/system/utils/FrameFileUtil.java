@@ -34,11 +34,10 @@ public class FrameFileUtil {
 		File dir = new File(destDirName);
 		if(dir.exists()) {
 			LOGGER.info("创建目录" + destDirName + "失败，目标目录已存在!");
-		}
-		else {
-			if(!destDirName.endsWith(File.separator)) {
+		} else {
+			/*if(!destDirName.endsWith(File.separator)) {
 				destDirName = destDirName + File.separator;
-			}
+			}*/
 			//创建目录
 			dir.mkdirs();
 		}
@@ -56,10 +55,8 @@ public class FrameFileUtil {
 			LOGGER.info("目标文件已存在: " + destFileName);
 			return file;
 		}
-		if (!file.getParentFile().exists()) {
-			if (!file.getParentFile().mkdirs()) {
-				LOGGER.info("创建目录文件所在的目录失败!");
-			}
+		if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
+			LOGGER.info("创建目录文件所在的目录失败!");
 		}
 		//创建目标文件
 		if (file.createNewFile()) {
@@ -89,11 +86,11 @@ public class FrameFileUtil {
 			return bytes;
 		} catch (FileNotFoundException e) {
 			LOGGER.error(e.getMessage(), e);
-		}
-		catch (IOException e) {
+			return null;
+		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -147,7 +144,6 @@ public class FrameFileUtil {
 					dirs = new ArrayList<String>();
 				}
 				dirs.add(t[i].getAbsolutePath());
-				//System.out.println(t[i].getAbsolutePath()+"\n");
 				map.put("dirs", dirs);
 				getDirFileDtl(t[i], map);
 			} else{
@@ -156,7 +152,6 @@ public class FrameFileUtil {
 					files = new ArrayList<String>();
 				}
 				files.add(t[i].getAbsolutePath());
-				//System.out.println(t[i].getAbsolutePath()+"\n");
 				map.put("files", files);
 				getDirFileDtl(t[i], map);
 			}
@@ -169,7 +164,7 @@ public class FrameFileUtil {
 	 * @return
 	 */
 	public static String readFileString(String path) {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		try {
 			InputStream is = new FileInputStream(path);
 			//用来保存每行读取的内容

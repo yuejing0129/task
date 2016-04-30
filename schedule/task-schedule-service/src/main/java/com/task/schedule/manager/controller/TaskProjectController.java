@@ -1,5 +1,9 @@
 package com.task.schedule.manager.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -11,10 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jing.system.model.MyPage;
 import com.jing.system.utils.FrameJsonUtil;
+import com.jing.system.utils.FrameMapUtil;
+import com.jing.system.utils.FrameStringUtil;
 import com.task.schedule.comm.controller.BaseController;
 import com.task.schedule.comm.enums.ProjectSign;
 import com.task.schedule.manager.pojo.SysUser;
 import com.task.schedule.manager.pojo.TaskProject;
+import com.task.schedule.manager.service.TaskJobService;
 import com.task.schedule.manager.service.TaskProjectService;
 
 /**
@@ -30,6 +37,8 @@ public class TaskProjectController extends BaseController {
 
 	@Autowired
 	private TaskProjectService taskProjectService;
+	@Autowired
+	private TaskJobService taskJobService;
 	
 	/**
 	 * 跳转到管理页
@@ -39,6 +48,23 @@ public class TaskProjectController extends BaseController {
 	@RequestMapping(value = "/taskProject/f_view/manager")
 	public String manger(HttpServletRequest request) {
 		return "manager/task/project_manager";
+	}
+
+	@RequestMapping(value = "/taskProject/f_view/chart")
+	public String chart(HttpServletRequest request, ModelMap modelMap) {
+		List<Map<String, Object>> projects = taskJobService.findProjectidCount();
+		Map<Integer, String> projectnames = new HashMap<Integer, String>();
+		for (Map<String, Object> map : projects) {
+			Integer projectid = FrameMapUtil.getInteger(map, "projectid");
+			String projectname = FrameMapUtil.getString(projectnames, projectid.toString());
+			if(FrameStringUtil.isEmpty(projectname)) {
+				projectname = taskProjectService.get(projectid).getName();
+				projectnames.put(projectid, projectname);
+			}
+			map.put("projectname", projectname);
+		}
+		modelMap.put("projectsJson", FrameJsonUtil.toString(projects));
+		return "manager/task/project_chart";
 	}
 
 	/**

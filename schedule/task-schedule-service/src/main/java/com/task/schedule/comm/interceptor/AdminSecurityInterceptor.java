@@ -35,17 +35,6 @@ public class AdminSecurityInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		SysUser user = (SysUser) request.getSession().getAttribute(Constant.SESSION_SYS_USER_KEY);
 		if(user == null) {
-			//TODO 模拟登录
-			/*SysUserService sysUserService = SpringUtil.getBean(SysUserService.class);
-			SysUser sysUser = new SysUser();
-			sysUser.setUsername("admin");
-			sysUser.setPassword("admin");
-			Result<SysUser> result = sysUserService.login(sysUser);
-			if(Constant.SUCCESS.equals(result.getResult())) {
-				request.getSession().setAttribute(Constant.SESSION_SYS_USER_KEY, result.getData());
-				return true;
-			}*/
-			
 			response.sendRedirect(request.getContextPath() + indexUrl);
 			return false;
 		}

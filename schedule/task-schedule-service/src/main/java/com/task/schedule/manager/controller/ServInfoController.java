@@ -1,6 +1,7 @@
 package com.task.schedule.manager.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jing.system.model.MyPage;
 import com.jing.system.utils.FrameJsonUtil;
+import com.jing.system.utils.FrameMapUtil;
 import com.task.schedule.comm.controller.BaseController;
 import com.task.schedule.comm.enums.ServInfoStatus;
 import com.task.schedule.manager.pojo.ServInfo;
@@ -52,10 +54,15 @@ public class ServInfoController extends BaseController {
 	@RequestMapping(value = "/servInfo/f_view/chart")
 	public String chart(HttpServletRequest request, ModelMap modelMap) {
 		List<ServInfo> servInfos = servInfoService.findByStatus(ServInfoStatus.NORMAL.getCode());
+		List<Map<String, Object>> servCounts = taskJobService.findServidCount();
 		for (ServInfo si : servInfos) {
 			//设置任务总数
-			int jobnum = taskJobService.getCountByServid(si.getServid());
-			si.setJobnum(jobnum);
+			for (Map<String, Object> map : servCounts) {
+				if(si.getServid().equals(FrameMapUtil.getString(map, "servid"))) {
+					si.setJobnum(FrameMapUtil.getInteger(map, "total"));
+					break;
+				}
+			}
 		}
 		modelMap.put("servInfosJson", FrameJsonUtil.toString(servInfos));
 		return "manager/serv/servInfo_chart";

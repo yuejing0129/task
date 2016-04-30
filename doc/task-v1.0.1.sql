@@ -28,6 +28,12 @@ CREATE TABLE `task_project` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+create unique index unique_name on task_project
+(
+   name
+);
+
+
 CREATE TABLE `task_job` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `projectid` int(11) NOT NULL COMMENT '项目编号',

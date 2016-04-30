@@ -1,6 +1,7 @@
 package com.task.schedule.manager.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -42,6 +43,7 @@ public interface TaskJobDao {
 	public List<TaskJob> findActive(@Param("normalStatus")Integer normalStatus, @Param("waitStatus")Integer waitStatus);
 
 	public void updateRelease(@Param("id")Integer id, @Param("status")Integer status);
-
-	public int getCountByServid(@Param("servid")String servid);
+	
+	public List<Map<String, Object>> findServidCountByStatus(@Param("status")Integer status);
+	public List<Map<String, Object>> findProjectidCount();
 }

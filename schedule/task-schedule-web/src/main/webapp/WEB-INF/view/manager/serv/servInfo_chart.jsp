@@ -18,7 +18,7 @@
 		</jsp:include>
 		<div class="c-right">
 			<div class="panel panel-success">
-				<div class="panel-heading">任务管理 / <b>服务管理</b></div>
+				<div class="panel-heading">任务管理 / <b>服务图表</b></div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-sm-6">
@@ -83,12 +83,12 @@ var info = {
 			        data: _seriesData,
 			        itemStyle: {
 			            normal: {
-			                barBorderColor: '#f0ad4e',
-			                color: '#5cb85c'
+			                barBorderColor: '#449d44',
+			                color: '#449d44'
 			            },
 			            emphasis: {
-			                barBorderColor: '#f0ad4e',
-			                color: '#f0ad4e'
+			                barBorderColor: '#5cb85c',
+			                color: '#5cb85c'
 			            }
 			        }
 			    }

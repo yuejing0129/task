@@ -82,7 +82,7 @@ var info = {
 						function getResult(obj) {
 							var _operate = ['<a class="btn btn-link btn-xs" href="',webroot,'/taskJobLog/f_view/manager.shtml?projectid=${param.projectid}&jobid=',obj.id,'">调度日志</a>'];
 							var _statusname = '<span class="label label-' + (obj.status === 0 ? 'success':'danger') + '">' + obj.statusname + '</span>';
-							if(obj.status === 0) {
+							if(obj.status === 0 || obj.status === <%=com.task.schedule.comm.enums.JobStatus.WAIT.getCode()%>) {
 								_operate.push(' &nbsp; <a href="javascript:info.status(',obj.id,',<%=com.task.schedule.comm.enums.JobStatus.STOP.getCode()%>)" class="glyphicon glyphicon-pause text-danger" title="暂停"></a>');
 							} else {
 								_operate.push(' &nbsp; <a href="javascript:info.status(',obj.id,',<%=com.task.schedule.comm.enums.JobStatus.NORMAL.getCode()%>)" class="glyphicon glyphicon-play text-success" title="启动"></a>');

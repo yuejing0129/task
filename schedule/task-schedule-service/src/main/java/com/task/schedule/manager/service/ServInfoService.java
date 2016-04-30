@@ -84,11 +84,11 @@ public class ServInfoService {
 	}
 
 	/**
-	 * 修改服务的updatetime为当前时间
+	 * 修改活动的服务的updatetime为当前时间
 	 * @param servid
 	 */
 	public void updateUpdatetimeByServid(String servid) {
-		servInfoDao.updateUpdatetimeByServid(servid);
+		servInfoDao.updateUpdatetimeStatusByServid(servid, ServInfoStatus.NORMAL.getCode());
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class ServInfoService {
 		ServInfo si = getLeader();
 		if(si == null) {
 			//选取Leader
-			servInfoDao.updateChooseLeader(ServInfoStatus.NORMAL.getCode(), Boolean.FALSE.getCode(), Boolean.TRUE.getCode());
+			servInfoDao.updateChooseLeader(ServInfoStatus.NORMAL.getCode(), Boolean.TRUE.getCode());
 			si = getLeader();
 		}
 		return si;

@@ -17,9 +17,9 @@
 		<where>addtime&lt;#{date} and status=#{destroyStatus}</where>
 	</delete>
 	
-	<update id="updateUpdatetimeByServid" flushCache="true">
+	<update id="updateUpdatetimeStatusByServid" flushCache="true">
 		update serv_info
-		<set>updatetime=now()</set>
+		<set>status=#{status},updatetime=now()</set>
   		<where>servid=#{servid}</where>
 	</update>
 	<update id="updateDestroy" flushCache="true">
@@ -38,9 +38,9 @@
 	</update>
 	<update id="updateChooseLeader" flushCache="true">
 		update serv_info
-		<set>isleader=#{newIsleader}</set>
+		<set>isleader=#{isleader}</set>
 		<where>
-			status=#{status} and isleader=#{orgIsleader}
+			status=#{status}
 		</where>
 		order by addtime desc
 		limit 1

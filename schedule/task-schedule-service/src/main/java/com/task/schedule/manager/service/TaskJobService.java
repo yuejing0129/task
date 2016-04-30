@@ -1,6 +1,7 @@
 package com.task.schedule.manager.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,13 +72,12 @@ public class TaskJobService {
 	 * @throws SchedulerException 
 	 */
 	public void update(TaskJob taskJob) throws SchedulerException {
-		if(taskJob.getStatus().intValue() == JobStatus.STOP.getCode().intValue()) {
-			//状态为停止，则删除任务，在MainTask线程会删除任务
-			jobService.deleteJob(taskJob.getId().toString());
-		} else {
-			//状态不为停止，则启动任务，在MainTask线程会删除任务
+		if(taskJob.getStatus().intValue() != JobStatus.STOP.getCode().intValue()) {
+			//状态不为停止，则改为待添加
 			taskJob.setStatus(JobStatus.WAIT.getCode());
 		}
+		//设置让该任务不绑定服务，为待添加则重新分配
+		taskJob.setServid(null);
 		taskJobDao.update(taskJob);
 	}
 
@@ -176,7 +176,7 @@ public class TaskJobService {
 	}
 
 	/**
-	 * 释放job为没有服务，状态为待添加
+	 * 释放job为没有服务(servid会修改为null)，状态为待添加
 	 * @param id
 	 */
 	public void updateRelease(Integer id) {
@@ -184,11 +184,19 @@ public class TaskJobService {
 	}
 
 	/**
-	 * 根据服务编号获取任务数目
+	 * 获取正常执行的任务数目
 	 * @param servid
 	 * @return
 	 */
-	public int getCountByServid(String servid) {
-		return taskJobDao.getCountByServid(servid);
+	public List<Map<String, Object>> findServidCount() {
+		return taskJobDao.findServidCountByStatus(JobStatus.NORMAL.getCode());
+	}
+	
+	/**
+	 * 获取项目状态的任务数目
+	 * @return
+	 */
+	public List<Map<String, Object>> findProjectidCount() {
+		return taskJobDao.findProjectidCount();
 	}
 }
