@@ -14,7 +14,7 @@ import org.quartz.JobListener;
  */
 public class MainListener implements JobListener {
 
-	//private static final Logger LOGGER = Logger.getLogger(MainListener.class);
+	//task的id
 	private String name;
 
 	public MainListener(String name) {
@@ -31,9 +31,6 @@ public class MainListener implements JobListener {
 	@Override
 	public void jobToBeExecuted(JobExecutionContext inContext) {
 		//执行任务前执行
-		/*if(LOGGER.isInfoEnabled()) {
-			LOGGER.info("Task的ID: " + name);
-		}*/
 	}
 
 	@Override
@@ -44,10 +41,9 @@ public class MainListener implements JobListener {
 	@Override
 	public void jobWasExecuted(JobExecutionContext inContext, JobExecutionException inException) {
 		//任务执行完后，执行
-		/*JobKey jobKey = inContext.getJobDetail().getKey();
-		if(LOGGER.isInfoEnabled()) {
-			LOGGER.info("Task的name: " + jobKey.getName() + "\tgroup: " + jobKey.getGroup());
-		}*/
+		
+		//Task的name: inContext.getJobDetail().getKey().getName()
+		//Task的group: inContext.getJobDetail().getKey().getGroup()
 
 	}
 }

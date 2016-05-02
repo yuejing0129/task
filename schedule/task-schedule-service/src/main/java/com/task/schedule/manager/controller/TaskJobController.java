@@ -30,7 +30,7 @@ import com.task.schedule.manager.service.TaskProjectService;
 @Controller
 public class TaskJobController extends BaseController {
 
-	private static final Logger logger = Logger.getLogger(TaskJobController.class);
+	private static final Logger LOGGER = Logger.getLogger(TaskJobController.class);
 
 	@Autowired
 	private TaskJobService taskJobService;
@@ -62,7 +62,7 @@ public class TaskJobController extends BaseController {
 		try {
 			page = taskJobService.pageQuery(taskJob);
 		} catch (Exception e) {
-			logger.error("分页获取信息异常: " + e.getMessage(), e);
+			LOGGER.error("分页获取信息异常: " + e.getMessage(), e);
 		}
 		return page;
 	}
@@ -100,7 +100,7 @@ public class TaskJobController extends BaseController {
 			}
 			result = SUCCESS;
 		} catch (Exception e) {
-			logger.error("保存异常: " + e.getMessage(), e);
+			LOGGER.error("保存异常: " + e.getMessage(), e);
 			result = ERROR;
 		}
 		ModelMap modelMap = new ModelMap();
@@ -120,7 +120,7 @@ public class TaskJobController extends BaseController {
 			taskJobService.delete(id);
 			result = SUCCESS;
 		} catch (Exception e) {
-			logger.error("删除异常: " + e.getMessage(), e);
+			LOGGER.error("删除异常: " + e.getMessage(), e);
 			result = ERROR;
 		}
 		ModelMap modelMap = new ModelMap();
@@ -140,7 +140,7 @@ public class TaskJobController extends BaseController {
 			taskJobService.updateStatus(id, status);
 			result = SUCCESS;
 		} catch (Exception e) {
-			logger.error("修改任务状态异常: " + e.getMessage(), e);
+			LOGGER.error("修改任务状态异常: " + e.getMessage(), e);
 			result = ERROR;
 		}
 		ModelMap modelMap = new ModelMap();
@@ -161,7 +161,7 @@ public class TaskJobController extends BaseController {
 			taskJobService.execJob(id);
 			result = SUCCESS;
 		} catch (Exception e) {
-			logger.error("执行job异常: " + e.getMessage(), e);
+			LOGGER.error("执行job异常: " + e.getMessage(), e);
 			result = ERROR;
 		}
 		ModelMap modelMap = new ModelMap();

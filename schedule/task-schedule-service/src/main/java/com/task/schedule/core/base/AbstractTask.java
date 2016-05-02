@@ -9,12 +9,4 @@ package com.task.schedule.core.base;
  */
 public abstract class AbstractTask implements ITask {
 	
-	/*public void removeJob(JobExecutionContext context) throws SchedulerException {
-		Scheduler scheduler = context.getScheduler();
-		Trigger trigger = context.getTrigger();
-		JobDetail jobDetail = context.getJobDetail();
-		scheduler.pauseTrigger(trigger.getName(), trigger.getGroup());
-		scheduler.unscheduleJob(trigger.getName(), trigger.getGroup());
-		scheduler.deleteJob(jobDetail.getName(), jobDetail.getGroup());
-	}*/
 }

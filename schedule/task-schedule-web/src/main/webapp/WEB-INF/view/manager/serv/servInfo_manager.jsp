@@ -83,7 +83,7 @@ var info = {
 								_leader.push(' <span class="label label-success">Leader</span>');
 							}
 							var _runtime = obj.runminute;
-							if(_runtime) {
+							if(_runtime != -1) {
 								var _daynum = parseInt( obj.runminute / (60 * 24) );
 								if(_daynum > 0) {
 									_runtime = '已运行 ' + _daynum + '天';

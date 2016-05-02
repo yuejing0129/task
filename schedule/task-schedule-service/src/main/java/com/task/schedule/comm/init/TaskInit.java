@@ -22,7 +22,7 @@ import com.task.schedule.manager.service.ServInfoService;
  */
 public class TaskInit extends HttpServlet {
 
-	private static final Logger logger = Logger.getLogger(TaskInit.class);
+	private static final Logger LOGGER = Logger.getLogger(TaskInit.class);
 
 	private static final long serialVersionUID = -2274726206362496315L;
 
@@ -31,7 +31,7 @@ public class TaskInit extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		logger.info("初始化数据中...");
+		LOGGER.info("初始化数据中...");
 		long startTime = System.currentTimeMillis();
 		Constant.webroot = config.getServletContext().getContextPath();
 		config.getServletContext().setAttribute("webroot", Constant.webroot);
@@ -50,7 +50,7 @@ public class TaskInit extends HttpServlet {
 		TaskManager taskManager = (TaskManager)FrameSpringBeanUtil.getBean(TaskManager.class);
 		taskManager.init();
 		
-		logger.info("初始化资源花费" + (System.currentTimeMillis() - startTime) + "毫秒!");
+		LOGGER.info("初始化资源花费" + (System.currentTimeMillis() - startTime) + "毫秒!");
 	}
 
 }

@@ -18,7 +18,7 @@ import com.task.schedule.manager.pojo.SysUser;
  */
 public class BaseController {
 
-	private static final Logger logger = Logger.getLogger(BaseController.class);
+	private static final Logger LOGGER = Logger.getLogger(BaseController.class);
 
 	public static final String SUCCESS = "success";
 	public static final String ERROR = "error";
@@ -29,14 +29,9 @@ public class BaseController {
 	public void writerJson(HttpServletResponse response, Object obj) {
 		try {
 			response.setContentType("text/html;charset=UTF-8");
-			/*ObjectMapper mapper = new ObjectMapper();
-			StringWriter sw = new StringWriter();
-			JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);
-			mapper.writeValue(gen, obj);
-			response.getWriter().print(sw.toString());*/
 			response.getWriter().print(FrameJsonUtil.toString(obj));
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 

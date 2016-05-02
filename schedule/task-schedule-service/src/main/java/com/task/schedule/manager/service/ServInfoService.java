@@ -81,6 +81,8 @@ public class ServInfoService {
 				if(ServInfoStatus.NORMAL.getCode() == si.getStatus().intValue()) {
 					//设置运行时间
 					si.setRunminute(FrameTimeUtil.getDateDiff(si.getAddtime(), FrameTimeUtil.getTime(), 1));
+				} else {
+					si.setRunminute(-1l);
 				}
 			}
 		}

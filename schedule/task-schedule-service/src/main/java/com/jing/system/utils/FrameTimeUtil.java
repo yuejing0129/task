@@ -6,11 +6,20 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Date Operate Class
- * @author jing.yue
- * @version 1.0
- * @since 2012-03-30
- *
+ * 日期工具类<br>
+	public static void main(String[] args) {
+		Date dt = new Date();
+
+		System.out.println(parseString(dt));
+		dt = addDays(dt, 300);
+
+		System.out.println(parseString(dt));
+
+		System.out.println(getSimpleTime("2016-03-23 12:12:12"));
+	}
+ * @author yuejing
+ * @date 2016年5月2日 下午3:33:25
+ * @version V1.0.0
  */
 public class FrameTimeUtil {
 	/** 默认的格式: yyyy-MM-dd HH:mm:ss */
@@ -37,9 +46,9 @@ public class FrameTimeUtil {
 	 * @param date：传入的日期
 	 * @return    ：String
 	 */
-	public static String parseString(Date date){
+	public static String parseString(Date date) {
 		SimpleDateFormat simpDateFormat = new SimpleDateFormat(FMT_DEFAULT);
-	    return simpDateFormat.format(date);
+		return simpDateFormat.format(date);
 	}
 
 	/**
@@ -48,12 +57,12 @@ public class FrameTimeUtil {
 	 * @param fmt ：转为字符的格式
 	 * @return    ：String
 	 */
-	public static String parseString(Date date, String fmt){
+	public static String parseString(Date date, String fmt) {
 		if(date == null) {
 			return null;
 		}
 		SimpleDateFormat simpDateFormat = new SimpleDateFormat(fmt);
-	    return simpDateFormat.format(date);
+		return simpDateFormat.format(date);
 	}
 
 	/**
@@ -61,9 +70,9 @@ public class FrameTimeUtil {
 	 * @param str：传入的字符串
 	 * @return   ：Date
 	 */
-	public static Date parseDate(String str){
+	public static Date parseDate(String str) {
 		SimpleDateFormat simpDateFormat = new SimpleDateFormat(FMT_DEFAULT);
-	    try {
+		try {
 			return simpDateFormat.parse(str);
 		} catch (ParseException e) {
 			throw new RuntimeException("日期格式不正确 value[" + str + "]");
@@ -76,9 +85,9 @@ public class FrameTimeUtil {
 	 * @param fmt：转为的日期格式
 	 * @return   ：Date
 	 */
-	public static Date parseDate(String str, String fmt){
+	public static Date parseDate(String str, String fmt) {
 		SimpleDateFormat simpDateFormat = new SimpleDateFormat(fmt);
-	    try {
+		try {
 			return simpDateFormat.parse(str);
 		} catch (ParseException e) {
 			throw new RuntimeException("日期格式不正确 value[" + str + "] fmt[" + fmt + "]");
@@ -116,14 +125,14 @@ public class FrameTimeUtil {
 	public static Date getTime() {
 		return new Date();
 	}
-	
+
 	/**
 	 * 在指定日期上添加指定的年
 	 * @param date		：传入的日期
 	 * @param amount 	：添加的年
 	 * @return
 	 */
-	public static Date addYears(Date date, Integer amount){
+	public static Date addYears(Date date, Integer amount) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.YEAR, amount);
@@ -136,20 +145,20 @@ public class FrameTimeUtil {
 	 * @param amount 	：添加的月份
 	 * @return
 	 */
-	public static Date addMonths(Date date, Integer amount){
+	public static Date addMonths(Date date, Integer amount) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.MONTH, amount);
 		return calendar.getTime();
 	}
-	
+
 	/**
 	 * 在指定日期上添加指定的天数
 	 * @param date		：传入的日期
 	 * @param amount 	：添加的天数
 	 * @return
 	 */
-	public static Date addDays(Date date, Integer amount){
+	public static Date addDays(Date date, Integer amount) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_YEAR, amount);
@@ -215,10 +224,12 @@ public class FrameTimeUtil {
 		case 2:
 			time = diffTime/(60*60*1000);
 			break;
+		default:
+			break;
 		}
 		return time;
 	}
-	
+
 	/**
 	 * 根据日期计算年龄
 	 * @param date
@@ -247,7 +258,7 @@ public class FrameTimeUtil {
 		}
 		return age;
 	}
-	
+
 	/**
 	 * 获取简单时间[比如30秒前 20分钟前等]
 	 * @param timeStr
@@ -264,7 +275,7 @@ public class FrameTimeUtil {
 	 */
 	public static String getSimpleTime(Date time) {
 		long ssDiff = FrameTimeUtil.getDateDiff(time, FrameTimeUtil.getTime(), 0);
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		if(ssDiff < 60) {
 			if(ssDiff < 0) {
 				result.append(parseString(time, FMT_YYYY_MM_DD));
@@ -287,16 +298,5 @@ public class FrameTimeUtil {
 			return FrameTimeUtil.parseString(time, "MM月dd日 HH:mm");
 		}
 		return FrameTimeUtil.parseString(time, "yyyy年MM月dd日");
-	}
-	
-	public static void main(String[] args) {
-		Date dt = new Date();
-		
-		System.out.println(parseString(dt));
-		dt = addDays(dt, 300);
-		
-		System.out.println(parseString(dt));
-		
-		System.out.println(getSimpleTime("2016-03-23 12:12:12"));
 	}
 }

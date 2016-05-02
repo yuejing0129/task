@@ -25,7 +25,7 @@ import com.task.schedule.manager.service.TaskJobService;
 @Controller
 public class TaskJobLogController extends BaseController {
 
-	private static final Logger logger = Logger.getLogger(TaskJobLogController.class);
+	private static final Logger LOGGER = Logger.getLogger(TaskJobLogController.class);
 
 	@Autowired
 	private TaskJobLogService taskJobLogService;
@@ -53,7 +53,7 @@ public class TaskJobLogController extends BaseController {
 		try {
 			page = taskJobLogService.pageQuery(taskJobLog);
 		} catch (Exception e) {
-			logger.error("分页获取信息异常: " + e.getMessage(), e);
+			LOGGER.error("分页获取信息异常: " + e.getMessage(), e);
 		}
 		return page;
 	}

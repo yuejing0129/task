@@ -48,37 +48,4 @@ public class SignUtil {
 		params.remove("token");
 		return params;
 	}
-
-	/*public static String sign(String link, TaskProject project) {
-		if(FrameStringUtil.isEmpty(project.getSignstring())
-				|| ProjectSign.NORMAL.getCode().equals(project.getSign())) {
-			return link;
-		}
-		link += (link.indexOf("?") == -1 ? "?":"&");
-		@SuppressWarnings("unchecked")
-		Map<String, String> params = FrameJsonUtil.toMap(project.getSignstring());
-		String signString = "";
-		String signParam = null;
-		Iterator<Entry<String, String>> entryKeyIterator = params.entrySet().iterator();
-		while (entryKeyIterator.hasNext()) {
-			Entry<String, String> e = entryKeyIterator.next();
-			String value = e.getValue();
-			if("theCurrentTimestamp".equals(value)) {
-				value = String.valueOf(System.currentTimeMillis());
-			} else if("encryptionParameters".equals(value)) {
-				signParam = e.getKey();
-				continue;
-			}
-			signString += value;
-			if(!"token".equals(e.getKey())) {
-				//token不做为请求参数提交
-				link += e.getKey() + "=" + value + "&";
-			}
-		}
-		if(FrameStringUtil.isNotEmpty(signParam)) {
-			link += signParam + "=";
-		}
-		link += FrameMd5Util.getInstance().encodePassword(signString).toLowerCase();
-		return link;
-	}*/
 }

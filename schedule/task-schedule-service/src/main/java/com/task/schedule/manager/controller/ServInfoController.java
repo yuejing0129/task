@@ -30,7 +30,7 @@ import com.task.schedule.manager.service.TaskJobService;
 @Controller
 public class ServInfoController extends BaseController {
 
-	private static final Logger logger = Logger.getLogger(ServInfoController.class);
+	private static final Logger LOGGER = Logger.getLogger(ServInfoController.class);
 
 	@Autowired
 	private ServInfoService servInfoService;
@@ -79,7 +79,7 @@ public class ServInfoController extends BaseController {
 		try {
 			page = servInfoService.pageQuery(servInfo);
 		} catch (Exception e) {
-			logger.error("分页获取信息异常: " + e.getMessage(), e);
+			LOGGER.error("分页获取信息异常: " + e.getMessage(), e);
 		}
 		return page;
 	}

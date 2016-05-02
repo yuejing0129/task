@@ -33,7 +33,7 @@ import com.task.schedule.manager.service.TaskProjectService;
 @Controller
 public class TaskProjectController extends BaseController {
 
-	private static final Logger logger = Logger.getLogger(TaskProjectController.class);
+	private static final Logger LOGGER = Logger.getLogger(TaskProjectController.class);
 
 	@Autowired
 	private TaskProjectService taskProjectService;
@@ -78,7 +78,7 @@ public class TaskProjectController extends BaseController {
 		try {
 			page = taskProjectService.pageQuery(taskProject);
 		} catch (Exception e) {
-			logger.error("分页获取信息异常: " + e.getMessage(), e);
+			LOGGER.error("分页获取信息异常: " + e.getMessage(), e);
 		}
 		return page;
 	}
@@ -115,7 +115,7 @@ public class TaskProjectController extends BaseController {
 			}
 			result = SUCCESS;
 		} catch (Exception e) {
-			logger.error("保存异常: " + e.getMessage(), e);
+			LOGGER.error("保存异常: " + e.getMessage(), e);
 			result = ERROR;
 		}
 		ModelMap modelMap = new ModelMap();
@@ -135,7 +135,7 @@ public class TaskProjectController extends BaseController {
 			taskProjectService.delete(id);
 			result = SUCCESS;
 		} catch (Exception e) {
-			logger.error("删除异常: " + e.getMessage(), e);
+			LOGGER.error("删除异常: " + e.getMessage(), e);
 			result = ERROR;
 		}
 		ModelMap modelMap = new ModelMap();

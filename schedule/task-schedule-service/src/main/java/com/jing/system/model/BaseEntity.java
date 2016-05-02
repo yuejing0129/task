@@ -72,8 +72,7 @@ public class BaseEntity implements Serializable {
 	public void setCurrentIndex(Integer currentIndex) {
 		if(currentIndex != null) {
 			this.currentIndex = currentIndex;
-		}
-		else if(currentIndex == null && getPage() != null && getSize() != null) {
+		} else if(currentIndex == null && getPage() != null && getSize() != null) {
 			this.currentIndex = (getPage() - 1) * getSize();
 		}
 		this.currentIndex = currentIndex;
@@ -88,16 +87,4 @@ public class BaseEntity implements Serializable {
 		}
 	}
 	
-	/*public Integer getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(Integer currentPage) {
-		if(currentPage != null) {
-			this.currentPage = currentPage;
-		}
-		else if(currentPage == null && getPage() != null && getSize() != null) {
-			this.currentPage = (getPage() - 1) * getSize();
-		}
-		this.currentPage = currentPage;
-	}*/
 }

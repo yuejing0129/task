@@ -44,14 +44,7 @@ public class SysConfigService {
 	 */
 	public void update(SysConfig sysConfig) throws SchedulerException {
 		sysConfigDao.update(sysConfig);
-		//在MainTask中会自动识别是否有变更任务表达式
-		/*if(Config.TASK_MAIN_CRON.getCode().equals(sysConfig.getCode())) {
-			//为修改主线程的配置
-			jobService.addOrUpdateJob(Constant.TASK_ID_MAIN, sysConfig.getValue(), mainTask, new MainListener(Constant.TASK_ID_MAIN));
-		} else if(Config.CLEAN_CRON.getCode().equals(sysConfig.getCode())) {
-			//修改清除日志任务的配置
-			jobService.addOrUpdateJob(Constant.TASK_ID_CLEAN, sysConfig.getValue(), taskJobLogCleanTask, new MainListener(Constant.TASK_ID_CLEAN));
-		}*/
+		//在MainTask中会自动识别是否有变更任务表达式(修改主线程的配置/修改清除日志任务的配置)，所以这里不需要执行修改
 	}
 
 	/**

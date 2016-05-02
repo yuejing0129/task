@@ -5,7 +5,15 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * 用于生成唯一主键
+ * 用于生成唯一主键<br>
+ * public static void main(String[] args) {
+		String u = uuid();
+		System.out.println(u);
+		System.out.println(timeRandom(null));
+		System.out.println(timeRandom(FrameTimeUtil.parseDate("2015-12-12 12:12:12")));
+		System.out.println(timeRandom(null));
+		System.out.println(timeRandom(null));
+	}
  * @author 岳静
  * @date 2016年3月2日 下午4:42:26 
  * @version V1.0
@@ -62,13 +70,4 @@ public class FrameNoUtil {
 		String no = String.valueOf(time) + random;
 		return no;
 	}
-
-	/*public static void main(String[] args) {
-		String u = uuid();
-		System.out.println(u);
-		System.out.println(timeRandom(null));
-		System.out.println(timeRandom(FrameTimeUtil.parseDate("2015-12-12 12:12:12")));
-		System.out.println(timeRandom(null));
-		System.out.println(timeRandom(null));
-	}*/
 }

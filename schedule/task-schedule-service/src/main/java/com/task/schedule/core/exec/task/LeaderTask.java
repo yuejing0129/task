@@ -48,10 +48,6 @@ public class LeaderTask extends AbstractTask {
 	@Override
 	public void execute(JobExecutionContext context) {
 		//Leader的任务
-		/*if(LOGGER.isInfoEnabled()) {
-			LOGGER.info("Leader的任务");
-		}*/
-		
 		try {
 			//===================================== 负载均衡 begin =====================================
 			//Leader选举和获取当前Leader
@@ -95,7 +91,6 @@ public class LeaderTask extends AbstractTask {
 						}
 					} else {
 						//需要补充任务，锁定指定数目为服务的任务
-						//Integer topnum = Integer.valueOf(configService.getValue(Config.TASK_WAIT_NUM, "3"));
 						Integer topnum = jobNum - servJobNum;
 						taskJobService.updateServidByWait(si.getServid(), topnum);
 					}

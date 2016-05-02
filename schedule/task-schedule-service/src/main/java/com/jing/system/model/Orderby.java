@@ -5,7 +5,14 @@ import java.io.Serializable;
 import com.jing.system.utils.FrameStringUtil;
 
 /**
- * 排序的实体
+ * 排序的实体<br>
+ * public static void main(String[] args) {
+		Orderby o = new Orderby();
+		o.setProperty("dRfd");
+		o.setType("asc");
+		o.setOrder(1);
+		System.out.println(o.getProperty());
+	}
  * @author 岳静
  * @date 2016年3月30日 下午7:34:43 
  * @version V1.0
@@ -60,12 +67,4 @@ public class Orderby implements Serializable {
 	public void setOrder(Integer order) {
 		this.order = order;
 	}
-
-	/*public static void main(String[] args) {
-		Orderby o = new Orderby();
-		o.setProperty("dRfd");
-		o.setType("asc");
-		o.setOrder(1);
-		System.out.println(o.getProperty());
-	}*/
 }

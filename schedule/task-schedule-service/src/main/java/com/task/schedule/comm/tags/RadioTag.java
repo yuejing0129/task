@@ -22,7 +22,7 @@ public class RadioTag extends TagSupport {
 
 	private static final long serialVersionUID = 7293280902947614510L;
 
-	private static final Logger logger = Logger.getLogger(RadioTag.class);
+	private static final Logger LOGGER = Logger.getLogger(RadioTag.class);
 
 	private String id;
 	private String name;
@@ -39,10 +39,10 @@ public class RadioTag extends TagSupport {
 		try {
 			JspWriter out = this.pageContext.getOut();
 			if(items == null && FrameStringUtil.isEmpty(dictcode)) {
-				logger.error("items is null");
+				LOGGER.error("items is null");
 				return SKIP_BODY;
 			}
-			StringBuffer result = new StringBuffer();
+			StringBuilder result = new StringBuilder();
 			if(FrameStringUtil.isNotEmpty(dictcode)) {
 				//从字典中取集合
 				items = DictCons.getList(dictcode);

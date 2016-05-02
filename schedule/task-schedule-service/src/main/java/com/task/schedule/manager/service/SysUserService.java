@@ -36,8 +36,6 @@ public class SysUserService {
 		SysUser user = getByUsername(sysUser.getUsername());
 		if(user == null) {
 			//不存在用户
-			/*result.setResult("error_not_user");
-			result.setMsg("该账户尚未注册!");*/
 			result.setResult("error_info");
 			result.setMsg("请输入正确的用户和密码!");
 			return result;
@@ -50,8 +48,6 @@ public class SysUserService {
 		}
 		if(!FrameMd5Util.getInstance().encodePassword(sysUser.getPassword(), user.getId().toString()).equalsIgnoreCase(user.getPassword())) {
 			//密码不正确
-			/*result.setResult("error_pwd");
-			result.setMsg("密码输入错误!");*/
 			result.setResult("error_info");
 			result.setMsg("请输入正确的用户和密码!");
 			return result;

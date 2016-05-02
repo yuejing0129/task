@@ -1,5 +1,6 @@
 package com.jing.system.utils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -83,11 +84,11 @@ public class FrameMapUtil {
 	@SuppressWarnings("unchecked")
 	public static List<String> getListString(Map map, String key) {
 		if(map == null) {
-			return null;
+			return new ArrayList<String>();
 		}
 		Object value = map.get(key);
 		if(value == null) {
-			return null;
+			return new ArrayList<String>();
 		}
 		return (List<String>) value;
 	}
@@ -95,11 +96,11 @@ public class FrameMapUtil {
 	@SuppressWarnings("unchecked")
 	public static List<Map> getListMap(Map map, String key) {
 		if(map == null) {
-			return null;
+			return new ArrayList<Map>();
 		}
 		Object value = map.get(key);
 		if(value == null) {
-			return null;
+			return new ArrayList<Map>();
 		}
 		return (List<Map>) value;
 	}

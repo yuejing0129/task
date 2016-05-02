@@ -28,7 +28,7 @@ import com.task.schedule.manager.service.SysUserService;
 @Controller
 public class SysUserController extends BaseController {
 
-	private static final Logger logger = Logger.getLogger(SysUserController.class);
+	private static final Logger LOGGER = Logger.getLogger(SysUserController.class);
 
 	@Autowired
 	private SysUserService sysUserService;
@@ -48,7 +48,7 @@ public class SysUserController extends BaseController {
 			}
 			result.setData(null);
 		} catch (Exception e) {
-			logger.error("登录异常: " + e.getMessage(), e);
+			LOGGER.error("登录异常: " + e.getMessage(), e);
 			result = new Result<SysUser>(ERROR);
 		}
 		return result;
@@ -91,7 +91,7 @@ public class SysUserController extends BaseController {
 		try {
 			page = sysUserService.pageQuery(sysUser);
 		} catch (Exception e) {
-			logger.error("分页获取信息异常: " + e.getMessage(), e);
+			LOGGER.error("分页获取信息异常: " + e.getMessage(), e);
 		}
 		return page;
 	}
@@ -127,7 +127,7 @@ public class SysUserController extends BaseController {
 			}
 			result = SUCCESS;
 		} catch (Exception e) {
-			logger.error("保存异常: " + e.getMessage(), e);
+			LOGGER.error("保存异常: " + e.getMessage(), e);
 			result = ERROR;
 		}
 		ModelMap modelMap = new ModelMap();
@@ -147,7 +147,7 @@ public class SysUserController extends BaseController {
 			sysUserService.delete(id);
 			result = SUCCESS;
 		} catch (Exception e) {
-			logger.error("删除异常: " + e.getMessage(), e);
+			LOGGER.error("删除异常: " + e.getMessage(), e);
 			result = ERROR;
 		}
 		ModelMap modelMap = new ModelMap();

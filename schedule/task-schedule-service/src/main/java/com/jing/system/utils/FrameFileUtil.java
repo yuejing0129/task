@@ -16,11 +16,20 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 /**
- * File Util
- * @author jing.yue
- * @version 1.0
- * @since 2012-10-12
- *
+ * 文件的工具类<br>
+ * public static void main(String[] args) {
+		String dir = "D:/project/csm/csm-core";
+		List<String> list = getFiles(dir, "pom.xml");
+		for (String path : list) {
+			System.out.println(path);
+		}
+		String path = "D:\\project\\csm\\csm-core\\functions\\window\\csm-window-api\\pom.xml";
+		String content = readFileString(path);
+		System.out.println(content);
+	}
+ * @author yuejing
+ * @date 2016年5月2日 下午3:07:40
+ * @version V1.0.0
  */
 public class FrameFileUtil {
 
@@ -35,9 +44,6 @@ public class FrameFileUtil {
 		if(dir.exists()) {
 			LOGGER.info("创建目录" + destDirName + "失败，目标目录已存在!");
 		} else {
-			/*if(!destDirName.endsWith(File.separator)) {
-				destDirName = destDirName + File.separator;
-			}*/
 			//创建目录
 			dir.mkdirs();
 		}
@@ -86,10 +92,10 @@ public class FrameFileUtil {
 			return bytes;
 		} catch (FileNotFoundException e) {
 			LOGGER.error(e.getMessage(), e);
-			return null;
+			return new byte[0];
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
-			return null;
+			return new byte[0];
 		}
 	}
 
@@ -191,14 +197,4 @@ public class FrameFileUtil {
 		return buffer.toString();
 	}
 
-	public static void main(String[] args) {
-		/*String dir = "D:/project/csm/csm-core";
-		List<String> list = getFiles(dir, "pom.xml");
-		for (String path : list) {
-			System.out.println(path);
-		}*/
-		String path = "D:\\project\\csm\\csm-core\\functions\\window\\csm-window-api\\pom.xml";
-		String content = readFileString(path);
-		System.out.println(content);
-	}
 }

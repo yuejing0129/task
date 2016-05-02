@@ -123,8 +123,9 @@ public class FrameMailUtil {
 	 * @return
 	 */
 	public boolean setTo(String to) {
-		if (to == null)
+		if (to == null) {
 			return false;
+		}
 		try {
 			mimeMsg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 			return true;
@@ -140,8 +141,9 @@ public class FrameMailUtil {
 	 * @return
 	 */
 	public boolean setCopyTo(String copyto) {
-		if (copyto == null)
+		if (copyto == null) {
 			return false;
+		}
 		try {
 			mimeMsg.setRecipients(Message.RecipientType.CC, (Address[]) InternetAddress.parse(copyto));
 			return true;

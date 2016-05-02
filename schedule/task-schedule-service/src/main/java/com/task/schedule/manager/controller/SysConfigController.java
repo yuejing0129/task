@@ -25,7 +25,7 @@ import com.task.schedule.manager.service.SysConfigService;
 @Controller
 public class SysConfigController extends BaseController {
 
-	private static final Logger logger = Logger.getLogger(SysConfigController.class);
+	private static final Logger LOGGER = Logger.getLogger(SysConfigController.class);
 
 	@Autowired
 	private SysConfigService sysConfigService;
@@ -46,7 +46,7 @@ public class SysConfigController extends BaseController {
 		try {
 			page = sysConfigService.pageQuery(sysConfig);
 		} catch (Exception e) {
-			logger.error("分页获取信息异常: " + e.getMessage(), e);
+			LOGGER.error("分页获取信息异常: " + e.getMessage(), e);
 		}
 		return page;
 	}
@@ -80,7 +80,7 @@ public class SysConfigController extends BaseController {
 			}
 			result = SUCCESS;
 		} catch (Exception e) {
-			logger.error("保存异常: " + e.getMessage(), e);
+			LOGGER.error("保存异常: " + e.getMessage(), e);
 			result = ERROR;
 		}
 		ModelMap modelMap = new ModelMap();

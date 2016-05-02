@@ -32,21 +32,15 @@ public class FrameHttpUtil {
 	 */
 	public static String post(String url, String jsonBody) {
 		String result = null;
-		// 创建默认的httpClient实例.  
+		// 创建默认的httpClient实例
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		// 创建httppost  
+		// 创建httppost
 		HttpPost httpPost = new HttpPost(url);
-		// 创建参数队列  
-		/*List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-		formparams.add(new BasicNameValuePair("type", "house"));
-		formparams.add(new BasicNameValuePair("name", "信息"));
-		UrlEncodedFormEntity uefEntity;*/
+		// 创建参数队列
 		try {
-			/*uefEntity = new UrlEncodedFormEntity(formparams, "UTF-8");*/
 			StringEntity input = new StringEntity(jsonBody, "UTF-8");
 			input.setContentType("application/json;charset=utf-8");
 			httpPost.setEntity(input);
-			//httppost.setEntity(uefEntity);
 			CloseableHttpResponse response = httpclient.execute(httpPost);
 			try {
 				HttpEntity entity = response.getEntity();
