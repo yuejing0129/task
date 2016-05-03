@@ -5,8 +5,6 @@ import java.net.UnknownHostException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
-
 /**
  * RemoteAddress的工具类
  * @author jing.yue
@@ -14,8 +12,6 @@ import org.apache.log4j.Logger;
  * @since 2013/1/3
  */
 public class FrameAddressUtil {
-
-	private static final Logger LOGGER = Logger.getLogger(FrameAddressUtil.class);
 
 	/**
 	 * 获取客户端IP地址
@@ -40,15 +36,10 @@ public class FrameAddressUtil {
 	/**
 	 * 获取本机的ip地址
 	 * @return
+	 * @throws UnknownHostException  
 	 */
-	public static String getLocalIP(){
-		InetAddress addr = null;
-		try {
-			addr = InetAddress.getLocalHost();
-		} catch (UnknownHostException e) {
-			LOGGER.error(e.getMessage(), e);
-		}
-
+	public static String getLocalIP() throws UnknownHostException {
+		InetAddress addr = InetAddress.getLocalHost();
 		byte[] ipAddr = addr.getAddress();
 		String ipAddrStr = "";
 		for (int i = 0; i < ipAddr.length; i++) {

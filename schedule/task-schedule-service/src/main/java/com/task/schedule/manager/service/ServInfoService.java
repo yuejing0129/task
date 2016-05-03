@@ -1,5 +1,6 @@
 package com.task.schedule.manager.service;
 
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,11 @@ public class ServInfoService {
 		}
 		ServInfo servInfo = new ServInfo();
 		servInfo.setServid(servid);
-		servInfo.setIp(FrameAddressUtil.getLocalIP());
+		try {
+			servInfo.setIp(FrameAddressUtil.getLocalIP());
+		} catch (UnknownHostException e) {
+			servInfo.setIp("127.0.0.1");
+		}
 		servInfo.setStatus(ServInfoStatus.NORMAL.getCode());
 		servInfo.setIsleader(Boolean.FALSE.getCode());
 		servInfoDao.save(servInfo);
