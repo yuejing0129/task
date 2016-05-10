@@ -221,6 +221,6 @@ public class TaskJobService {
 
 		//获取做任务的线程池
 		FrameThreadPool pool = FrameThreadPoolUtil.getThreadPool("task_job", 30);
-		pool.invoke(new ExecJobTask(taskProject, taskJob, time, taskJobLogService));
+		pool.execute(new ExecJobTask(taskProject, taskJob, time, taskJobLogService));
 	}
 }

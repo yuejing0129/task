@@ -69,11 +69,19 @@ public class FrameThreadPool {
 	}
 
 	/**
-	 * 执行单次
+	 * 执行指定的任务，等待完成，返回结果
 	 * @param task
 	 */
 	public void invoke(FrameThreadAction task) {
 		getPool().invoke(task);
+	}
+	
+	/**
+	 * 异步执行指定的任务
+	 * @param task
+	 */
+	public void execute(FrameThreadAction task) {
+		getPool().execute(task);
 	}
 
 	/**
