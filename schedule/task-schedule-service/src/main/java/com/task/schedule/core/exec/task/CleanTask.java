@@ -40,17 +40,19 @@ public class CleanTask extends AbstractTask {
 		if(LOGGER.isInfoEnabled()) {
 			LOGGER.info("清空小于指定日期日志的定时任务");
 		}
-		String value = sysConfigService.getValue(Config.JOBLOG_SAVE_DAY, "7");
-		Date date = FrameTimeUtil.addDays(FrameTimeUtil.getTime(), - Integer.valueOf(value));
-		taskJobLogService.deleteLtDate(date);
-		
+		String logValue = sysConfigService.getValue(Config.JOBLOG_SAVE_DAY, "7");
+		Date logDate = FrameTimeUtil.addDays(FrameTimeUtil.getTime(), - Integer.valueOf(logValue));
+		taskJobLogService.deleteLtDate(logDate);
+
+		String siValue = sysConfigService.getValue(Config.SERV_SAVE_DAY, "7");
+		Date siDate = FrameTimeUtil.addDays(FrameTimeUtil.getTime(), - Integer.valueOf(siValue));
 		//清空小于指定日期的已停止的服务
-		servInfoService.deleteDestroyLtDate(date);
+		servInfoService.deleteDestroyLtDate(siDate);
 		
 		//修改已销毁的服务为非Leader
 		servInfoService.destroyLeader();
 		
 		//清空小于指定日期的负载的服务
-		servEqService.deleteDestroyLtDate(date);
+		servEqService.deleteDestroyLtDate(siDate);
 	}
 }

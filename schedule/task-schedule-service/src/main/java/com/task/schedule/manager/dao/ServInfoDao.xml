@@ -13,7 +13,7 @@
   		<where>servid=#{servid}</where>
 	</delete>
 	<delete id="deleteDestroyLtDate" flushCache="true">
-		delete from task_job_log
+		delete from serv_info
 		<where>addtime&lt;#{date} and status=#{destroyStatus}</where>
 	</delete>
 	
