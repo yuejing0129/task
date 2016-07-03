@@ -54,9 +54,9 @@ public class ExecJobTask extends FrameThreadAction {
 				Entry<String, String> e = entryKeyIterator.next();
 				postParams.append("&").append(e.getKey()).append("=").append(e.getValue());
 			}
-			if(postParams.length() > 0) {
+			/*if(postParams.length() > 0) {
 				postParams.setCharAt(postParams.length() - 1, ' ');
-			}
+			}*/
 			String content = FrameHttpUtil.post(link, params);
 			if(LOGGER.isInfoEnabled()) {
 				LOGGER.info("\n" + time + "-调用任务 ID【" + taskJob.getId() + "】名称【" + taskJob.getName() + "】\n请求地址: " + link);
