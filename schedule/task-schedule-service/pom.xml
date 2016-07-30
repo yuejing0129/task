@@ -4,6 +4,7 @@
 		<groupId>task</groupId>
 		<artifactId>task-core</artifactId>
 		<version>1.0.0</version>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>task.schedule</groupId>
