@@ -10,7 +10,6 @@ import java.util.List;
  * @version V1.0.0
  */
 public class MyPage<T> {
-
 	private static final String SUCCESS = "success";
 	public static final int DEFAULT_PAGE = 1;
 	public static final int DEFAULT_SIZE = 10;

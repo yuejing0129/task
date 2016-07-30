@@ -11,7 +11,6 @@ import java.util.List;
  * @version V1.0.0
  */
 public class Page<T> implements Serializable {
-
 	private static final long serialVersionUID = -6252151650108228605L;
 	public static final int DEF_PAGE = 1;
 	public static final int DEF_SIZE = 10;
