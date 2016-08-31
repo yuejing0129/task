@@ -150,7 +150,7 @@ var info = {
 				url: webroot + '/taskJob/f_view/edit.shtml?projectid=${param.projectid}&id='+(id?id:''),
 				type: 'iframe',
 				width: 380,
-				height: 400
+				height: 420
 			});
 		},
 		del : function(id) {

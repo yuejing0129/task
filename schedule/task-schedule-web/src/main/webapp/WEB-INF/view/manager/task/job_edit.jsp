@@ -23,6 +23,14 @@
 		</div>
   		<div class="form-group">
 			<input type="text" class="form-control" id="cron" placeholder="任务规则" value="${taskJob.cron}">
+			<div class="text-right">
+				<small>
+					<a href="javascript:;" onclick="$('#cron').val('0/3 * * * * ?')" title="每3秒执行">每3秒</a> |
+					<a href="javascript:;" onclick="$('#cron').val('25 0/1 * * * ?')" title="每分钟25秒执行">每分钟</a> |
+					<a href="javascript:;" onclick="$('#cron').val('0 0 0/1 * * ?')" title="每小时0点0分执行">每小时</a> |
+					<a href="javascript:;" onclick="$('#cron').val('0 30 8,9 ? * MON')" title="每周一的8:30和9:30执行">每周一</a>
+				</small>
+			</div>
 		</div>
 		<div class="form-group">任务执行状态：<my:radio id="status" name="status" dictcode="job_status" value="${taskJob.status}" defvalue="0" /></div>
   		<div class="form-group">
