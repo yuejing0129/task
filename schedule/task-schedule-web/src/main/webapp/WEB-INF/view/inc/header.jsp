@@ -22,7 +22,7 @@
 			<li id="hmExit"><a href="${webroot}/sysUser/f_view/exit.shtml">退出</a></li>
 			</c:when>
 			<c:otherwise>
-			<li id="hmLogin"><a href="javascript:;" onclick="JUtil.open.login()">登录</a></li>
+			<li id="hmLogin"><a href="${webroot}/index.jsp">登录</a></li>
 			</c:otherwise>
 			</c:choose>
 		</ul>

@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jing.system.comparator.OrderbyComparator;
 
 /**

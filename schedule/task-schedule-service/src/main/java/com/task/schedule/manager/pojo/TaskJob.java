@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jing.system.model.BaseEntity;
 
 /**

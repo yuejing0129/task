@@ -3,8 +3,8 @@ package com.task.schedule.manager.pojo;
 import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jing.system.model.BaseEntity;
 
 /**

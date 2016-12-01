@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.type.JavaType;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Json操作
@@ -30,7 +30,6 @@ private static final Logger LOGGER = Logger.getLogger(FrameJsonUtil.class);
 	private static ObjectMapper getMapperInstance() {
 		return getMapperInstance(false);
 	}
-    @SuppressWarnings("deprecation")
 	private static synchronized ObjectMapper getMapperInstance(boolean createNew) {
         if (createNew) {
         	ObjectMapper m = new ObjectMapper();
@@ -41,7 +40,8 @@ private static final Logger LOGGER = Logger.getLogger(FrameJsonUtil.class);
         }
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FrameTimeUtil.FMT_DEFAULT);
-		mapper.getSerializationConfig().setDateFormat(simpleDateFormat);
+		//mapper.getSerializationConfig().setDateFormat(simpleDateFormat);
+		mapper.setDateFormat(simpleDateFormat);
         return mapper;
     }
 
@@ -54,7 +54,7 @@ private static final Logger LOGGER = Logger.getLogger(FrameJsonUtil.class);
 		try {
 			ObjectMapper mapper = getMapperInstance();
 			StringWriter sw = new StringWriter();
-			JsonGenerator gen = new JsonFactory().createJsonGenerator(sw);
+			JsonGenerator gen = new JsonFactory().createGenerator(sw);//.createJsonGenerator(sw);
 			mapper.writeValue(gen, obj);
 			return sw.toString();
 		} catch (IOException e) {
@@ -73,7 +73,7 @@ private static final Logger LOGGER = Logger.getLogger(FrameJsonUtil.class);
 	public static <T>T toObject(String string, Class<?> cls) {
 		try {
 			ObjectMapper mapper = getMapperInstance();
-			mapper.configure(SerializationConfig.Feature.INDENT_OUTPUT, Boolean.TRUE);
+			//mapper.configure(SerializationConfig.Feature.INDENT_OUTPUT, Boolean.TRUE);
 			return (T) mapper.readValue(string, cls);
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
@@ -130,4 +130,5 @@ private static final Logger LOGGER = Logger.getLogger(FrameJsonUtil.class);
 		}
 		return null;
 	}
+	
 }

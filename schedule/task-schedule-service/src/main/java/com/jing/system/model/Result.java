@@ -2,7 +2,7 @@ package com.jing.system.model;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * 返回结果
